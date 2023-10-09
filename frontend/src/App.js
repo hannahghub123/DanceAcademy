@@ -22,6 +22,10 @@ import Header from './components/common/header/Header';
 import About from './components/about/About';
 import CourseHome from './components/allcourses/CourseHome';
 import Team from './components/team/Team';
+import Price from './components/pricing/Price';
+import Blog from './components/blog/Blog';
+import Contact from './components/contact/Contact';
+import Footer from './components/common/footer/Footer';
 
 function App() {
   // const [access, setAccess] = useState(localStorage.getItem("accessToken")?localStorage.jwt_decode("accessToken"):"");
@@ -36,6 +40,9 @@ function App() {
       <Route path="/about" element={<About/>} />
       <Route path="/courses" element={<CourseHome/>} />
       <Route path="/team" element={<Team/>} />
+      <Route path="/pricing" element={<Price/>} />
+      <Route path="/journal" element={<Blog/>} />
+      <Route path="/contact" element={<Contact/>} />
       {/* <Route path="std-signup/" element={<StdSignup/>} />
       <Route path="tutor-signup/" element={<TutorSignup/>} />
       <Route path="opt-signup/" element={<OptionSignup/>} />
@@ -54,6 +61,7 @@ function App() {
       <Route path="course-struct/:id" element={<CourseStruct/>} />
        */}
       </Routes>
+      <Footer/>
     </div>
     </BrowserRouter>
    
