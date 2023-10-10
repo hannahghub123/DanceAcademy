@@ -1,12 +1,15 @@
-import React from 'react';
-import {changeEmail, changeName, changePassword, changePhone,changeRepassword, changeUsername, changeScore} from '../../features/stdsignupSlice';
+import React, { useState } from 'react';
+import {changeEmail, changeName, changePassword, changePhone,changeRepassword, changeUsername} from '../../features/stdsignupSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../axios/stdaxios'
 import './StdSignup.css';
-import { useNavigate } from 'react-router-dom';
-import NavComponent from '../navbar/NavComponent';
+import { Link, useNavigate } from 'react-router-dom';
+import Back from '../common/back/Back';
 
 const StdSignup = () => {
+
+  const [click, setClick] = useState(false);
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state)=>state.stdsignup)
@@ -32,11 +35,10 @@ const StdSignup = () => {
   return (
     <>
     
-    <NavComponent/>
+    <Back title='Student SignUp'/>
     
     <div className="stdsignup-container">
     
-         <h2>Sign Up</h2>
       <div>
         <input
           className="stdsignup-input"
@@ -45,26 +47,26 @@ const StdSignup = () => {
           value={user.value.username}
           onChange={(e) => dispatch(changeUsername(e.target.value)) }
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="stdsignup-input"
           type="text"
-          placeholder="Name"
+          placeholder="Student Name"
           value={user.value.name}
           onChange={(e) => dispatch(changeName(e.target.value)) }
         />
-      </div>
-      <div>
-        <input
+      {/* </div>
+      <div> */}
+        {/* <input
           className="stdsignup-input"
           type="number"
           placeholder="Score"
           value={user.value.score}
           onChange={(e) => dispatch(changeScore(e.target.value)) }
-        />
-      </div>
-      <div>
+        /> */}
+      {/* </div>
+      <div> */}
         <input
           className="stdsignup-input"
           type="email"
@@ -72,8 +74,8 @@ const StdSignup = () => {
           value={user.value.email}
           onChange={(e) => dispatch(changeEmail(e.target.value)) }
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="stdsignup-input"
           type="number"
@@ -81,8 +83,8 @@ const StdSignup = () => {
           value={user.value.phone}
           onChange={(e) => dispatch(changePhone(e.target.value)) }
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="stdsignup-input"
           type="password"
@@ -90,8 +92,8 @@ const StdSignup = () => {
           value={user.value.password}
           onChange={(e) => dispatch( changePassword(e.target.value))}
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="stdsignup-input"
           type="password"
@@ -99,6 +101,13 @@ const StdSignup = () => {
           value={user.value.repassword}
           onChange={(e) => dispatch( changeRepassword(e.target.value))}
         />
+          <div className='std-link'>
+          <ul className={click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)}>
+                      <li >
+                        <Link to='../tutor-signup'>Tutor SignUp ?</Link>
+                      </li>
+          </ul>
+          </div>
       </div>
       
       <div>

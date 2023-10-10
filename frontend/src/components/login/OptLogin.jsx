@@ -1,6 +1,7 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
-import NavComponent from '../navbar/NavComponent'
+import Back from '../common/back/Back'
+import './OptLogin.css'
 
 const OptLogin = () => {
     const navigate = useNavigate()
@@ -11,12 +12,16 @@ const OptLogin = () => {
       navigate('../tutor-login/')
     }
     return (
-      <div>
-          <NavComponent/>
-          <br />
-          <button onClick={stdloginSubmit}>Login as student?</button>
-          <button onClick={trloginSubmit}>Login as teacher?</button>
-      </div>
+      <>
+          <Back title='Select Who You Are?' />
+  
+          <section className="login ">
+            <div className="login-btn">
+              <button onClick={stdloginSubmit}>Login As Student ?</button>
+              <button onClick={trloginSubmit}>Login As Tutor ?</button>      
+            </div>
+        </section>
+      </>
     )
 }
 

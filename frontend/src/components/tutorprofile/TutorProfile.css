@@ -1,0 +1,65 @@
+.tutor .items {
+    transition: 0.5s;
+  }
+  .tutor .image {
+    position: relative;
+    width: 250px;
+    height: 300px;
+  }
+
+  .overlay {
+    position: absolute;
+    bottom: 0;
+    z-index: 11;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    opacity: 0;
+    transition: 0.5s;
+  }
+  .overlay i {
+    background-color: #000;
+    color: #fff;
+    margin: 5px;
+    transition: 0.5s;
+  }
+  .team .details {
+    padding: 30px;
+    text-align: center;
+  }
+  .tutor .details h2 {
+    font-weight: 500;
+    font-size: 20px;
+    transition: 0.5s;
+  }
+  .tutor .details p {
+    font-size: 15px;
+    color: black;
+    margin-top: 10px;
+    transition: 0.5s;
+
+  }
+  .tutor .items:hover {
+    background-color: #1eb2a6;
+    color: #fff;
+    cursor: pointer;
+  }
+  .tutor .items:hover p {
+    color: #fff;
+  }
+  .tutor .items:hover .overlay {
+    opacity: 1;
+  }
+  .tutor .items:hover .overlay i:hover {
+    background-color: #1eb2a6;
+    color: #fff;
+  }
+
+  .details-text {
+    text-align: left; 
+    display: block; 
+    margin: 0;
+    margin-left: 32px;
+  }
+  
+

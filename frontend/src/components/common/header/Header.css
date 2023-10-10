@@ -42,6 +42,15 @@
   .toggle {
     display: none;
   }
+
+  .dropdown-menu{
+    background-color: transparent;
+  }
+
+  .dropdown-menu:hover{
+    color: #135d56;
+  }
+
   /*--------header------------*/
   @media screen and (max-width: 768px) {
     .start {

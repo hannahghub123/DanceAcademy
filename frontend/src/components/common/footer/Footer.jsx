@@ -54,12 +54,12 @@ const Footer = () => {
                     <h3>Recent Posts </h3>
                     {blog.slice(0,3).map((val)=>{
                         return(
-                        <div className="items flexSB">
+                        <div className="items flexSB" key={val.id}>
                             <div className="img">
                                 <img src={val.cover} alt="" />
                             </div>
                             <div className="text">
-                            <span>
+                            <span >
                             <i className='fa fa-user'></i>
                             <label htmlFor="">{val.type}</label>
                             </span>

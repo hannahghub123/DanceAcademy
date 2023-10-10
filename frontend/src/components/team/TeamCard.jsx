@@ -16,7 +16,7 @@ const TeamCard = () => {
                     </div>
                 </div>
                 <div className="details">
-                    <h2>{val.name}</h2>
+                    <h2 key={val.id}>{val.name}</h2>
                     <p>{val.work} </p>
                 </div>
             </div>

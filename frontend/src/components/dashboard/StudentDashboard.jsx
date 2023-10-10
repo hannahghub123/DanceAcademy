@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import NavComponent from '../navbar/NavComponent';
+import Back from '../common/back/Back';
 
 const StudentDashboard = () => {
 
@@ -15,7 +15,7 @@ const StudentDashboard = () => {
 
   return (
     <div>
-      <NavComponent/>
+      <Back title='Student Dashboard'/>
         <h1>Heyya we are up as Student!!</h1>
         <button onClick={logout}>Logout</button>
     </div>

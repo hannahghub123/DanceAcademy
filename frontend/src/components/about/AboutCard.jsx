@@ -22,7 +22,7 @@ const AboutCard = () => {
                       <img src={val.cover} alt='' />
                     </div>
                     <div className='text'>
-                      <h2>{val.title}</h2>
+                      <h2 key={val.id}>{val.title}</h2>
                       <p>{val.desc}</p>
                     </div>
                   </div>

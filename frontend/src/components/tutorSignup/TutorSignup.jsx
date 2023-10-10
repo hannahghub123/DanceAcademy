@@ -1,12 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {changeEmail, changeName, changePassword, changePhone,changeRepassword, changeUsername, changeExpertise, changeQualification} from '../../features/tutorsignupSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../axios/tutoraxios'
 import './TutorSignup.css';
-import { useNavigate } from 'react-router-dom';
-import NavComponent from '../navbar/NavComponent';
+import { Link, useNavigate } from 'react-router-dom';
+import Back from '../common/back/Back';
 
 const TutorSignup = () => {
+
+  const [click, setClick] = useState(false);
+
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state)=>state.tutorsignup)
@@ -32,11 +35,11 @@ const TutorSignup = () => {
   return (
     <>
     
-    <NavComponent/>
+    <Back title='Tutor SignUp'/>
     
     <div className="trsignup-container">
     
-         <h2>Sign Up</h2>
+
       <div>
         <input
           className="trsignup-input"
@@ -45,17 +48,17 @@ const TutorSignup = () => {
           value={user.value.username}
           onChange={(e) => dispatch(changeUsername(e.target.value)) }
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="trsignup-input"
           type="text"
-          placeholder="Name"
+          placeholder="Tutor Name"
           value={user.value.name}
           onChange={(e) => dispatch(changeName(e.target.value)) }
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="trsignup-input"
           type="number"
@@ -63,8 +66,8 @@ const TutorSignup = () => {
           value={user.value.expertise}
           onChange={(e) => dispatch(changeExpertise(e.target.value)) }
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="trsignup-input"
           type="text"
@@ -72,8 +75,8 @@ const TutorSignup = () => {
           value={user.value.qualification}
           onChange={(e) => dispatch(changeQualification(e.target.value)) }
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="trsignup-input"
           type="email"
@@ -81,8 +84,8 @@ const TutorSignup = () => {
           value={user.value.email}
           onChange={(e) => dispatch(changeEmail(e.target.value)) }
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="trsignup-input"
           type="number"
@@ -90,8 +93,8 @@ const TutorSignup = () => {
           value={user.value.phone}
           onChange={(e) => dispatch(changePhone(e.target.value)) }
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="trsignup-input"
           type="password"
@@ -99,8 +102,8 @@ const TutorSignup = () => {
           value={user.value.password}
           onChange={(e) => dispatch( changePassword(e.target.value))}
         />
-      </div>
-      <div>
+      {/* </div>
+      <div> */}
         <input
           className="trsignup-input"
           type="password"
@@ -108,7 +111,16 @@ const TutorSignup = () => {
           value={user.value.repassword}
           onChange={(e) => dispatch( changeRepassword(e.target.value))}
         />
+          <div className='tutor-link'>
+          <ul className={click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)}>
+                      <li >
+                        <Link to='../std-signup'>Student SignUp ?</Link>
+                      </li>
+          </ul>
+          </div>
       </div>
+
+     
       
       <div>
         <button onClick={handleSignUp} className="trsignup-button">Tutor Sign Up</button>

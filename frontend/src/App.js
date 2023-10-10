@@ -43,19 +43,22 @@ function App() {
       <Route path="/pricing" element={<Price/>} />
       <Route path="/journal" element={<Blog/>} />
       <Route path="/contact" element={<Contact/>} />
-      {/* <Route path="std-signup/" element={<StdSignup/>} />
-      <Route path="tutor-signup/" element={<TutorSignup/>} />
-      <Route path="opt-signup/" element={<OptionSignup/>} />
       <Route path="opt-login/" element={<OptLogin/>} />
+      <Route path="opt-signup/" element={<OptionSignup/>} />
+      <Route path="std-signup/" element={<StdSignup/>} />
+      <Route path="tutor-signup/" element={<TutorSignup/>} />
       <Route path="std-login/" element={<StdLogin/>} />
       <Route path="tutor-login/" element={<TutorLogin/>} />
       <Route path="tutor-dashboard/:id" element={<Dashboard/>} />
       <Route path="std-dashboard/" element={<StudentDashboard/>} />
+      <Route path="tutor-profile/:id" element={<TutorProfile/>} />
+      {/* 
+
       <Route path="adminlogin/" element={<AdminLogin/>} />
       <Route path="admin-dashboard/" element={<AdminDashboard/>} />
       <Route path="student/" element={<StudentComponent/>} />
       <Route path="tutor/" element={<TutorsComponent/>} />
-      <Route path="tutor-profile/:id" element={<TutorProfile/>} />
+      
       <Route path="course-category/" element={<CourseCategory/>} />
       <Route path="course/:id" element={<Course/>} />
       <Route path="course-struct/:id" element={<CourseStruct/>} />

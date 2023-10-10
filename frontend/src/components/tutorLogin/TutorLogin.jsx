@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../axios/tutoraxios';
 import './TutorLogin.css';
-import { useNavigate } from 'react-router-dom';
-import NavComponent from '../navbar/NavComponent';
+import { Link, useNavigate } from 'react-router-dom';
 import { changeEmail,changePassword } from '../../features/tutorloginSlice';
+import Back from '../common/back/Back';
 
 
 const TutorLogin = () => {
+
+  const [click, setClick] = useState(false);
+
+  const [isInputFocused, setInputFocus] = useState(false);
+  const [isPasswordInputFocused, setPasswordInputFocus] = useState(false);
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -53,34 +58,42 @@ const TutorLogin = () => {
 
   return (
    <>
-<NavComponent/>
+<Back title='Tutor Login'/>
 
     <div className="login-container">
-         <h2>Login</h2>
-      <div>
-        <input
-          className="login-input"
-          type="text"
-          placeholder="Email"
-          
-          onChange={(e) => dispatch(changeEmail(e.target.value)) }
-        />
-      </div>
+        
 
-      <div>
-        <input
-          className="login-input"
-          type="password"
-          placeholder="Password"
-          
-          onChange={(e) => dispatch( changePassword(e.target.value))}
-        />
-      </div>
+    <input
+  className={`login-input ${isInputFocused ? 'focused' : ''}`}
+  type="text"
+  placeholder="Tutor Email !"
+  onFocus={() => setInputFocus(true)}
+  onBlur={() => setInputFocus(false)}
+  onChange={(e) => dispatch(changeEmail(e.target.value))}
+/>
+
+
+<input
+  className={`login-input ${isPasswordInputFocused ? 'focused' : ''}`}
+  type="password"
+  placeholder="Password !"
+  onFocus={() => setPasswordInputFocus(true)}
+  onBlur={() => setPasswordInputFocus(false)}
+  onChange={(e) => dispatch(changePassword(e.target.value))}
+/>
+
 
       
       <div>
         <button onClick={()=>handleLogin(data.id)} className="login-button">Login</button>
       </div>
+      <div className='std-link'>
+          <ul className={click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)}>
+                      <li >
+                        <Link to='../std-login'>Go For Student Login ?</Link>
+                      </li>
+          </ul>
+          </div>
     </div>
     </>
   )

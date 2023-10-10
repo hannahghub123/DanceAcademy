@@ -6,8 +6,8 @@ const PriceCard = () => {
   return (
     <>
         {price.map((val)=>(
-            <div className="items shadow">
-                <h4>{val.name} </h4>
+            <div className="items shadow" key={val.id}>
+                <h4 >{val.name} </h4>
                 <h1>
                     <span>$</span>
                     {val.price}

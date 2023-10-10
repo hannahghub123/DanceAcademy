@@ -5,12 +5,12 @@ import PriceCard from '../pricing/PriceCard'
 const HPrice = () => {
   return (
     <>
-        <scetion className="hprice padding">
+        <section className="hprice padding">
         <Heading subtitle='our pricing' title='pricing & packages' />
             <div className="price container grid">
                 <PriceCard/>
             </div>
-        </scetion>
+        </section>
     </>
   )
 }

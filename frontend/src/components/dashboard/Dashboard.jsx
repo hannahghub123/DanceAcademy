@@ -1,24 +1,22 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
-import NavComponent from '../navbar/NavComponent';
+import Back from '../common/back/Back';
+// import AboutCard from '../about/AboutCard';
+// import HAbout from '../home/HAbout';
+// import Test from '../home/testimonial/Test';
+// import HBlog from '../home/HBlog';
+// import HPrice from '../home/HPrice';
 
 const Dashboard = () => {
 
-    const navigate = useNavigate()
-
-    const logout = () => {
-        localStorage.removeItem("accessToken-T");
-        localStorage.removeItem("tutorDetails");
-
-        navigate('../');
-    }
-
   return (
-    <div>
-      <NavComponent/>
-        <h1>Heyya we are up as Tutor!!</h1>
-        <button onClick={logout}>Logout</button>
-    </div>
+    <>
+      <Back title="Tutor's Dashboard"/>
+      {/* <AboutCard/>
+        <HAbout/>
+        <Test/>
+        <HBlog/>
+        <HPrice/> */}
+    </>
   )
 }
 

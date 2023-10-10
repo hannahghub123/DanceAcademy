@@ -1,6 +1,7 @@
 import React from 'react'
-import NavComponent from '../navbar/NavComponent'
+import './OptSignup.css'
 import { useNavigate } from 'react-router-dom'
+import Back from '../common/back/Back'
 
 const OptionSignup = () => {
   const navigate = useNavigate()
@@ -11,12 +12,16 @@ const OptionSignup = () => {
     navigate('../tutor-signup/')
   }
   return (
-    <div>
-        <NavComponent/>
-        <br />
-        <button onClick={stdsignupSubmit}>are you a student?</button>
-        <button onClick={trsignupSubmit}>are you a teacher?</button>
-    </div>
+    <>
+        <Back title='Select Who You are ?' />
+
+        <section className="signup">
+          <div className="signup-btn">
+            <button onClick={stdsignupSubmit}>Signup As Student ?</button>
+            <button onClick={trsignupSubmit}>Signup As Tutor ?</button>
+          </div>
+        </section>
+    </>
   )
 }
 
