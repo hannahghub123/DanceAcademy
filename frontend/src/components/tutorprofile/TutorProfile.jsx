@@ -7,6 +7,7 @@ import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { v4 } from "uuid";
 import Back from '../common/back/Back';
 import TutorCard from './TutorCard';
+import UploadWidget from '../cloudinary/UploadWidget';
 
 
 const TutorProfile = () => {
@@ -74,15 +75,20 @@ const TutorProfile = () => {
     }
 
   return (   
-       <>
+    
+    
+
+    <>
         <Back title='Your Profile'/>
+        <div style={{ marginTop:5 ,display: 'flex', alignItems: 'center', justifyContent:'center' }}>
         
         <section className='team padding'>
             <div className="container grid">
                 <TutorCard/>
             </div>
         </section>
-
+        <UploadWidget/>
+        </div>
       
       <input type="file" onChange={imageHandle}/>
       <button onClick={imageSubmitHandler}  >Upload Image</button>

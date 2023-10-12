@@ -52,8 +52,6 @@ function App() {
       <Route path="tutor-dashboard/:id" element={<Dashboard/>} />
       <Route path="std-dashboard/" element={<StudentDashboard/>} />
       <Route path="tutor-profile/:id" element={<TutorProfile/>} />
-      {/* 
-
       <Route path="adminlogin/" element={<AdminLogin/>} />
       <Route path="admin-dashboard/" element={<AdminDashboard/>} />
       <Route path="student/" element={<StudentComponent/>} />
@@ -62,7 +60,7 @@ function App() {
       <Route path="course-category/" element={<CourseCategory/>} />
       <Route path="course/:id" element={<Course/>} />
       <Route path="course-struct/:id" element={<CourseStruct/>} />
-       */}
+  
       </Routes>
       <Footer/>
     </div>

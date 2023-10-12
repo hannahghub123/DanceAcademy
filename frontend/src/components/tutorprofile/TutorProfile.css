@@ -3,8 +3,6 @@
   }
   .tutor .image {
     position: relative;
-    width: 250px;
-    height: 300px;
   }
 
   .overlay {
@@ -23,6 +21,8 @@
     margin: 5px;
     transition: 0.5s;
   }
+
+
   .team .details {
     padding: 30px;
     text-align: center;
@@ -62,4 +62,9 @@
     margin-left: 32px;
   }
   
+  .edit-btn:hover{
+    background-color: #1eb2a6;
+    color: white;
+  }
+
 

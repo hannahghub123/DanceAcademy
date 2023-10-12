@@ -20,6 +20,7 @@ const style = {
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
+    marginTop:5 ,
     p: 4,
   };
 
@@ -119,7 +120,7 @@ const TutorCard = () => {
 
   return (
     <>
-            <div className="items shadow ">
+            {/* <div className="items shadow ">
                 <div className="image">
                     <img src={data.image} alt="" />
                     <div className="overlay">
@@ -136,13 +137,35 @@ const TutorCard = () => {
                         Phone - {data.phone} <br /> 
                     </p>             
                 </div>
+            </div> */}
+
+
+            <div className="items shadow">
+                <div className="img">
+                    <img src={data.image} alt="" />
+                    <div className="overlay">
+                    <i className="fa fa-edit icon"  onClick={handleOpen}></i>
+                    </div>
+                </div>
+                <div className="details">
+                    <h2 key={data.id}>{data.name}</h2>
+                    <p className="details-text">
+                        Username - {data.username} <br />
+                        Qualification - {data.qualification} <br />
+                        Expertise - {data.expertise} Years<br />
+                        Email - {data.email} <br />
+                        Phone - {data.phone} <br /> 
+                    </p> 
+                </div>
             </div>
+
 
         <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Typography variant="h6" component="h2">
             Edit Profile
           </Typography>
+          <br />
 
           <TextField
             label="Username"
@@ -151,6 +174,7 @@ const TutorCard = () => {
             value={data.username}
             onChange={handleUsernameChange}
           />
+          
             <TextField
             label="Name"
             variant="outlined"
@@ -201,10 +225,10 @@ const TutorCard = () => {
             onChange={(e) => dispatch(changeRepassword(e.target.value))}
           /> */}
         
-        
-          <Button variant="contained" onClick={handleSubmit}>
+        <br />
+          <button className='edit-btn' variant="contained" onClick={handleSubmit}>
             Save Changes
-          </Button>
+          </button>
         </Box>
       </Modal>
     </>

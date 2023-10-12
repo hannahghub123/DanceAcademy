@@ -15,6 +15,7 @@ const Head = () => {
     console.log("head accS",accS)
     setAccessT(accT);
     setAccessS(accS);
+   
 }, []);
 
 const logout = () => {
@@ -24,7 +25,9 @@ const logout = () => {
  setAccessT(null);
  setAccessS(null);
 console.log("log out il keri");
- navigate('../');
+console.log("head-logout accT",accessT)
+console.log("head-logout accS",accessS)
+//  navigate('../');
 }
   return (
     <>
