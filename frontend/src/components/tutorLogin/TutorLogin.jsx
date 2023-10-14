@@ -5,6 +5,8 @@ import './TutorLogin.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { changeEmail,changePassword } from '../../features/tutorloginSlice';
 import Back from '../common/back/Back';
+import { changeaccessT } from '../../features/logoutSlice'
+
 
 
 const TutorLogin = () => {
@@ -40,6 +42,8 @@ const TutorLogin = () => {
 
             localStorage.setItem("accessToken-T",JSON.stringify(res.data.access));
             localStorage.setItem("tutorDetails",JSON.stringify(res.data.data));
+            dispatch(changeaccessT(res.data.access))
+            
 
           if (res.data.message === "success"){
             console.log("tutor id ",res.data.id);

@@ -15,7 +15,6 @@ import AdminDashboard from './components/admin/dashboard/AdminDashboard';
 import StudentComponent from './components/admin/dashboard/StudentComponent';
 import TutorsComponent from './components/admin/dashboard/TutorsComponent';
 import TutorProfile from './components/tutorprofile/TutorProfile';
-import CourseCategory from './components/admin/dashboard/course/CourseCategory';
 import Course from './components/admin/dashboard/course/Course';
 import CourseStruct from './components/admin/dashboard/course/CourseStruct';
 import Header from './components/common/header/Header';
@@ -26,15 +25,17 @@ import Price from './components/pricing/Price';
 import Blog from './components/blog/Blog';
 import Contact from './components/contact/Contact';
 import Footer from './components/common/footer/Footer';
+import StdProfile from './components/stdprofile/StdProfile';
 
 function App() {
-  // const [access, setAccess] = useState(localStorage.getItem("accessToken")?localStorage.jwt_decode("accessToken"):"");
+  const isAdminRoute = window.location.pathname.startsWith('/admin');
  
   return (
     <>
     <BrowserRouter>
     <div className="App">
-      <Header/>
+    {!isAdminRoute && <Header />}
+    {/* {isAdminRoute ? <AdminHeader /> : <MainHeader />} */}
       <Routes>
       <Route path="/" element={<Home/>} />
       <Route path="/about" element={<About/>} />
@@ -50,19 +51,23 @@ function App() {
       <Route path="std-login/" element={<StdLogin/>} />
       <Route path="tutor-login/" element={<TutorLogin/>} />
       <Route path="tutor-dashboard/:id" element={<Dashboard/>} />
-      <Route path="std-dashboard/" element={<StudentDashboard/>} />
+      <Route path="std-dashboard/:id" element={<StudentDashboard/>} />
       <Route path="tutor-profile/:id" element={<TutorProfile/>} />
-      <Route path="adminlogin/" element={<AdminLogin/>} />
-      <Route path="admin-dashboard/" element={<AdminDashboard/>} />
-      <Route path="student/" element={<StudentComponent/>} />
-      <Route path="tutor/" element={<TutorsComponent/>} />
-      
-      <Route path="course-category/" element={<CourseCategory/>} />
-      <Route path="course/:id" element={<Course/>} />
-      <Route path="course-struct/:id" element={<CourseStruct/>} />
+      <Route path="std-profile/:id" element={<StdProfile/>} />
+      </Routes>
+      {!isAdminRoute && <Footer />}
+
+      <Routes>
+      <Route path="/admin/adminlogin/" element={<AdminLogin/>} />
+      <Route path="/admin/admin-dashboard/" element={<AdminDashboard/>} />
+      <Route path="/admin/student/" element={<StudentComponent/>} />
+      <Route path="/admin/tutor/" element={<TutorsComponent/>} />   
+      <Route path="/admin/courses/" element={<Course/>} />
+      <Route path="/admin/course-struct/:id" element={<CourseStruct/>} />
   
       </Routes>
-      <Footer/>
+      {/* {!isAdminRoute && <Footer />} */}
+      {/*        {isAdminRoute ? <AdminFooter /> : <MainFooter />} */}
     </div>
     </BrowserRouter>
    

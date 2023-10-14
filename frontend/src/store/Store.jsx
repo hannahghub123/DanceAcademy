@@ -6,6 +6,7 @@ import tutorsignupReducer from '../features/tutorsignupSlice';
 import adminloginReducer from '../features/adminloginSlice';
 import admindashReducer from '../features/admindashSlice';
 import tprofeditReducer from '../features/tutorprofileEditSlice';
+import logoutReducer from '../features/logoutSlice'
 
 const store = configureStore({
     reducer: {
@@ -16,6 +17,7 @@ const store = configureStore({
       adminlogin : adminloginReducer,
       admindash : admindashReducer,
       tprofedit : tprofeditReducer,
+      logout : logoutReducer
     },
   });
 

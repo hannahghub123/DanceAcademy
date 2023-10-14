@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const TutorsComponent = () => {
     const navigate = useNavigate()
     const dashSubmit = ()=>{
-        navigate('../admin-dashboard')
+        navigate('../admin/admin-dashboard')
     }
 
     const [tutorDetails, setTutorDetails] = useState(localStorage.getItem("tutorData"));

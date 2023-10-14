@@ -9,7 +9,7 @@ const AdminDashboard = () => {
     localStorage.removeItem("adminData");
     localStorage.removeItem("stdData");
     localStorage.removeItem("tutorData");
-    navigate('../adminlogin/')
+    navigate('../admin/adminlogin/')
   }
   return (
     <div>

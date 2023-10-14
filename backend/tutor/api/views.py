@@ -72,18 +72,10 @@ class ProfileEditView(APIView):
 
         return Response(serialized.data)
             
-class CourseCatView(APIView):
-    def get(self,request):
-        cobj = Course_category.objects.all()
-        serialized = CourseCatSerializer(cobj,many=True)
-        print(serialized.data,"dataaaa")
-        return Response(serialized.data)
     
 class CourseView(APIView):
-    def get(self,request,id):
-        catobj = Course_category.objects.get(id=id)
-        cobj = Course.objects.filter(category=catobj)
-        print(catobj,"####3",cobj)
+    def get(self,request):
+        cobj = Course.objects.all()
         serialized = CourseSerializer(cobj,many=True)
 
         return Response(serialized.data)

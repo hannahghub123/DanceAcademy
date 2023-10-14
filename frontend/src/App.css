@@ -6,7 +6,7 @@
 }
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #fff;
+  background-color: #f8f8f8;
 }
 /*------------global-----------*/
 .container {
@@ -86,7 +86,7 @@ p {
 }
 
 .back {
-  background-image: url("../public/images/black.jpg");
+  background-image: url("../public/images/homee.jpg");
   background-size: cover;
   background-attachment: fixed;
   position: absolute;

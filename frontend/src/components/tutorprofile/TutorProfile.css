@@ -1,8 +1,14 @@
 .tutor .items {
     transition: 0.5s;
   }
+
   .tutor .image {
     position: relative;
+  }
+
+  .tutor-img {
+    height: 300px;
+    width: 100%;
   }
 
   .overlay {
@@ -22,9 +28,8 @@
     transition: 0.5s;
   }
 
-
-  .team .details {
-    padding: 30px;
+ .details {
+    padding: 25px;
     text-align: center;
   }
   .tutor .details h2 {
@@ -35,7 +40,7 @@
   .tutor .details p {
     font-size: 15px;
     color: black;
-    margin-top: 10px;
+    margin-top: 5px;
     transition: 0.5s;
 
   }
@@ -55,16 +60,20 @@
     color: #fff;
   }
 
-  .details-text {
+  /* .details-text {
     text-align: left; 
     display: block; 
     margin: 0;
-    margin-left: 32px;
-  }
+    margin-left: px;
+  } */
   
   .edit-btn:hover{
     background-color: #1eb2a6;
     color: white;
   }
+
+  .all-caps {
+  text-transform: uppercase;
+}
 
 

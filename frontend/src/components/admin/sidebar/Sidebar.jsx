@@ -4,21 +4,21 @@ import { useNavigate } from 'react-router-dom'
 const Sidebar = () => {
     const navigate = useNavigate()
     const studentSubmit = () =>{
-        navigate('../student/')
+        navigate('../admin/student/')
     }
     const tutorSubmit = () =>{
-        navigate('../tutor/')
+        navigate('../admin/tutor/')
     }
     
-    const coursecatSubmit = () =>{
-      navigate('../course-category/')
+    const coursesSubmit = () =>{
+      navigate('../admin/courses/')
     }
    
   return (
     <div>
         <button onClick={studentSubmit}>Student</button>
         <button onClick={tutorSubmit}>Tutor</button>
-        <button onClick={coursecatSubmit}>Course category</button>
+        <button onClick={coursesSubmit}>Courses</button>
        
     </div>
   )

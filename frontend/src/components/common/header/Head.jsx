@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { changeaccessT, changeaccessS } from '../../../features/logoutSlice'
+import { useDispatch, useSelector } from 'react-redux';
+
 
 const Head = () => {
-  const [accessT, setAccessT] = useState(null);
-  const [accessS, setAccessS] = useState(null);
 
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     
@@ -13,21 +15,24 @@ const Head = () => {
     const accS = localStorage.getItem("accessToken-S");
     console.log("head accT",accT)
     console.log("head accS",accS)
-    setAccessT(accT);
-    setAccessS(accS);
    
 }, []);
 
-const logout = () => {
-  localStorage.removeItem("accessToken-T");
- localStorage.removeItem("tutorDetails");
+  const token = useSelector((state)=>state.logout)
+  const data = {
+      accessT : token.value.accessT,
+      accessS : token.value.accessS
+    }
 
- setAccessT(null);
- setAccessS(null);
-console.log("log out il keri");
-console.log("head-logout accT",accessT)
-console.log("head-logout accS",accessS)
-//  navigate('../');
+const logout = () => {
+
+localStorage.removeItem("accessToken-T");
+localStorage.removeItem("tutorDetails");
+
+dispatch(changeaccessT(null))
+dispatch(changeaccessS(null))
+
+ navigate('../');
 }
   return (
     <>
@@ -44,7 +49,7 @@ console.log("head-logout accS",accessS)
             <i className='fab fa-twitter icon'></i>
             <i className='fab fa-youtube icon'></i>
             {
-              (accessS||accessT)&&(
+              (data.accessS||data.accessT)&&(
                 <i className='fa fa-power-off icon' onClick={logout} title='LogOut'>
                   {/* <Link to='../'>Logout</Link> */}
                 </i>

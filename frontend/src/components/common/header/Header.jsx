@@ -3,16 +3,21 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Head from './Head';
 import './Header.css';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { changeaccessS, changeaccessT } from '../../../features/logoutSlice'
 
 const Header = () => {
 
     const {id} = useParams()
     const [click, setClick] = useState(false);
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
-    const [accessT, setAccessT] = useState(null);
-    const [accessS, setAccessS] = useState(null);
+    const token = useSelector((state)=>state.logout)
+    const data = {
+      accessT : token.value.accessT,
+      accessS : token.value.accessS
+    }
 
     useEffect(() => {
       
@@ -20,15 +25,13 @@ const Header = () => {
       const accS = localStorage.getItem("accessToken-S");
       console.log("accT",accT)
       console.log("accS",accS)
-      setAccessT(accT);
-      setAccessS(accS);
-  }, [id]);
+      dispatch(changeaccessT(accT))
+      dispatch(changeaccessS(accS))
+   
+  }, []);
 
   const homeSubmit = (event)=>{
     const tdata = localStorage.getItem("tutorDetails")
-    console.log("tdata",tdata);
-    console.log("accessS:", accessS);
-    console.log("accessT:", accessT);
 
     if(tdata){
       const tutorDetails = JSON.parse(tdata);
@@ -41,10 +44,10 @@ const Header = () => {
 
     event.preventDefault();
 
-    if (!accessS && !accessT){
+    if (!data.accessS && !data.accessT){
       navigate('../')
-    }else if(accessS){
-      navigate('../std-dashboard')
+    }else if(data.accessS){
+      navigate(`../std-dashboard/${id}`)
     }else{
       navigate(`../tutor-dashboard/${id}`)
     }
@@ -52,7 +55,18 @@ const Header = () => {
   }
 
   const stdProfile =()=>{
-    navigate('../')
+    const sdata = localStorage.getItem("stdDetails")
+
+    if(sdata){
+      const stdDetails = JSON.parse(sdata);
+      const id = stdDetails.id
+
+      console.log("header std il id und",id);
+      navigate(`../std-profile/${id}`)
+    }else {
+      console.log("Tutor details not found in localStorage");
+    }
+ 
   }
   
   const tutorProfile =()=>{
@@ -97,7 +111,7 @@ const Header = () => {
             <li>
               <Link to='/contact'>Contact</Link>
             </li>
-            {(!accessT && !accessS) && (
+            {(!data.accessT && !data.accessS) && (
               <>
                 <li>
                   <Link to='/opt-login'>Login</Link>
@@ -108,19 +122,16 @@ const Header = () => {
               </>
             )}
             
-             { (accessS || accessT) &&<li>
-           <NavDropdown title="For You" id="nav-dropdown">
-              {accessS?<NavDropdown.Item onClick={stdProfile}>MyProfile</NavDropdown.Item>:<NavDropdown.Item onClick={tutorProfile}>MyProfile</NavDropdown.Item>}
-              <NavDropdown.Item href="#action/3.2">
-                MyNotes
-              </NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">NewsToday</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">
-                My Favourites
-              </NavDropdown.Item>
-            </NavDropdown>
-            </li>}
+             { ( data.accessS || data.accessT) &&       
+             <li className="nav-dropdown-item" >
+             <NavDropdown title="For You" className='custom-dropdown'>
+               {data.accessS ? <NavDropdown.Item onClick={stdProfile}>MyProfile</NavDropdown.Item> : <NavDropdown.Item onClick={tutorProfile}>MyProfile</NavDropdown.Item>}
+               <NavDropdown.Item href="#action/3.2">MyNotes</NavDropdown.Item>
+               <NavDropdown.Item href="#action/3.3">NewsToday</NavDropdown.Item>
+               <NavDropdown.Divider />
+               <NavDropdown.Item href="#action/3.4">My Favourites</NavDropdown.Item>
+             </NavDropdown>
+           </li>}
           </ul>
          
           <div className='start'>

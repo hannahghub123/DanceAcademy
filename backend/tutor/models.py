@@ -2,18 +2,18 @@ from django.db import models
 
 # Create your models here.
 
-class Course_category(models.Model):
-    title = models.CharField(max_length=100)
-    description = models.CharField(max_length=250)
+# class Course_category(models.Model):
+#     title = models.CharField(max_length=100)
+#     description = models.CharField(max_length=250)
 
-    def __str__(self):
-        return f"{self.title}"
+#     def __str__(self):
+#         return f"{self.title}"
 
 class Course(models.Model):
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
-    # status = models.CharField(max_length=50)
-    category = models.ForeignKey(Course_category, on_delete=models.CASCADE,null=True)
+    status = models.CharField(max_length=50)
+    image = models.CharField(max_length=500,default="img")
 
     def __str__(self):
         return f"{self.title}"

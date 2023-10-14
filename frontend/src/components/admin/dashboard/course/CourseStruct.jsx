@@ -7,7 +7,7 @@ const CourseStruct = () => {
     const {id} = useParams();
     const navigate = useNavigate()
     const dashSubmit = ()=>{
-        navigate(`../course/${id}`)
+        navigate(`../admin/course/${id}`)
     }
 
     const [values,setValues] = useState([]);

@@ -32,7 +32,7 @@ const AdminLogin = () => {
                 localStorage.setItem("adminData",JSON.stringify(response.data.adminData));
                 localStorage.setItem("stdData",JSON.stringify(response.data.stdData));
                 localStorage.setItem("tutorData",JSON.stringify(response.data.tutorData));
-                navigate('../admin-dashboard/')
+                navigate('../8admin-dashboard/')
 
             })
     }

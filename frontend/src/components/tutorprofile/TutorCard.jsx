@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import './TutorProfile.css'
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
@@ -9,6 +8,9 @@ import TextField from '@mui/material/TextField';
 import {changeEmail, changeName, changePassword, changePhone, changeUsername, changeExpertise, changeQualification} from '../../features/tutorprofileEditSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../axios/tutoraxios';
+import {storage} from '../../components/firebase/Firebase';
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { v4 } from "uuid";
 
 
 const style = {
@@ -35,6 +37,7 @@ const TutorCard = () => {
           id:id,
           username: '',
           name: '',
+          course: '',
           expertise: '',
           email: '',
           qualification: '',
@@ -49,7 +52,7 @@ const TutorCard = () => {
         if (tutorDetails) {
           const parseData = JSON.parse(tutorDetails);
   
-          setData({...data,id:parseData.id,username:parseData.username, name:parseData.name, email:parseData.email, phone:parseData.phone, expertise:parseData.expertise, qualification:parseData.qualification, password:parseData.password, image:parseData.image});
+          setData({...data,id:parseData.id,username:parseData.username,course:parseData.course, name:parseData.name, email:parseData.email, phone:parseData.phone, expertise:parseData.expertise, qualification:parseData.qualification, password:parseData.password, image:parseData.image});
   
           console.log("Parsedata",parseData)
         }
@@ -103,6 +106,13 @@ const TutorCard = () => {
     const handleClose = () => setOpen(false);
 
     
+    const [image,setImage] = useState('')
+
+    const imageHandle =(e)=>{
+      setImage(e.target.files[0]);
+    }
+
+    
     const handleSubmit = ()=>{
         console.log("id ivde kittunund",id)
 
@@ -112,36 +122,45 @@ const TutorCard = () => {
         axiosInstance.post("tprofedit/",data).then((res)=>{
           console.log(res.data," hi res.data ahn ith",res.data.name);
           localStorage.setItem("tutorDetails",JSON.stringify(res.data))
-          setData({...data,id:res.data.id,username:res.data.username, name:res.data.name, email:res.data.email, phone:res.data.phone, expertise:res.data.expertise, qualification:res.data.qualification, password:res.data.password, image:res.data.image});
+          setData({...data,id:res.data.id,username:res.data.username,course:res.data.course, name:res.data.name, email:res.data.email, phone:res.data.phone, expertise:res.data.expertise, qualification:res.data.qualification, password:res.data.password, image:res.data.image});
+
+          if (imageHandle){
+            const reference = ref(storage,`tutor-image/${image.name + v4()}`)
+            uploadBytes(reference,image).then((res)=>{
+              getDownloadURL(reference).then((url)=>{
+                console.log(url,"####",id)
+                const datas={
+                  id:id,
+                  image:url
+                }
+    
+                axiosInstance.post('image-set/',datas)
+                .then((res)=>{
+                  localStorage.setItem("tutorDetails",JSON.stringify(res.data.data))
+                  setData({...data,image:res.data.data.image}) 
+                }) 
+    
+              })
+           
+            }).catch((error)=>{
+              console.log("ERRORR");
+            })
+    
+          }
 
           handleClose();
         })
     }
 
+
+    // const imageSubmitHandler = ()=>{
+       
+    // }
+
   return (
     <>
-            {/* <div className="items shadow ">
-                <div className="image">
-                    <img src={data.image} alt="" />
-                    <div className="overlay">
-                      <i className="fa fa-edit icon"  onClick={handleOpen}></i>                   
-                    </div>
-                </div>
-                <div className="details">
-                    <h2 key={data.id}> <b>{data.name}</b></h2>
-                    <p className="details-text">
-                        Username - {data.username} <br />
-                        Qualification - {data.qualification} <br />
-                        Expertise - {data.expertise} Years<br />
-                        Email - {data.email} <br />
-                        Phone - {data.phone} <br /> 
-                    </p>             
-                </div>
-            </div> */}
-
-
-            <div className="items shadow">
-                <div className="img">
+            <div className="items shadow"  >
+                <div className="img" >
                     <img src={data.image} alt="" />
                     <div className="overlay">
                     <i className="fa fa-edit icon"  onClick={handleOpen}></i>
@@ -149,7 +168,10 @@ const TutorCard = () => {
                 </div>
                 <div className="details">
                     <h2 key={data.id}>{data.name}</h2>
+                    <h2  className="all-caps"><b>{data.course.title}</b></h2> 
+        
                     <p className="details-text">
+                
                         Username - {data.username} <br />
                         Qualification - {data.qualification} <br />
                         Expertise - {data.expertise} Years<br />
@@ -158,6 +180,21 @@ const TutorCard = () => {
                     </p> 
                 </div>
             </div>
+
+
+            
+            {/* <p>
+  <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
+</p>
+<div class="row">
+  <div class="col">
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+      <div class="card card-body">
+        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+      </div>
+    </div>
+  </div>
+</div> */}
 
 
         <Modal open={open} onClose={handleClose}>
@@ -181,6 +218,16 @@ const TutorCard = () => {
             fullWidth
             value={data.name}
             onChange={handleNameChange}
+          />
+
+            <TextField
+            label="Course"
+            variant="outlined"
+            fullWidth
+            value={data.course.title}
+            InputProps={{
+                readOnly: true,
+              }}
           />
             <TextField
             label="Expertise"
@@ -217,14 +264,12 @@ const TutorCard = () => {
             value={data.password}
             onChange={handlePasswordChange}
           />
-            {/* <TextField
-            label="RePassword"
-            variant="outlined"
-            fullWidth
-            // value={repassword}
-            onChange={(e) => dispatch(changeRepassword(e.target.value))}
-          /> */}
-        
+          <br /><br />
+
+<input type="file" onChange={imageHandle}/>
+      {/* <button onClick={imageSubmitHandler}  >Upload Image</button> */}
+     
+       
         <br />
           <button className='edit-btn' variant="contained" onClick={handleSubmit}>
             Save Changes
