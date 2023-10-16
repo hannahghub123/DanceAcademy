@@ -5,6 +5,7 @@ import axiosInstance from '../../axios/stdaxios';
 import './StdLogin.css';
 import { Link, useNavigate } from 'react-router-dom';
 import Back from '../common/back/Back';
+import { changeaccessS } from '../../features/logoutSlice';
 
 
 const StdLogin = () => {
@@ -42,6 +43,7 @@ const StdLogin = () => {
 
             localStorage.setItem("accessToken-S",JSON.stringify(res.data.access));
             localStorage.setItem("stdDetails",JSON.stringify(res.data.data));
+            dispatch(changeaccessS(res.data.access))
 
           if (res.data.message === "success"){
             navigate('../std-dashboard/')

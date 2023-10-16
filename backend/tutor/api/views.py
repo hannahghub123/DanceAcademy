@@ -89,6 +89,22 @@ class CourseStructView(APIView):
 
         return Response(serialized.data)
     
+class CourseDetailsView(APIView):
+    def get(self,request,id):
+        cobj = Course.objects.get(id=id) 
+        serialized = CourseSerializer(cobj)
+
+        return Response(serialized.data)
+    
+class TutorView(APIView):
+    def get(self,request,id):
+        cobj = Course.objects.get(id=id) 
+        tobj = Tutor.objects.filter(course=cobj)
+        print(tobj,"$tutor obj",cobj)
+        serialized = TutorSerializer(tobj,many=True)
+
+        return Response(serialized.data)
+    
 class ImageSetView(APIView):
     def post(self,request):
         id=request.data.get("id")

@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     "student",
     "tutor",
     "adminApp",
+
+    # 'cloudinary',
+    # 'cloudinary_storage',
 ]
 
 
@@ -147,3 +150,12 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'student/static')]
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+CLOUDINARY_STORAGE ={
+    'CLOUD_NAME': 'dus4aunnu',
+    'API_KEY':'698961454465988',
+    'API_SECRET':'-Y_MVcJq-KAELfGE_5hmKoNPp9g'
+}
+
+DEFAULT_FILE_STORAGE ='cloudinary_storage.storage.MediaCloudinaryStorage'

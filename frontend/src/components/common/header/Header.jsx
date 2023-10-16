@@ -16,7 +16,7 @@ const Header = () => {
     const token = useSelector((state)=>state.logout)
     const data = {
       accessT : token.value.accessT,
-      accessS : token.value.accessS
+      accessS : token.value.accessS,
     }
 
     useEffect(() => {
@@ -30,24 +30,37 @@ const Header = () => {
    
   }, []);
 
+  console.log(data.accessS,"acccesssssssSSSSSSSSSS");
+
   const homeSubmit = (event)=>{
-    const tdata = localStorage.getItem("tutorDetails")
+    // const tdata = localStorage.getItem("tutorDetails")
 
-    if(tdata){
-      const tutorDetails = JSON.parse(tdata);
-      const id = tutorDetails.id
+    // if(tdata){
+    //   const tutorDetails = JSON.parse(tdata);
+    //   const id = tutorDetails.id
 
-      console.log("header ile id:", id);
-    }else {
-      console.log("Tutor details not found in localStorage");
-    }
+    //   console.log("header ile id:", id);
+    // }else {
+    //   console.log("Tutor details not found in localStorage");
+    // }
+
+    // const sdata = localStorage.getItem("stdDetails")
+
+    // if(sdata){
+    //   const stdDetails = JSON.parse(sdata);
+    //   const id = stdDetails.id
+
+    //   console.log("header ile std id:", id);
+    // }else {
+    //   console.log("std details not found in localStorage");
+    // }
 
     event.preventDefault();
 
     if (!data.accessS && !data.accessT){
       navigate('../')
     }else if(data.accessS){
-      navigate(`../std-dashboard/${id}`)
+      navigate(`../std-dashboard/`)
     }else{
       navigate(`../tutor-dashboard/${id}`)
     }

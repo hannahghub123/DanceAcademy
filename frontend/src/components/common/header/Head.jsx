@@ -29,6 +29,9 @@ const logout = () => {
 localStorage.removeItem("accessToken-T");
 localStorage.removeItem("tutorDetails");
 
+localStorage.removeItem("accessToken-S");
+localStorage.removeItem("stdDetails");
+
 dispatch(changeaccessT(null))
 dispatch(changeaccessS(null))
 

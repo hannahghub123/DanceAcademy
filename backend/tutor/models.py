@@ -10,9 +10,13 @@ from django.db import models
 #         return f"{self.title}"
 
 class Course(models.Model):
+    COURSE_STATUS_CHOICES = (
+        ("Course Available","Course Available"),
+        ("Seats Filled","Seats Filled")
+    )
     title = models.CharField(max_length=50)
     description = models.CharField(max_length=250)
-    status = models.CharField(max_length=50)
+    status = models.CharField(max_length=50,choices=COURSE_STATUS_CHOICES,default="Course Available")
     image = models.CharField(max_length=500,default="img")
 
     def __str__(self):
@@ -40,7 +44,7 @@ class Tutor(models.Model):
     is_approved = models.BooleanField(default=False)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     image = models.CharField(max_length=500,null=True,blank=True)
-    v_upload = models.ManyToManyField(Video_upload,null=True,blank=True)
+    v_upload = models.ManyToManyField(Video_upload,blank=True)
 
     def __str__(self):
         return f"{self.username}"

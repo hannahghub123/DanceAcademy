@@ -3,6 +3,7 @@ import { coursesCard } from '../../dummydata'
 import './Courses.css'
 
 const CoursesCard = () => {
+
   return (
     <>
         <section className='coursesCard'>

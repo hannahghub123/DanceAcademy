@@ -6,7 +6,7 @@ import './OptLogin.css'
 const OptLogin = () => {
     const navigate = useNavigate()
     const stdloginSubmit = ()=>{
-      navigate('../std-login/')
+      navigate('../std-login')
     }
     const trloginSubmit = ()=>{
       navigate('../tutor-login/')
