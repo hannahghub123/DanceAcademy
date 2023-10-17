@@ -4,6 +4,7 @@ import './TutorProfile.css'
 import Back from '../common/back/Back';
 import TutorCard from './TutorCard';
 import UploadWidget from '../cloudinary/UploadWidget';
+import VideoUpload from '../cloudinary/video/VideoUpload';
 
 
 const TutorProfile = () => {
@@ -55,6 +56,7 @@ const TutorProfile = () => {
                 <TutorCard/>
             </div>
         </section>
+        <VideoUpload/>
         <UploadWidget/>
         </div>
       

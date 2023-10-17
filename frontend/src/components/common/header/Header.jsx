@@ -33,35 +33,35 @@ const Header = () => {
   console.log(data.accessS,"acccesssssssSSSSSSSSSS");
 
   const homeSubmit = (event)=>{
-    // const tdata = localStorage.getItem("tutorDetails")
-
-    // if(tdata){
-    //   const tutorDetails = JSON.parse(tdata);
-    //   const id = tutorDetails.id
-
-    //   console.log("header ile id:", id);
-    // }else {
-    //   console.log("Tutor details not found in localStorage");
-    // }
-
-    // const sdata = localStorage.getItem("stdDetails")
-
-    // if(sdata){
-    //   const stdDetails = JSON.parse(sdata);
-    //   const id = stdDetails.id
-
-    //   console.log("header ile std id:", id);
-    // }else {
-    //   console.log("std details not found in localStorage");
-    // }
-
+   
     event.preventDefault();
 
     if (!data.accessS && !data.accessT){
       navigate('../')
     }else if(data.accessS){
+      const sdata = localStorage.getItem("stdDetails")
+
+      if(sdata){
+        const stdDetails = JSON.parse(sdata);
+        const id = stdDetails.id
+  
+        console.log("header ile std id:", id);
+      }else {
+        console.log("std details not found in localStorage");
+      }
       navigate(`../std-dashboard/`)
     }else{
+      const tdata = localStorage.getItem("tutorDetails")
+
+      if(tdata){
+        const tutorDetails = JSON.parse(tdata);
+        const id = tutorDetails.id
+  
+        console.log("header ile id:", id);
+      }else {
+        console.log("Tutor details not found in localStorage");
+      }
+      console.log(id,"tutor-id ivdunn ayakua");
       navigate(`../tutor-dashboard/${id}`)
     }
       

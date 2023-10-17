@@ -28,7 +28,7 @@ class Course_structure(models.Model):
     fees = models.PositiveIntegerField()
 
 class Video_upload(models.Model):
-    v_upload = models.CharField(max_length=500,null=True,blank=True)
+    v_upload = models.FileField(upload_to="video-uploads",max_length=500,null=True,blank=True)
     up_time = models.DateTimeField()
     desc = models.CharField(max_length=50)
 
@@ -43,7 +43,7 @@ class Tutor(models.Model):
     password = models.CharField(max_length=50, default=None)
     is_approved = models.BooleanField(default=False)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
-    image = models.CharField(max_length=500,null=True,blank=True)
+    image = models.ImageField(upload_to="tutor-uploads", max_length=500,null=True,blank=True)
     v_upload = models.ManyToManyField(Video_upload,blank=True)
 
     def __str__(self):

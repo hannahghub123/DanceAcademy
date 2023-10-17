@@ -1,5 +1,6 @@
 import React from 'react'
 import Back from '../common/back/Back';
+import ImgUpload from '../cloudinary/imageUpload/ImgUpload';
 // import AboutCard from '../about/AboutCard';
 // import HAbout from '../home/HAbout';
 // import Test from '../home/testimonial/Test';
@@ -16,6 +17,7 @@ const Dashboard = () => {
         <Test/>
         <HBlog/>
         <HPrice/> */}
+        {/* <ImgUpload/> */}
     </>
   )
 }

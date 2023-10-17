@@ -3,6 +3,16 @@ from tutor.models import *
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.parsers import FileUploadParser
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name="dus4aunnu",
+    api_key="698961454465988",
+    api_secret="-Y_MVcJq-KAELfGE_5hmKoNPp9g"
+)
 
 class SignupView(APIView):
     def post(self,request):
@@ -118,3 +128,28 @@ class ImageSetView(APIView):
         serialized = TutorSerializer(tobj)
         return Response({"message":"success","data":serialized.data})
 
+
+class VideoUploadView(APIView):
+    # parser_classes = (FileUploadParser,)
+    def post(self,request):
+        v_upload = request.FILES.get("video")
+        id = request.data.get('id')
+        print(v_upload,"hiii video hereeee",id,"########")
+
+        # userobj = Tutor.objects.get(id=id)
+        # userobj.v_upload = v_upload
+        # userobj.save()
+        # serialized = TutorSerializer(userobj)
+        # return Response({"message":"success","data":serialized.data})
+
+        try:
+            tutor = Tutor.objects.get(id=id)
+            # video_upload = Video_upload(v_upload=v_upload)
+            # video_upload.save()
+            # tutor.v_upload.add(video_upload)
+            upload_result = cloudinary.uploader.upload(v_upload)
+            video_url = upload_result['secure_url']
+            serialized = TutorSerializer(tutor)
+            return Response({"message": "Video uploaded successfully", "data": serialized.data,'video_url': video_url})
+        except Tutor.DoesNotExist:
+            return Response({"message": "Tutor not found"})

@@ -8,9 +8,7 @@ import TextField from '@mui/material/TextField';
 import {changeEmail, changeName, changePassword, changePhone, changeUsername, changeExpertise, changeQualification} from '../../features/tutorprofileEditSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../axios/tutoraxios';
-import {storage} from '../../components/firebase/Firebase';
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { v4 } from "uuid";
+import axios from 'axios';
 
 
 const style = {
@@ -125,26 +123,33 @@ const TutorCard = () => {
           setData({...data,id:res.data.id,username:res.data.username,course:res.data.course, name:res.data.name, email:res.data.email, phone:res.data.phone, expertise:res.data.expertise, qualification:res.data.qualification, password:res.data.password, image:res.data.image});
 
           if (imageHandle){
-            const reference = ref(storage,`tutor-image/${image.name + v4()}`)
-            uploadBytes(reference,image).then((res)=>{
-              getDownloadURL(reference).then((url)=>{
-                console.log(url,"####",id)
-                const datas={
-                  id:id,
-                  image:url
-                }
-    
-                axiosInstance.post('image-set/',datas)
-                .then((res)=>{
-                  localStorage.setItem("tutorDetails",JSON.stringify(res.data.data))
-                  setData({...data,image:res.data.data.image}) 
-                }) 
-    
+            const handleSubmitFile = async(e)=>{
+              console.log("submitting...");
+      
+          const formData = new FormData();
+          formData.append('image',image)
+          formData.append('id',id)
+          console.log(formData,"Formdataaa");
+          try{
+              await axios.post('http://localhost:8000/tutor/image-set/',formData,{
+                  headers:{
+                      'Content-Type':'multipart/form-data',
+                  },
               })
-           
-            }).catch((error)=>{
-              console.log("ERRORR");
-            })
+              .then((res)=>{
+                localStorage.setItem("tutorDetails",JSON.stringify(res.data.data))
+                setData({...data,image:res.data.data.image})
+              })
+              setImage(null);
+              // setDescription('')
+      
+          }catch(error){
+              console.error("Error Creating Post :",error)
+          }
+          // onClose();
+          }
+          
+          handleSubmitFile();
     
           }
 
