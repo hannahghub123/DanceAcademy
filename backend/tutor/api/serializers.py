@@ -18,3 +18,8 @@ class TutorSerializer(ModelSerializer):
         model = Tutor
         fields = "__all__"
 
+class VideoUploadSerializer(ModelSerializer):
+    class Meta:
+        model = Video_upload
+        fields = '__all__'
+

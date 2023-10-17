@@ -1,4 +1,6 @@
 from django.db import models
+import cloudinary
+from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
@@ -27,10 +29,6 @@ class Course_structure(models.Model):
     duration = models.PositiveIntegerField()
     fees = models.PositiveIntegerField()
 
-class Video_upload(models.Model):
-    v_upload = models.FileField(upload_to="video-uploads",max_length=500,null=True,blank=True)
-    up_time = models.DateTimeField()
-    desc = models.CharField(max_length=50)
 
 
 class Tutor(models.Model):
@@ -44,8 +42,19 @@ class Tutor(models.Model):
     is_approved = models.BooleanField(default=False)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     image = models.ImageField(upload_to="tutor-uploads", max_length=500,null=True,blank=True)
-    v_upload = models.ManyToManyField(Video_upload,blank=True)
+    # v_upload = models.ManyToManyField(Video_upload,blank=True)
 
     def __str__(self):
         return f"{self.username}"
+    
+
+class Video_upload(models.Model):
+    v_upload = CloudinaryField("Video uploads",max_length=500,null=True,blank=True,  folder='DanceAcademy/video-uploads')
+    up_time = models.DateTimeField()
+    desc = models.CharField(max_length=50)
+    tutors = models.ManyToManyField(Tutor, related_name='videos', blank=True)
+
+    def __str__(self):
+        return f"Video Upload {self.id}"
+
     

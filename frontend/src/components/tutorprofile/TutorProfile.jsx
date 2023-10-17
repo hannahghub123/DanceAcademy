@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import './TutorProfile.css'
 import Back from '../common/back/Back';
 import TutorCard from './TutorCard';
-import UploadWidget from '../cloudinary/UploadWidget';
+// import UploadWidget from '../cloudinary/UploadWidget';
 import VideoUpload from '../cloudinary/video/VideoUpload';
 
 
@@ -57,7 +57,7 @@ const TutorProfile = () => {
             </div>
         </section>
         <VideoUpload/>
-        <UploadWidget/>
+        {/* <UploadWidget/> */}
         </div>
       
      <br />

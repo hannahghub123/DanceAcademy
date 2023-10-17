@@ -151,12 +151,12 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-MEDIA_URL = '/danceAcademy/'
+MEDIA_URL = '/DanceAcademy/'
 
 CLOUDINARY_STORAGE ={
-    'CLOUD_NAME': 'dus4aunnu',
-    'API_KEY':'698961454465988',
-    'API_SECRET':'-Y_MVcJq-KAELfGE_5hmKoNPp9g'
+    'CLOUD_NAME': 'dhclqk43b',
+    'API_KEY':'518455332798936',
+    'API_SECRET':'B9sKOi_eENWKswo6l2j_kCaBxIs'
 }
 
 DEFAULT_FILE_STORAGE ='cloudinary_storage.storage.MediaCloudinaryStorage'

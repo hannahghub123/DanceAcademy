@@ -3,15 +3,17 @@ from tutor.models import *
 from .serializers import *
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework.parsers import FileUploadParser
+from django.utils import timezone
+from rest_framework import status
+
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
 cloudinary.config(
-    cloud_name="dus4aunnu",
-    api_key="698961454465988",
-    api_secret="-Y_MVcJq-KAELfGE_5hmKoNPp9g"
+    cloud_name="dhclqk43b",
+    api_key="518455332798936",
+    api_secret="B9sKOi_eENWKswo6l2j_kCaBxIs",
 )
 
 class SignupView(APIView):
@@ -129,27 +131,67 @@ class ImageSetView(APIView):
         return Response({"message":"success","data":serialized.data})
 
 
+# class VideoUploadView(APIView):
+#     def post(self, request):
+
+#         try:
+            # video_file = request.FILES.get("video")  # Replace with how you obtain the video file
+            # video = Video_upload(v_upload=video_file, up_time=timezone.now(), desc="Description here")
+            # video.save()
+            # print(video_file,"$$$$$$$$$$$$$$$$$$$")
+            # print(video,"##########")
+
+            # tutor_id = request.data.get('id')
+            # tutor = Tutor.objects.get(id=tutor_id)
+            # tutor.v_upload.add(video)
+            # print(tutor.v_upload,"??????????????????/////////////")
+
+            # video = request.FILES.get('video')
+            # if video:
+                # Upload the video to Cloudinary
+                # upload_result = cloudinary.uploader.upload(video)
+                # video_url = upload_result['secure_url']
+                # return Response({'video_url': video_url})
+
+
+            # serialized = TutorSerializer(tutor)
+            # return Response({"message": "success", "data": serialized.data})
+        # except Tutor.DoesNotExist:
+        #     return Response({"message": "Tutor not found."}, status=status.HTTP_404_NOT_FOUND)
+
+
+from rest_framework.parsers import FileUploadParser
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import status
+from cloudinary.uploader import upload
+
+
 class VideoUploadView(APIView):
     # parser_classes = (FileUploadParser,)
-    def post(self,request):
-        v_upload = request.FILES.get("video")
-        id = request.data.get('id')
-        print(v_upload,"hiii video hereeee",id,"########")
 
-        # userobj = Tutor.objects.get(id=id)
-        # userobj.v_upload = v_upload
-        # userobj.save()
-        # serialized = TutorSerializer(userobj)
-        # return Response({"message":"success","data":serialized.data})
+    def post(self, request,id):
+        # if 'file' not in request.data:
+        #     return Response({'error': 'No file part'})
 
-        try:
-            tutor = Tutor.objects.get(id=id)
-            # video_upload = Video_upload(v_upload=v_upload)
-            # video_upload.save()
-            # tutor.v_upload.add(video_upload)
-            upload_result = cloudinary.uploader.upload(v_upload)
-            video_url = upload_result['secure_url']
-            serialized = TutorSerializer(tutor)
-            return Response({"message": "Video uploaded successfully", "data": serialized.data,'video_url': video_url})
-        except Tutor.DoesNotExist:
-            return Response({"message": "Tutor not found"})
+        file = request.data.get("video")
+
+        tobj = Tutor.objects.get(id=id)
+        print(tobj,"?????????????tobj ")
+
+        if file.content_type.split('/')[0] != 'video':
+            return Response({'error': 'File must be a video'})
+
+        # Create a Video_upload instance with the Cloudinary URL
+        result = upload(file, resource_type="video",folder="DanceAcademy/video-uploads")
+
+        video_upload = Video_upload(
+            v_upload=result['secure_url'],  # Store the Cloudinary URL
+            up_time=timezone.now(),
+            desc=request.data.get('description', '') 
+        )
+        
+        video_upload.save()
+        video_upload.tutors.add(tobj)
+        return Response({'url': video_upload.v_upload})
+

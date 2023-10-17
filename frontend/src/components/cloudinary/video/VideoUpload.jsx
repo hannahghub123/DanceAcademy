@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const VideoUpload = () => {
     const [videoInput,setVideoInput] = useState(null);
+    const [desc,setDesc] = useState(null);
     const {id} = useParams()
 
     const handleVideoUpload = (e)=>{
@@ -17,15 +18,21 @@ const VideoUpload = () => {
 
         const formData = new FormData();
         formData.append('video',videoInput)
-        formData.append('id',id)
+        formData.append('description',desc)
+        
         try {
-            const response = await axios.post('http://localhost:8000/tutor/video-upload/',formData,{
+            const response = await axios.post(`http://localhost:8000/tutor/video-upload/${id}`,formData,{
                 headers:{
                     'Content-Type':'multipart/form-data',
                 },
+                params: {
+                    resource_type: 'video',
+                },
             });
-            console.log('Video uploaded:', response.data.video_url);
+            console.log(response.data,"###########");
+            console.log('Video uploaded:',  response.data.url);
             setVideoInput(null);
+            setDesc(null);
         } catch (error) {
             console.error("Error Uploading Video :",error)
         }
@@ -37,11 +44,14 @@ const VideoUpload = () => {
         <form onSubmit={handleVideoSubmit} className='form'>
             <input 
             type="file"
-            accept="video/*"
+            // accept="video/*"
             name="video"
             onChange={handleVideoUpload}
             className='form-input' 
             />
+            <input type="text"
+            placeholder='description'
+            onChange={(e)=>setDesc(e.target.value)} />
             <button className="btn" type='submit'>Video Upload</button>
         </form>
     </>
