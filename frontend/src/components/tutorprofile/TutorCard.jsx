@@ -9,6 +9,8 @@ import {changeEmail, changeName, changePassword, changePhone, changeUsername, ch
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../axios/tutoraxios';
 import axios from 'axios';
+import VideoUpload from '../cloudinary/video/VideoUpload';
+import VideoList from '../cloudinary/video/VideoList';
 
 
 const style = {
@@ -46,7 +48,7 @@ const TutorCard = () => {
       )
     useEffect((data)=>{
         const tutorDetails = localStorage.getItem("tutorDetails");
-        
+        console.log(tutorDetails,"tutorDetailssssssss");
         if (tutorDetails) {
           const parseData = JSON.parse(tutorDetails);
   
@@ -110,44 +112,46 @@ const TutorCard = () => {
       setImage(e.target.files[0]);
     }
 
+    console.log(image,"set imageee");
+
     
     const handleSubmit = ()=>{
         console.log("id ivde kittunund",id)
 
         console.log("pass chyunna data",data,"???????????????????????????");
-
+       
         
         axiosInstance.post("tprofedit/",data).then((res)=>{
           console.log(res.data," hi res.data ahn ith",res.data.name);
           localStorage.setItem("tutorDetails",JSON.stringify(res.data))
-          setData({...data,id:res.data.id,username:res.data.username,course:res.data.course, name:res.data.name, email:res.data.email, phone:res.data.phone, expertise:res.data.expertise, qualification:res.data.qualification, password:res.data.password, image:res.data.image});
+          console.log(res.data.image,"imggggg");        
+          setData({...data,id:res.data.id,username:res.data.username,course:res.data.course, name:res.data.name, email:res.data.email, phone:res.data.phone, expertise:res.data.expertise, qualification:res.data.qualification, password:res.data.password});
 
-          if (imageHandle){
+          if (image){
             const handleSubmitFile = async(e)=>{
               console.log("submitting...");
       
-          const formData = new FormData();
-          formData.append('image',image)
-          formData.append('id',id)
-          console.log(formData,"Formdataaa");
-          try{
-              await axios.post('http://localhost:8000/tutor/image-set/',formData,{
-                  headers:{
-                      'Content-Type':'multipart/form-data',
-                  },
-              })
-              .then((res)=>{
-                localStorage.setItem("tutorDetails",JSON.stringify(res.data.data))
-                setData({...data,image:res.data.data.image})
-              })
-              setImage(null);
-              // setDescription('')
-      
-          }catch(error){
-              console.error("Error Creating Post :",error)
-          }
-          // onClose();
-          }
+              const formData = new FormData();
+              formData.append('image',image)
+              formData.append('id',id)
+              console.log(formData,"Formdataaa");
+              try{
+                  await axios.post('http://localhost:8000/tutor/image-set/',formData,{
+                      headers:{
+                          'Content-Type':'multipart/form-data',
+                      },
+                  })
+                  .then((res)=>{
+                    localStorage.setItem("tutorDetails",JSON.stringify(res.data.data))
+                    setData({...data,image:res.data.data.image})
+                  })
+                  setImage(null);
+          
+              }catch(error){
+                  console.error("Error Creating Post :",error)
+              }
+              // onClose();
+              }
           
           handleSubmitFile();
     
@@ -156,7 +160,16 @@ const TutorCard = () => {
           handleClose();
         })
     }
-    
+    const [isUploadComponentVisible, setIsUploadComponentVisible] = useState(false);
+    const [isViewComponentVisible, setIsViewComponentVisible] = useState(false);
+
+    const toggleUploadComponent = () => {
+      setIsUploadComponentVisible(!isUploadComponentVisible);
+    };
+
+    const toggleViewComponent = ()=>{
+      setIsViewComponentVisible(!isViewComponentVisible);
+    }
 
   return (
     <>
@@ -164,7 +177,9 @@ const TutorCard = () => {
                 <div className="img" >
                     <img src={data.image} alt="" />
                     <div className="overlay">
-                    <i className="fa fa-edit icon"  onClick={handleOpen}></i>
+                    <i className="fa fa-edit icon"  onClick={handleOpen} title='Edit Details'></i>
+                    <i className="fa fa-add icon" title='Upload Videos' onClick={toggleUploadComponent}></i>
+                    <i class="fa fa-list icon" title='List Video Uploads' onClick={toggleViewComponent}></i>
                     </div>
                 </div>
                 <div className="details">
@@ -182,23 +197,22 @@ const TutorCard = () => {
                 </div>
             </div>
 
+            <>
+            {isUploadComponentVisible ? (
+                      <><VideoUpload /></>  
+                      ) : null}
+            </>
 
-            
-            {/* <p>
-  <a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-</p>
-<div class="row">
-  <div class="col">
-    <div class="collapse multi-collapse" id="multiCollapseExample1">
-      <div class="card card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
-      </div>
-    </div>
-  </div>
-</div> */}
+            <>
+            {isViewComponentVisible ? (
+                      <><VideoList /></>  
+                      ) : null}
+            </>
 
 
-        <Modal open={open} onClose={handleClose}>
+
+
+        <Modal open={open} onClose={handleClose} className='edit-modal'>
         <Box sx={style}>
           <Typography variant="h6" component="h2">
             Edit Profile
@@ -267,16 +281,14 @@ const TutorCard = () => {
           />
           <br /><br />
 
-<input type="file" onChange={imageHandle}/>
-      {/* <button onClick={imageSubmitHandler}  >Upload Image</button> */}
-     
-       
-        <br />
-          <button className='edit-btn' variant="contained" onClick={handleSubmit}>
+          <input type="file" onChange={imageHandle}/>
+
+          <button className='edit-btn'  onClick={handleSubmit} >
             Save Changes
           </button>
         </Box>
       </Modal>
+  
     </>
   )
 }

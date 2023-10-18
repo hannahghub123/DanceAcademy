@@ -3,8 +3,13 @@ import React, { useEffect, useState } from 'react'
 
 const VideoList = () => {
     const [videos,setVideos] = useState([]);
+    const [data,setData] = useState('');
 
     useEffect(()=>{
+        const tutorData = localStorage.getItem("tutorDetails")
+        setData(JSON.parse(tutorData))
+
+
         axios.get("http://localhost:8000/tutor/video-lists/")
         .then((res)=>{
             console.log(res.data,"Videosssss");
@@ -19,11 +24,11 @@ const VideoList = () => {
     console.log("video state",videos);
   return (
     <>
-        <h2>Videos By - </h2>
+        <h2>Videos By - {data.name} </h2>
       <ul>
         {videos.map((videoUrl, index) => (
           <li key={index}>
-            <video width="320" height="240" controls>
+            <video width="300" height="200" controls>
               <source src={videoUrl} type="video/mp4" />
             </video>
           </li>

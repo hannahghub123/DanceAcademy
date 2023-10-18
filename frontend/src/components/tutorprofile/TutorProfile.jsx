@@ -4,8 +4,7 @@ import './TutorProfile.css'
 import Back from '../common/back/Back';
 import TutorCard from './TutorCard';
 // import UploadWidget from '../cloudinary/UploadWidget';
-import VideoUpload from '../cloudinary/video/VideoUpload';
-import VideoList from '../cloudinary/video/VideoList';
+// import VideoList from '../cloudinary/video/VideoList';
 
 
 const TutorProfile = () => {
@@ -42,7 +41,7 @@ const TutorProfile = () => {
 
     },[])
 
-   
+   console.log(data,"dataaa");
 
   return (   
     
@@ -55,12 +54,16 @@ const TutorProfile = () => {
         <section className='team padding'>
             <div className="container grid">
                 <TutorCard/>
+             
             </div>
         </section>
-        <VideoUpload/>
-        {/* <UploadWidget/> */}
-        <VideoList/>
+
         </div>
+
+        <>
+        {/* <VideoUpload/> */}
+        {/* <VideoList/> */}
+        </>
       
      <br />
       {/* <div>

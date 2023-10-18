@@ -39,22 +39,31 @@ const VideoUpload = () => {
     }
 
   return (
-    <>
-        <h1>hi upload your video here</h1>
-        <form onSubmit={handleVideoSubmit} className='form'>
-            <input 
-            type="file"
-            // accept="video/*"
-            name="video"
-            onChange={handleVideoUpload}
-            className='form-input' 
-            />
-            <input type="text"
-            placeholder='description'
-            onChange={(e)=>setDesc(e.target.value)} />
-            <button className="btn" type='submit'>Video Upload</button>
-        </form>
-    </>
+    <div className="video-upload-container">
+      <h1>Upload Your Video</h1>
+      <form onSubmit={handleVideoSubmit} className="video-upload-form">
+        <label htmlFor="video-upload-input" className="video-input-label">
+          Choose a Video:
+        </label>
+        <input
+          type="file"
+          id="video-upload-input"
+          accept="video/*"
+          name="video"
+          onChange={handleVideoUpload}
+          className="video-input"
+        />
+        <input
+          type="text"
+          placeholder="Video Description"
+          onChange={(e) => setDesc(e.target.value)}
+          className="description-input"
+        />
+        <button className="video-upload-btn" type="submit">
+          Upload Video
+        </button>
+      </form>
+    </div>
   )
 }
 
