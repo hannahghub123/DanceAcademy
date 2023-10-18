@@ -11,4 +11,5 @@ urlpatterns = [
     path("image-set/",ImageSetView.as_view(),name="image-setting"),
     path("tdetails/<int:id>",TutorView.as_view(),name="tutor-view"),
     path("video-upload/<int:id>",VideoUploadView.as_view(),name="video-upload"),
+    path("video-lists/",VideoListsView.as_view(),name="video-lists"),
 ]

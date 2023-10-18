@@ -195,3 +195,30 @@ class VideoUploadView(APIView):
         video_upload.tutors.add(tobj)
         return Response({'url': video_upload.v_upload})
 
+
+
+import cloudinary
+from cloudinary import api
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+class VideoListsView(APIView):
+    def get(self, request):
+
+        # List all video resources in the specified folder
+        resources = api.resources(type="upload", prefix="DanceAcademy/", resource_type="video")
+        print(resources,"///////////")
+        video_urls = []
+
+        for resource in resources["resources"]:
+            video_urls.append(resource["secure_url"])
+
+        # Now, video_urls contains the secure URLs of videos in the specified folder
+        for url in video_urls:
+            print(url)
+
+        return Response({"message":"success","video_urls":video_urls})
+
+        
+
+

@@ -156,11 +156,7 @@ const TutorCard = () => {
           handleClose();
         })
     }
-
-
-    // const imageSubmitHandler = ()=>{
-       
-    // }
+    
 
   return (
     <>
