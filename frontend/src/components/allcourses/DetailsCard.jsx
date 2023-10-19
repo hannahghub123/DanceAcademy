@@ -35,7 +35,7 @@ const DetailsCard = () => {
                                 {/* <img src={val.hoverCover} alt="" className='show' /> */}
                             </div>
                             <h1>{val.name}</h1>
-                            <p>{val.qualification}/{val.expertise} expertise</p>
+                            <p>{val.qualification}/{val.expertise} yr expertise</p>
                         
                             <span>Top Uploads</span>
                         </div>

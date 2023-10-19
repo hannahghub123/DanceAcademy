@@ -10,6 +10,9 @@ import cloudinary
 import cloudinary.uploader
 import cloudinary.api
 
+from cloudinary import api
+
+
 cloudinary.config(
     cloud_name="dhclqk43b",
     api_key="518455332798936",
@@ -194,13 +197,6 @@ class VideoUploadView(APIView):
         video_upload.save()
         video_upload.tutors.add(tobj)
         return Response({'url': video_upload.v_upload})
-
-
-
-import cloudinary
-from cloudinary import api
-from rest_framework.response import Response
-from rest_framework.views import APIView
 
 class VideoListsView(APIView):
     def get(self, request):
