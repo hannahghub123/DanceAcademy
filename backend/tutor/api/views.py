@@ -4,8 +4,8 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.utils import timezone
-from rest_framework import status
 
+from cloudinary.uploader import upload
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -132,42 +132,6 @@ class ImageSetView(APIView):
 
         serialized = TutorSerializer(tobj)
         return Response({"message":"success","data":serialized.data})
-
-
-# class VideoUploadView(APIView):
-#     def post(self, request):
-
-#         try:
-            # video_file = request.FILES.get("video")  # Replace with how you obtain the video file
-            # video = Video_upload(v_upload=video_file, up_time=timezone.now(), desc="Description here")
-            # video.save()
-            # print(video_file,"$$$$$$$$$$$$$$$$$$$")
-            # print(video,"##########")
-
-            # tutor_id = request.data.get('id')
-            # tutor = Tutor.objects.get(id=tutor_id)
-            # tutor.v_upload.add(video)
-            # print(tutor.v_upload,"??????????????????/////////////")
-
-            # video = request.FILES.get('video')
-            # if video:
-                # Upload the video to Cloudinary
-                # upload_result = cloudinary.uploader.upload(video)
-                # video_url = upload_result['secure_url']
-                # return Response({'video_url': video_url})
-
-
-            # serialized = TutorSerializer(tutor)
-            # return Response({"message": "success", "data": serialized.data})
-        # except Tutor.DoesNotExist:
-        #     return Response({"message": "Tutor not found."}, status=status.HTTP_404_NOT_FOUND)
-
-
-from rest_framework.parsers import FileUploadParser
-from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework import status
-from cloudinary.uploader import upload
 
 
 class VideoUploadView(APIView):

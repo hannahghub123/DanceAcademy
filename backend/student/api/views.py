@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from tutor.api.serializers import *
 
+from cloudinary import api
+
 class SignupView(APIView):
     def post(self,request):
         username=request.data.get("username")
@@ -81,7 +83,23 @@ class ProfileEditView(APIView):
         except Student.DoesNotExist:
             return Response({"error": "Student not found"})
 
+class VideoListView(APIView):
+    def get(self,request):
+        id = request.data.get("id")
+        # tobj = Tutor.objects.get(id=id) 
 
+        resources = api.resources(type="upload", prefix="DanceAcademy/", resource_type="video", context={"user_id": id})
+        print(resources,"############")
+        video_urls = []
+
+        for resource in resources["resources"]:
+            video_urls.append(resource["secure_url"])
+
+        # Now, video_urls contains the secure URLs of videos in the specified folder uploaded by the current user
+        for url in video_urls:
+            print(url)
+
+        return Response({"message": "success", "video_urls": video_urls})
 
 
 
