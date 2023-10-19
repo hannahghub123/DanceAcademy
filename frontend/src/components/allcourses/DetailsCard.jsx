@@ -2,11 +2,15 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import axiosInstance from '../../axios/tutoraxios'
 import Heading from '../common/heading/Heading'
+import RelatedVideos from './RelatedVideos'
+
+// component displaying the related tutor details
 
 const DetailsCard = () => {
 
     const [details,setDetails] = useState([])
-    // const navigate = useNavigate()
+
+    const navigate = useNavigate()
 
     const {id} = useParams()
     
@@ -19,7 +23,10 @@ const DetailsCard = () => {
         })
     },[]) 
 
-    console.log(details,"detailssssss");
+    const [isUploadComponentVisible, setIsUploadComponentVisible] = useState(false);
+    const videoDisplayHandle = () => {
+        setIsUploadComponentVisible(!isUploadComponentVisible);
+      };
 
   return (
     <>
@@ -32,16 +39,20 @@ const DetailsCard = () => {
                         <div className="box">
                             <div className="img">
                                 <img src={val.image} alt="" />
-                                {/* <img src={val.hoverCover} alt="" className='show' /> */}
                             </div>
                             <h1>{val.name}</h1>
                             <p>{val.qualification}/{val.expertise} yr expertise</p>
                         
-                            <span>Top Uploads</span>
+                            <span onClick={videoDisplayHandle}>Top Uploads</span>
                         </div>
                     ))}
                 </div>
-            </div>
+                <>
+                {isUploadComponentVisible ? (
+                        <><RelatedVideos /></>  
+                        ) : null}
+                </>
+                </div>
         </section>
     </>
   )

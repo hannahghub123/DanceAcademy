@@ -3,6 +3,8 @@ import Heading from '../common/heading/Heading'
 import axiosInstance from '../../axios/tutoraxios'
 import { useNavigate } from 'react-router-dom'
 
+// to show the courses available 
+
 const OnlineCourses = () => {
 
     const [courses,setCourses] = useState([])

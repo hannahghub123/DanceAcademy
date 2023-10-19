@@ -27,6 +27,7 @@ import Contact from './components/contact/Contact';
 import Footer from './components/common/footer/Footer';
 import StdProfile from './components/stdprofile/StdProfile';
 import CourseDetails from './components/allcourses/CourseDetails';
+import RelatedVideos from './components/allcourses/RelatedVideos';
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -56,6 +57,7 @@ function App() {
       <Route path="tutor-profile/:id" element={<TutorProfile/>} />
       <Route path="std-profile/:id" element={<StdProfile/>} />
       <Route path='course-details/:id' element={<CourseDetails/>}/>
+      <Route path="tutor-videos/" element={<RelatedVideos/>}/>
       </Routes>
       {!isAdminRoute && <Footer />}
 

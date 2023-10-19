@@ -2,6 +2,8 @@ import React from 'react'
 import { coursesCard } from '../../dummydata'
 import './Courses.css'
 
+// displaying course plans - the big cards 
+
 const CoursesCard = () => {
 
   return (
