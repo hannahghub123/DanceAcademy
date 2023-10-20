@@ -40,10 +40,13 @@ const DetailsCard = () => {
                             <div className="img">
                                 <img src={val.image} alt="" />
                             </div>
+                            {/* <br />
+                            <i class="fa fa-heart icon" title='Add To Favorites'></i>  */}
                             <h1>{val.name}</h1>
                             <p>{val.qualification}/{val.expertise} yr expertise</p>
-                        
-                            <span onClick={videoDisplayHandle}>Top Uploads</span>
+                         
+                        <span onClick={videoDisplayHandle} style={{width:"130px",padding:8,backgroundColor:"#fff"}}>Top Uploads</span>
+                         
                         </div>
                     ))}
                 </div>

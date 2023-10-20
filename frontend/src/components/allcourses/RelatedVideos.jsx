@@ -1,7 +1,7 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import './Courses.css'
 
 const RelatedVideos = () => {
 
@@ -24,16 +24,16 @@ const RelatedVideos = () => {
 
   return (
     <>
-        <h1>Related Video ivdunn verum</h1>
-        <ul>
+        <h1><b>Most Popular Tutor Uploads</b></h1>
+        <div className='video-container'>
         {videos.map((videoUrl, index) => (
-          <li key={index}>
+          <div key={index}>
             <video width="300" height="200" controls>
               <source src={videoUrl} type="video/mp4" />
             </video>
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </>
   )
 }

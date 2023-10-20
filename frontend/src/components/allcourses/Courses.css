@@ -113,6 +113,14 @@
   .online .box:hover h1 {
     color: #fff;
   }
+
+  .video-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+  }
   /*-------------online---------*/
   @media screen and (max-width: 768px) {
   }
+
+  

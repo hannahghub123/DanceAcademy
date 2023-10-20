@@ -5,7 +5,7 @@ const INITITALSTATE={
     name:"",
     email:"",
     phone:"",
-    score:"",
+    // score:"",
     password:"",
     repassword:""
 }
@@ -30,9 +30,9 @@ const stdSignupSlice = createSlice(
             changePhone:(state,action)=>{
                 state.value.phone=action.payload
             },
-            changeScore:(state,action)=>{
-                state.value.score=action.payload
-            },
+            // changeScore:(state,action)=>{
+            //     state.value.score=action.payload
+            // },
             changePassword:(state,action)=>{
                 state.value.password=action.payload
             },

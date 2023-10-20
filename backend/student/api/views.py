@@ -14,13 +14,18 @@ class SignupView(APIView):
         score=request.data.get("score")
         email=request.data.get("email")
         password=request.data.get("password")
+        repassword=request.data.get("repassword")
         phone=request.data.get("phone")
+        
+        if password==repassword:
+            Student.objects.create(username=username,name=name,score=score,email=email,phone=phone,password=password)
+            stdobj = Student.objects.get(username=username)
+            serialized = StudentSerializer(stdobj)
 
-        Student.objects.create(username=username,name=name,score=score,email=email,phone=phone,password=password)
-        stdobj = Student.objects.get(username=username)
-        serialized = StudentSerializer(stdobj)
-
-        return Response(serialized.data)
+            return Response({"message":"success" ,"data":serialized.data})
+        
+        else:
+            return Response({"error":"passwords doesn't match"})
     
 
 class LoginView(APIView):

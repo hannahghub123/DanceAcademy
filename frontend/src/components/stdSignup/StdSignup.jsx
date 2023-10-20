@@ -17,18 +17,22 @@ const StdSignup = () => {
             
         "username":user.value.username,
         "name":user.value.name,
-        "score":user.value.score,
+        // "score":user.value.score,
         "email":user.value.email,
         "phone":user.value.phone,
         "password":user.value.password,
-
+        "repassword":user.value.repassword
       }
 
     const handleSignUp = ()=>{
         axiosInstance.post("stdsignup/",data).then((res)=>{
           console.log("ivde etheetund");
           console.log(res.data);
-          navigate('../std-login/')
+          if (res.data.message === "success"){
+            navigate('../std-login/')
+          }else{
+            alert(res.data.error)
+          }
         })
     }
 
