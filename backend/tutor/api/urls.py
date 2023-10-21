@@ -3,6 +3,7 @@ from .views import *
 
 urlpatterns = [
     path("signup/",SignupView.as_view(),name="signup"),
+    path("resume-upload/",ResumeUploadView.as_view(),name="resume-upload"),
     path("login/",LoginView.as_view(),name="login"),
     path("tprofedit/",ProfileEditView.as_view(),name="edit-profile"),
     path("courses/",CourseView.as_view(),name="course"),
@@ -12,4 +13,5 @@ urlpatterns = [
     path("tdetails/<int:id>",TutorView.as_view(),name="tutor-view"),
     path("video-upload/<int:id>",VideoUploadView.as_view(),name="video-upload"),
     path("video-lists/",VideoListsView.as_view(),name="video-lists"),
+
 ]

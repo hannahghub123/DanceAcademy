@@ -28,14 +28,50 @@ class SignupView(APIView):
         email=request.data.get("email")
         password=request.data.get("password")
         phone=request.data.get("phone")
+        courses = request.data.get("courses") 
+        resume = request.FILES.get("resume")
 
         print("heyy tutor>>>>>>>>>>")
 
-        Tutor.objects.create(username=username,name=name,expertise=expertise,qualification=qualification,email=email,phone=phone,password=password)
-        tobj = Tutor.objects.get(username=username)
-        serialized = TutorSerializer(tobj)
+        tobj=Tutor.objects.create(username=username,name=name,expertise=expertise,qualification=qualification,email=email,phone=phone,password=password)
+        if courses:
+            courseobj = Course.objects.filter(title__in=courses)
+            tobj.course.set(courseobj)
+            print(tobj,"hii i am hereee")
+        
 
-        return Response(serialized.data)
+        serialized = TutorSerializer(tobj)
+       
+
+        return Response({"data":serialized.data,"message":"success"})
+    
+class ResumeUploadView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        print("id////////",id)
+        resume = request.data.get("resume")
+        print("Resumeeeeeee",resume)
+        tobj = Tutor.objects.get(id=id)
+        print(tobj,"<<<<<>>>>>>>>>>>>>>>>>>>>>>>>>>tobjjjj")
+
+        # if not resume.content_type.startswith('application/pdf'):
+        #     print("errorrr////")
+        #     return Response({'error': 'File must be a PDF document'})
+
+
+        upload_result = cloudinary.uploader.upload(resume, resource_type="auto", folder="DanceAcademy/resume-uploads")
+        resobj = Resume_List(
+        res_file=upload_result['secure_url'],  
+        up_time=timezone.now(),
+
+        )
+        resobj.save()
+        resobj.tutors.add(tobj)
+        print(">>>>>>>>>>>","url",resobj.res_file)
+
+        
+        return Response({'url': resobj.res_file}) 
+
     
 
 class LoginView(APIView):

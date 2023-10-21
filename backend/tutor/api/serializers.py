@@ -13,7 +13,7 @@ class CourseStructSerializer(ModelSerializer):
 
     
 class TutorSerializer(ModelSerializer):
-    course = CourseSerializer()
+    course = CourseSerializer(many=True) 
     class Meta:
         model = Tutor
         fields = "__all__"
@@ -23,3 +23,7 @@ class VideoUploadSerializer(ModelSerializer):
         model = Video_upload
         fields = '__all__'
 
+class ResumeListSerializer(ModelSerializer):
+    class Meta:
+        model = Resume_List
+        fields = '__all__'
