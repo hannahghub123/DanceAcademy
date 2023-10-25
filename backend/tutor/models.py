@@ -17,7 +17,7 @@ class Course(models.Model):
         ("Seats Filled","Seats Filled")
     )
     title = models.CharField(max_length=50)
-    description = models.CharField(max_length=250)
+    description = models.CharField(max_length=500)
     status = models.CharField(max_length=50,choices=COURSE_STATUS_CHOICES,default="Course Available")
     image = models.CharField(max_length=500,default="img")
 
@@ -25,9 +25,26 @@ class Course(models.Model):
         return f"{self.title}"
 
 class Course_structure(models.Model):
+    LEVEL_CHOICES = (
+        ("Beginner Level Lessons","Beginner Level Lessons"),
+        ("Intermediate Level Lessons","Intermediate Level Lessons")
+    )
+    PRICE_CHOICES = (
+        ("Month","Month"),
+        ("Quarter","Quarter"),
+        ("Year","Year"),
+    )
+    title = models.CharField(max_length=50)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     duration = models.PositiveIntegerField()
-    fees = models.PositiveIntegerField()
+    price = models.PositiveIntegerField()
+    description = models.CharField(max_length=500)
+    num_of_classes = models.PositiveIntegerField()
+    levels = models.CharField(max_length=50,choices=LEVEL_CHOICES,default="Beginner Level Lessons")
+    price_per = models.CharField(max_length=50,choices=PRICE_CHOICES,default=None,null=True)
+
+    def __str__(self):
+        return f"{self.course.title}"
 
 
 class Tutor(models.Model):

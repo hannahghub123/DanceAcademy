@@ -1,16 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { coursesCard } from '../../dummydata'
 import './Courses.css'
+import { useParams } from 'react-router-dom';
+import axiosInstance from '../../axios/tutoraxios'
 
 // displaying course plans - the big cards 
 
 const CoursesCard = () => {
 
+    const {id} = useParams()
+    const [cdata,setCdata] = useState([]);
+
+    useEffect(()=>{
+        const datas = {
+            id:id
+        }
+        axiosInstance.post("course-structure/",datas)
+        .then((res)=>{
+            console.log(res.data,"hi hey you");
+            setCdata(res.data)
+        })
+    },[])
+
   return (
     <>
         <section className='coursesCard'>
             <div className="container grid2">
-                {coursesCard.slice(0,3).map((val)=>{
+                {cdata.map((val)=>{
                    return (
                    <div className="items">
                         <div className="content flex">
@@ -20,7 +36,7 @@ const CoursesCard = () => {
                                 </div>
                             </div>
                             <div className="text">
-                                <h1 key={val.id}>{val.coursesName}</h1>
+                                <h3 key={val.id}>{val.title}</h3>
                                 <div className="rate">
                                     <i className="fa fa-star"></i>
                                     <i className="fa fa-star"></i>
@@ -29,7 +45,11 @@ const CoursesCard = () => {
                                     <i className="fa fa-star"></i>
                                     <label htmlFor="">(5.0)</label>
                                 </div>
-                                <div className="details">
+                                <h6><i class='fas fa-hand-point-right icon'></i> {val.levels} </h6>
+                                <h6><i class='fas fa-hand-point-right icon'></i> {val.duration} min/Class </h6>
+                                <h6><i class='fas fa-hand-point-right icon'></i> {val.num_of_classes} Online Classes</h6>
+                                {/* <h6>{val.description} </h6> */}
+                                {/* <div className="details">
                                     {val.courTeacher.map((details)=>(
                                         <>
                                         <div className="box">
@@ -43,11 +63,11 @@ const CoursesCard = () => {
                                         <span>{details.totalTime}</span>
                                         </>
                                     ))}
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                         <div className="price">
-                            <h3>{val.priceAll} / {val.pricePer}</h3>
+                            <h3>{val.price} / {val.price_per} </h3>
                         </div>
                         <button className='outline-btn'>ENROLL NOW !</button>
                     </div>
