@@ -10,7 +10,7 @@ const CoursesCard = () => {
     <>
         <section className='coursesCard'>
             <div className="container grid2">
-                {coursesCard.map((val)=>{
+                {coursesCard.slice(0,3).map((val)=>{
                    return (
                    <div className="items">
                         <div className="content flex">
@@ -30,8 +30,6 @@ const CoursesCard = () => {
                                     <label htmlFor="">(5.0)</label>
                                 </div>
                                 <div className="details">
-                                    {/* //cos fetching the nested api
-                                    val comes from courTeacher is which data u want to fetch */}
                                     {val.courTeacher.map((details)=>(
                                         <>
                                         <div className="box">

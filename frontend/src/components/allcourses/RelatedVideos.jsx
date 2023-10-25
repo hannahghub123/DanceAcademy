@@ -1,7 +1,9 @@
-import axios from 'axios'
-import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import './Courses.css'
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+import { useParams } from 'react-router-dom';
+import './Courses.css';
 
 const RelatedVideos = () => {
 
@@ -12,7 +14,8 @@ const RelatedVideos = () => {
         const datas ={
             id:id
         }
-        axios.get("http://localhost:8000/std/video-lists/",datas)
+        console.log(datas,"$$$$$$$$$$$");
+        axios.post("http://localhost:8000/std/video-lists/",datas)
         .then((res)=>{
             console.log(res.data,"related videoss #######");
             setVideos(res.data.video_urls)
@@ -25,15 +28,35 @@ const RelatedVideos = () => {
   return (
     <>
         <h1><b>Most Popular Tutor Uploads</b></h1>
-        <div className='video-container'>
-        {videos.map((videoUrl, index) => (
-          <div key={index}>
+        <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        '& > :not(style)': {
+          m: 1,
+          width: 330,
+          height: "fit-content",
+        },
+      }}
+    >
+      {/* <Paper elevation={0} />
+      <Paper /> */}
+      
+
+    
+      <ul style={{display:"flex","flexDirection":"row"}}>
+        {videos.map((item) => (
+          <Paper elevation={3} sx={{marginLeft:"15px", marginBottom:"20px"}}>
+          <li key={item.id}>
             <video width="300" height="200" controls>
-              <source src={videoUrl} type="video/mp4" />
+              <source src={item.v_upload} type="video/mp4" />
             </video>
-          </div>
+            <p style={{textAlign:"center", fontFamily:"sans-serif",fontSize:"15px"}}>{item.desc} </p>
+          </li>
+          </Paper>
         ))}
-      </div>
+      </ul>
+    </Box>
     </>
   )
 }

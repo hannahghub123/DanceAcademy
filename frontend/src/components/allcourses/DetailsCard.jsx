@@ -32,8 +32,8 @@ const DetailsCard = () => {
     <>
         <section className='online'>
             <div className="container">
-                <Heading subtitle='COURSE-DETAILS' title='Browse Our Course Details'/>
-
+            <Heading subtitle='RELATED TUTOR-DETAILS' title='Browse Our tutor Details'/>
+                {/* <p>{details.course.description}</p> */}
                 <div className="content grid3">
                     {details.map((val)=>(
                         <div className="box">

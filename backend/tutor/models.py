@@ -50,7 +50,7 @@ class Tutor(models.Model):
 class Video_upload(models.Model):
     v_upload = CloudinaryField("Video uploads",max_length=500,null=True,blank=True,  folder='DanceAcademy/video-uploads')
     up_time = models.DateTimeField()
-    desc = models.CharField(max_length=50)
+    desc = models.CharField(max_length=220)
     tutors = models.ManyToManyField(Tutor, related_name='videos', blank=True)
 
     def __str__(self):

@@ -161,15 +161,12 @@ const TutorCard = () => {
         })
     }
     const [isUploadComponentVisible, setIsUploadComponentVisible] = useState(false);
-    const [isViewComponentVisible, setIsViewComponentVisible] = useState(false);
-
+   
     const toggleUploadComponent = () => {
       setIsUploadComponentVisible(!isUploadComponentVisible);
     };
 
-    const toggleViewComponent = ()=>{
-      setIsViewComponentVisible(!isViewComponentVisible);
-    }
+    
 
   return (
     <>
@@ -179,7 +176,7 @@ const TutorCard = () => {
                     <div className="overlay">
                     <i className="fa fa-edit icon"  onClick={handleOpen} title='Edit Details'></i>
                     <i className="fa fa-add icon" title='Upload Videos' onClick={toggleUploadComponent}></i>
-                    <i class="fa fa-list icon" title='List Video Uploads' onClick={toggleViewComponent}></i>
+                    {/* <i class="fa fa-list icon" title='List Video Uploads' onClick={toggleViewComponent}></i> */}
                     </div>
                 </div>
                 <div className="details">
@@ -203,15 +200,7 @@ const TutorCard = () => {
                       ) : null}
             </>
 
-            <>
-            {isViewComponentVisible ? (
-                      <><VideoList /></>  
-                      ) : null}
-            </>
-
-
-
-
+        
         <Modal open={open} onClose={handleClose} className='edit-modal'>
         <Box sx={style}>
           <Typography variant="h6" component="h2">

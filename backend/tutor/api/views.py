@@ -29,7 +29,7 @@ class SignupView(APIView):
         password=request.data.get("password")
         phone=request.data.get("phone")
         courses = request.data.get("courses") 
-        resume = request.FILES.get("resume")
+        # resume = request.FILES.get("resume")
 
         print("heyy tutor>>>>>>>>>>")
 
@@ -199,19 +199,30 @@ class VideoUploadView(APIView):
         return Response({'url': video_upload.v_upload})
 
 class VideoListsView(APIView):
-    def get(self, request):
+    def post(self, request):
+        tutor_id = request.data.get("id")
 
-        # List all video resources in the specified folder
-        resources = api.resources(type="upload", prefix="DanceAcademy/", resource_type="video")
-        print(resources,"///////////")
-        video_urls = []
+        try:
+            tobj = Tutor.objects.get(id=tutor_id)
+        except Tutor.DoesNotExist:
+            return Response({"error":"Tutor not found"})
+        
 
-        for resource in resources["resources"]:
-            video_urls.append(resource["secure_url"])
+        videos = Video_upload.objects.filter(tutors=tobj)
+        print(videos,"####@@@@@@@2")
 
-        # Now, video_urls contains the secure URLs of videos in the specified folder
-        for url in video_urls:
-            print(url)
+
+        # video_resources = api.resources(type="upload", prefix="DanceAcademy/", resource_type="video")
+
+        video_urls = [
+            {
+                'v_upload':video.v_upload.url,
+                'up_time':video.up_time,
+                'desc':video.desc,
+            }
+            for video in videos
+        ]
+
 
         return Response({"message":"success","video_urls":video_urls})
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import Back from '../common/back/Back';
-import ImgUpload from '../cloudinary/imageUpload/ImgUpload';
+import VideoList from '../cloudinary/video/VideoList';
 // import AboutCard from '../about/AboutCard';
 // import HAbout from '../home/HAbout';
 // import Test from '../home/testimonial/Test';
@@ -9,15 +9,12 @@ import ImgUpload from '../cloudinary/imageUpload/ImgUpload';
 
 const Dashboard = () => {
 
+
   return (
     <>
       <Back title="Tutor's Dashboard"/>
-      {/* <AboutCard/>
-        <HAbout/>
-        <Test/>
-        <HBlog/>
-        <HPrice/> */}
-        {/* <ImgUpload/> */}
+      <VideoList/>
+
     </>
   )
 }

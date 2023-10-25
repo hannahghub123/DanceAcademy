@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Heading from '../common/heading/Heading'
 import axiosInstance from '../../axios/tutoraxios'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom';
+import './Courses.css'
 
 // to show the courses available 
 
@@ -36,8 +37,8 @@ const OnlineCourses = () => {
                                 <img src={val.image} alt="" />
                                 {/* <img src={val.hoverCover} alt="" className='show' /> */}
                             </div>
-                            <h1>{val.title}</h1>
-                            <p>{val.description}</p>
+                            <b> <h1 style={{textTransform:"uppercase"}}> {val.title}</h1> </b>
+                            <p className='description'>{val.description}</p>
                             <span>{val.status}</span>
                         </div>
                     ))}

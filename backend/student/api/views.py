@@ -11,14 +11,14 @@ class SignupView(APIView):
     def post(self,request):
         username=request.data.get("username")
         name=request.data.get("name")
-        score=request.data.get("score")
+        # score=request.data.get("score")
         email=request.data.get("email")
         password=request.data.get("password")
         repassword=request.data.get("repassword")
         phone=request.data.get("phone")
         
         if password==repassword:
-            Student.objects.create(username=username,name=name,score=score,email=email,phone=phone,password=password)
+            Student.objects.create(username=username,name=name,email=email,phone=phone,password=password)
             stdobj = Student.objects.get(username=username)
             serialized = StudentSerializer(stdobj)
 
@@ -89,22 +89,29 @@ class ProfileEditView(APIView):
             return Response({"error": "Student not found"})
 
 class VideoListView(APIView):
-    def get(self,request):
-        id = request.data.get("id")
-        # tobj = Tutor.objects.get(id=id) 
+    def post(self,request):
+        tutor_id = request.data.get("id")
+        print(tutor_id,":???????>>>>>>>>>>>>")
+        try:
+            tobj = Tutor.objects.get(id=tutor_id)
+        except Tutor.DoesNotExist:
+            return Response({"error":"Tutor not found"})
+        
 
-        resources = api.resources(type="upload", prefix="DanceAcademy/", resource_type="video", context={"user_id": id})
-        print(resources,"############")
-        video_urls = []
+        videos = Video_upload.objects.filter(tutors=tobj)
+        print(videos,"####@@@@@@@in stddd")
 
-        for resource in resources["resources"]:
-            video_urls.append(resource["secure_url"])
+        video_urls = [
+            {
+                'v_upload':video.v_upload.url,
+                'up_time':video.up_time,
+                'desc':video.desc,
+            }
+            for video in videos
+        ]
 
-        # Now, video_urls contains the secure URLs of videos in the specified folder uploaded by the current user
-        for url in video_urls:
-            print(url)
 
-        return Response({"message": "success", "video_urls": video_urls})
+        return Response({"message":"success","video_urls":video_urls})
 
 
 

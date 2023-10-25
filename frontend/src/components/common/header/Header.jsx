@@ -106,24 +106,24 @@ const Header = () => {
             <li>
               <Link onClick={homeSubmit}>Home</Link>
             </li>
-            <li>
+            {(data.accessS)&& <li>
               <Link to='/courses'>All Courses</Link>
-            </li>
-            <li>
+            </li>}
+            {(data.accessS)&&<li>
               <Link to='/about'>About</Link>
-            </li>
-            <li>
+            </li>}
+            {(data.accessS)&&<li>
               <Link to='/team'>Team</Link>
-            </li>
-            <li>
+            </li>}
+            {(data.accessS)&&<li>
               <Link to='/pricing'>Pricing</Link>
-            </li>
-            <li>
+            </li>}
+            {(data.accessS)&&<li>
               <Link to='/journal'>Journal</Link>
-            </li>
-            <li>
+            </li>}
+            {(data.accessS)&&<li>
               <Link to='/contact'>Contact</Link>
-            </li>
+            </li>}
             {(!data.accessT && !data.accessS) && (
               <>
                 <li>
@@ -135,7 +135,8 @@ const Header = () => {
               </>
             )}
             
-             { ( data.accessS || data.accessT) &&       
+             { ( data.accessS || data.accessT) &&   ( 
+              <>
              <li className="nav-dropdown-item" >
              <NavDropdown title="For You" className='custom-dropdown'>
                {data.accessS ? <NavDropdown.Item onClick={stdProfile}>MyProfile</NavDropdown.Item> : <NavDropdown.Item onClick={tutorProfile}>MyProfile</NavDropdown.Item>}
@@ -144,7 +145,8 @@ const Header = () => {
                <NavDropdown.Divider />
                <NavDropdown.Item href="#action/3.4">My Favourites</NavDropdown.Item>
              </NavDropdown>
-           </li>}
+           </li>
+           </>  )}
           </ul>
          
           <div className='start'>
