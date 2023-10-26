@@ -5,14 +5,15 @@ import Box from '@mui/material/Box';
 import { useParams } from 'react-router-dom';
 import './Courses.css';
 
-const RelatedVideos = () => {
+const RelatedVideos = (props) => {
 
-    const {id} = useParams()
+    // const {id} = useParams()
+    
     const [videos,setVideos] = useState([]);
 
     useEffect(()=>{
         const datas ={
-            id:id
+            id:props.id
         }
         console.log(datas,"$$$$$$$$$$$");
         axios.post("http://localhost:8000/std/video-lists/",datas)

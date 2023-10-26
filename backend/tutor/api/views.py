@@ -221,7 +221,7 @@ class VideoUploadView(APIView):
 class VideoListsView(APIView):
     def post(self, request):
         tutor_id = request.data.get("id")
-
+        print(tutor_id,"id hey")
         try:
             tobj = Tutor.objects.get(id=tutor_id)
         except Tutor.DoesNotExist:

@@ -24,8 +24,10 @@ const DetailsCard = () => {
     },[]) 
 
     const [isUploadComponentVisible, setIsUploadComponentVisible] = useState(false);
-    const videoDisplayHandle = () => {
+    const [tid,setTid] = useState("")
+    const videoDisplayHandle = (id) => {
         setIsUploadComponentVisible(!isUploadComponentVisible);
+        setTid(id)
       };
 
   return (
@@ -45,14 +47,14 @@ const DetailsCard = () => {
                             <h1>{val.name}</h1>
                             <p>{val.qualification}/{val.expertise} yr expertise</p>
                          
-                        <span onClick={videoDisplayHandle} style={{width:"130px",padding:8,backgroundColor:"#fff"}}>Top Uploads</span>
+                        <span onClick={()=>videoDisplayHandle(val.id)} style={{width:"130px",padding:8,backgroundColor:"#fff"}}>Top Uploads</span>
                          
                         </div>
                     ))}
                 </div>
                 <>
                 {isUploadComponentVisible ? (
-                        <><RelatedVideos /></>  
+                        <><RelatedVideos id={tid} /></>  
                         ) : null}
                 </>
                 </div>

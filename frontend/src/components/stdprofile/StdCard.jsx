@@ -8,6 +8,11 @@ import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
+import ImageListItem from "@mui/material/ImageListItem";
+import Stack from "@mui/joy/Stack";
+import Card from "@mui/joy/Card";
+import CardContent from "@mui/joy/CardContent";
+// import './StdProfile.css';
 
 const style = {
   position: 'absolute',
@@ -152,7 +157,7 @@ const handlePasswordChange = (e) => {
 
   return (
     <>
-      <div className="items shadow"  >
+      {/* <div className="items shadow"  >
                 <div className="img" >
                     <img src={data.image} alt="" />
                     <div className="overlay">
@@ -165,15 +170,15 @@ const handlePasswordChange = (e) => {
         
                     <p className="details-text">
                 
-                        Username - {data.username} <br />
+                        Username - {data.username} <br /> */}
                         {/* Qualification - {data.qualification} <br /> */}
-                        Score - {data.score}<br />
+                        {/* Score - {data.score}<br />
                         Email - {data.email} <br />
                         Phone - {data.phone} <br /> 
                         Password - {data.password} <br />
                     </p> 
                 </div>
-            </div>
+            </div> */}
 
             {/* <>
             {isUploadComponentVisible ? (
@@ -186,6 +191,59 @@ const handlePasswordChange = (e) => {
                       <><VideoList /></>  
                       ) : null}
             </> */}
+
+
+
+<div className="profile-card">
+                        <Stack spacing={2} useFlexGap>
+                          <Card variant="outlined" sx={{ width: 643 }}>
+                            <CardContent orientation="horizontal">
+                              <ImageListItem sx={{ width: 200 }}>
+                              <img
+                                  srcSet={data.image}
+                                  src={data.image}
+                                  loading="lazy"
+                                />
+                              </ImageListItem>
+
+
+                              <div className="details">
+                                <Typography  >
+                                {data.name}
+                                
+                                </Typography>
+                                <Typography sx={{textTransform:"uppercase"}}>
+                                {data.course.title}
+                                </Typography>
+                                <Typography >
+                        
+                                  Username - {data.username}
+                                </Typography>
+                                <Typography >
+                                  
+                                  Email - {data.email}
+                                </Typography>
+                                <Typography>
+                                  Phone - {data.phone}
+                                </Typography>
+
+                                <i className="fa fa-edit icon" onClick={handleOpen}   title='Edit Details'></i>
+                              
+                              </div>
+                              
+                            </CardContent>
+                           
+
+                            
+                          </Card>
+                        </Stack>
+                      </div>
+
+
+
+
+
+
 
 <Modal open={open} onClose={handleClose} className='edit-modal'>
         <Box sx={style}>
