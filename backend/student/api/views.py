@@ -114,6 +114,27 @@ class VideoListView(APIView):
         return Response({"message":"success","video_urls":video_urls})
 
 
+class CoursePaymentView(APIView):
+    def post(self,request):
+        studentId = request.data.get("studentId")
+        structId = request.data.get("structId")
+        tutorName = request.data.get("tutorName")
+        razorpayId = request.data.get("razorpayId")
 
+        stdobj = Student.objects.get(id=studentId)
+        structobj = Course_structure.objects.get(id=structId)
+        tobj = Tutor.objects.get(name=tutorName)
+
+        payobj = CoursePayment.objects.create(
+            studentId=stdobj,
+            structId=structobj,
+            tutorId=tobj,
+            razorpayId=razorpayId
+        )
+
+        print(payobj,"MJJJJJJJJJJJ")
+
+        serialized = CoursePaymentSerializer(payobj)
+        return Response(serialized.data)
 
         

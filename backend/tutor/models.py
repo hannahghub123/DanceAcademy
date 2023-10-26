@@ -48,6 +48,10 @@ class Course_structure(models.Model):
 
 
 class Tutor(models.Model):
+    STATUS_CHOICES=(
+        ("Available","Available"),
+        ("Not Available","Not Available")
+    )
     username = models.CharField(max_length=50)
     name = models.CharField(max_length=100)
     qualification = models.CharField(max_length=100)
@@ -58,7 +62,7 @@ class Tutor(models.Model):
     is_approved = models.BooleanField(default=False)
     course = models.ManyToManyField(Course)
     image = models.ImageField(upload_to="tutor-uploads", max_length=500,null=True,blank=True)
-    # v_upload = models.ManyToManyField(Video_upload,blank=True)
+    status = models.CharField(max_length=50,choices=STATUS_CHOICES,default="Available")
 
     def __str__(self):
         return f"{self.username}"
@@ -80,5 +84,7 @@ class Resume_List(models.Model):
 
     def __str__(self):
         return f"Resume Upload {self.id}"
+    
+
 
     

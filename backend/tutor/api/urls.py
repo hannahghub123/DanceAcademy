@@ -10,6 +10,7 @@ urlpatterns = [
     path("course-details/<int:id>",CourseDetailsView.as_view(),name="course-details"),
     path("course-struct/<int:id>",CourseStructView.as_view(),name="course-struct"),
     path("course-structure/",CourseStructureView.as_view(),name="course-structure"),
+    path("course-struct/",StructDetailsView.as_view(),name="struct-details"),
     path("image-set/",ImageSetView.as_view(),name="image-setting"),
     path("tdetails/<int:id>",TutorView.as_view(),name="tutor-view"),
     path("video-upload/<int:id>",VideoUploadView.as_view(),name="video-upload"),

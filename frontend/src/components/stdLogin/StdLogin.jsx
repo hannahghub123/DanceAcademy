@@ -41,12 +41,11 @@ const StdLogin = () => {
 
             console.log(tokenobjs);
 
+          if (res.data.message === "success"){
+            navigate('../std-dashboard/')
             localStorage.setItem("accessToken-S",JSON.stringify(res.data.access));
             localStorage.setItem("stdDetails",JSON.stringify(res.data.data));
             dispatch(changeaccessS(res.data.access))
-
-          if (res.data.message === "success"){
-            navigate('../std-dashboard/')
           }else{
             alert(res.data.message)
           }

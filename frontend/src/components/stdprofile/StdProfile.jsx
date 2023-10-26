@@ -12,7 +12,7 @@ const StdProfile = () => {
         <section className='team padding'>
             <div className="container grid">
                 <StdCard/>
-                <ImageDisplay/>
+                {/* <ImageDisplay/> */}
             </div>
         </section>
         {/* <UploadWidget/> */}

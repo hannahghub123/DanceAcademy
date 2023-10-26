@@ -151,12 +151,21 @@ class CourseStructureView(APIView):
         print(serialized.data,"heyy haha")
         return Response(serialized.data)
     
+class StructDetailsView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        structobj = Course_structure.objects.get(id=id)
+        serialized = CourseStructSerializer(structobj)
+        print(serialized.data,"heyy haha")
+        return Response(serialized.data)
+    
 class CourseDetailsView(APIView):
     def get(self,request,id):
         cobj = Course.objects.get(id=id) 
         serialized = CourseSerializer(cobj)
 
         return Response(serialized.data)
+    
     
 class TutorView(APIView):
     def get(self,request,id):

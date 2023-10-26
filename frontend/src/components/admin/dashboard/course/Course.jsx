@@ -14,9 +14,9 @@ const Course = () => {
     const cstructSubmit = (id) =>{
         navigate(`../admin/course-struct/${id}`)
       }
-      const catSubmit = ()=>{
-        navigate('../admin/course-category/')
-      }
+      // const catSubmit = ()=>{
+      //   navigate('../admin/course-category/')
+      // }
 
       const [values,setValues] = useState([]);
 
@@ -37,7 +37,7 @@ const Course = () => {
         <br />
 
            <button onClick={dashSubmit}>back to dashboard</button>
-           <button onClick={catSubmit}>back to catgeory</button>
+           {/* <button onClick={catSubmit}>back to catgeory</button> */}
 <br />
            <Table responsive="sm">
         <thead>

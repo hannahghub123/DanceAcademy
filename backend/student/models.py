@@ -15,3 +15,9 @@ class Student(models.Model):
 
     def __str__(self):
         return f"{self.username}"
+    
+class CoursePayment(models.Model):
+    studentId = models.ForeignKey(Student, on_delete=models.CASCADE)
+    structId = models.ForeignKey(Course_structure, on_delete=models.CASCADE)
+    tutorId = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+    razorpayId = models.CharField( max_length=250)

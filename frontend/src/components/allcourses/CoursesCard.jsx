@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import { coursesCard } from '../../dummydata'
 import './Courses.css'
 import { useParams } from 'react-router-dom';
 import axiosInstance from '../../axios/tutoraxios'
+import CourseModal from './CourseModal';
 
 // displaying course plans - the big cards 
 
@@ -22,10 +22,13 @@ const CoursesCard = () => {
         })
     },[])
 
+      
+
   return (
     <>
         <section className='coursesCard'>
             <div className="container grid2">
+              {console.log(cdata,"cdata")}
                 {cdata.map((val)=>{
                    return (
                    <div className="items">
@@ -48,28 +51,17 @@ const CoursesCard = () => {
                                 <h6><i class='fas fa-hand-point-right icon'></i> {val.levels} </h6>
                                 <h6><i class='fas fa-hand-point-right icon'></i> {val.duration} min/Class </h6>
                                 <h6><i class='fas fa-hand-point-right icon'></i> {val.num_of_classes} Online Classes</h6>
-                                {/* <h6>{val.description} </h6> */}
-                                {/* <div className="details">
-                                    {val.courTeacher.map((details)=>(
-                                        <>
-                                        <div className="box">
-                                            <div className="dimg">
-                                                <img src={details.dcover} alt="" />
-                                            </div>
-                                            <div className="para">
-                                                <h4>{details.name}</h4>
-                                            </div>
-                                        </div>
-                                        <span>{details.totalTime}</span>
-                                        </>
-                                    ))}
-                                </div> */}
+                            
                             </div>
                         </div>
                         <div className="price">
                             <h3>{val.price} / {val.price_per} </h3>
                         </div>
-                        <button className='outline-btn'>ENROLL NOW !</button>
+
+                        {console.log(val.id,"hi id data")}
+                        {/* <button className='outline-btn' onClick={modalHandle}>ENROLL NOW !</button> */}
+                        <CourseModal id={val.id}/>
+                    
                     </div>
                     )
                 })}

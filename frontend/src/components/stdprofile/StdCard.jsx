@@ -44,7 +44,7 @@ const StdCard = () => {
       score:'',
       password: '',
       image:'',
-      course:'',
+      course:[],
     }
   )
 
@@ -161,7 +161,7 @@ const handlePasswordChange = (e) => {
                 </div>
                 <div className="details">
                     <h2>{data.name}</h2>
-                    <h2  className="all-caps"><b>{data.course}</b></h2> 
+                    <h2  className="all-caps"><b>{data.course.title}</b></h2> 
         
                     <p className="details-text">
                 
