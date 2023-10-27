@@ -137,4 +137,14 @@ class CoursePaymentView(APIView):
         serialized = CoursePaymentSerializer(payobj)
         return Response(serialized.data)
 
+class PayDetailsView(APIView):
+    def post(self,request):
+        tutorId = request.data.get("id")
+
+        payobj = CoursePayment.objects.filter(tutorId_id=tutorId)
+        print(payobj.values(),"#########3")
+
+        serialized = CoursePaymentSerializer(payobj,many=True)
+
+        return Response({"paydata":serialized.data})
         

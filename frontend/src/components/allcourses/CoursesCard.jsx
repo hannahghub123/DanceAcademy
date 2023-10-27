@@ -10,8 +10,17 @@ const CoursesCard = () => {
 
     const {id} = useParams()
     const [cdata,setCdata] = useState([]);
+    const [acc,setAcc] = useState(false)
+
 
     useEffect(()=>{
+
+        const stdData = localStorage.getItem("stdDetails")
+        if (stdData){
+            setAcc(true)
+        }
+
+
         const datas = {
             id:id
         }
@@ -21,6 +30,11 @@ const CoursesCard = () => {
             setCdata(res.data)
         })
     },[])
+
+
+  
+    console.log(acc,"accvvvhhhkjkl");
+
 
       
 
@@ -60,7 +74,8 @@ const CoursesCard = () => {
 
                         {console.log(val.id,"hi id data")}
                         {/* <button className='outline-btn' onClick={modalHandle}>ENROLL NOW !</button> */}
-                        <CourseModal id={val.id}/>
+                        { acc && <CourseModal id={val.id}/>}
+                        
                     
                     </div>
                     )

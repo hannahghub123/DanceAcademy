@@ -106,9 +106,9 @@ const Header = () => {
             <li>
               <Link onClick={homeSubmit}>Home</Link>
             </li>
-            {(data.accessS)&& <li>
+           <li>
               <Link to='/courses'>All Courses</Link>
-            </li>}
+            </li>
             {(data.accessS)&&<li>
               <Link to='/about'>About</Link>
             </li>}

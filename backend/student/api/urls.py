@@ -8,4 +8,6 @@ urlpatterns = [
     path("std-edit/",ProfileEditView.as_view(),name="std-edit"),
     path("video-lists/",VideoListView.as_view(),name="video list"),
     path("course-payment/",CoursePaymentView.as_view(),name="course-payment"),
+    path("pay-details/",PayDetailsView.as_view(),name="pay-details"),
+    
 ]

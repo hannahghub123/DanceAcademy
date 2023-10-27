@@ -171,7 +171,7 @@ const TutorCard = () => {
   return (
     <>
             <div className="items shadow"  >
-                <div className="img" >
+                <div className="img" style={{width:"300px"}}>
                     <img src={data.image} alt="" />
                     <div className="overlay">
                     <i className="fa fa-edit icon"  onClick={handleOpen} title='Edit Details'></i>

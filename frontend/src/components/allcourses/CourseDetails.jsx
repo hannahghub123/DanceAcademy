@@ -11,8 +11,14 @@ import CoursesCard from './CoursesCard'
 const CourseDetails = () => {
     const {id} = useParams()
     const [data,setData] = useState("")
+    const [acc,setAcc] = useState(false)
 
     useEffect(()=>{
+      const stdData = localStorage.getItem("stdDetails")
+      if (stdData){
+        setAcc(true)
+      }
+
         axiosInstance.get(`course-details/${id}`)
         .then((res)=>{
             console.log(res.data,"hi courses-details data")
@@ -21,6 +27,8 @@ const CourseDetails = () => {
     },[]) 
 
     console.log(data,"heyyyy");
+  
+    console.log(acc,"accvvvhhhkjkl");
 
   return (
     <>
@@ -30,7 +38,8 @@ const CourseDetails = () => {
     <p>{data.description} </p>
     </div>
         <CoursesCard/>
-        <DetailsCard/>
+        { acc && <DetailsCard/>}
+        
         <br />   <br />
    
     </>

@@ -10,6 +10,9 @@ class StudentSerializer(ModelSerializer):
 
 
 class CoursePaymentSerializer(ModelSerializer):
+    structId = CourseStructSerializer() 
+    studentId = StudentSerializer() 
+    tutorId = TutorSerializer() 
     class Meta:
         model = CoursePayment
         fields = "__all__"
