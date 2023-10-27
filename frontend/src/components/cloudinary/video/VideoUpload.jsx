@@ -1,6 +1,10 @@
 import React, { useState } from 'react'
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import Stack from "@mui/joy/Stack";
+import Card from "@mui/joy/Card";
+import CardContent from "@mui/joy/CardContent";
+import './Video.css';
 
 const VideoUpload = () => {
     const [videoInput,setVideoInput] = useState(null);
@@ -39,31 +43,47 @@ const VideoUpload = () => {
     }
 
   return (
-    <div className="video-upload-container">
-      <h1>Upload Your Video</h1>
-      <form onSubmit={handleVideoSubmit} className="video-upload-form">
-        <label htmlFor="video-upload-input" className="video-input-label">
-          Choose a Video:
-        </label>
-        <input
-          type="file"
-          id="video-upload-input"
-          accept="video/*"
-          name="video"
-          onChange={handleVideoUpload}
-          className="video-input"
-        />
-        <input
-          type="text"
-          placeholder="Video Description"
-          onChange={(e) => setDesc(e.target.value)}
-          className="description-input"
-        />
-        <button className="video-upload-btn" type="submit">
-          Upload Video
-        </button>
-      </form>
-    </div>
+    <>
+<div className="flex justify-center mb-4">
+                        <Stack spacing={2} useFlexGap>
+                          <Card variant="outlined" sx={{ width: 400 }}>
+                            <CardContent orientation="horizontal">
+                            <div className="video-upload-container" style={{marginLeft:"25px"}}>
+      
+                            <h1>Upload Your Video</h1>
+                                <form onSubmit={handleVideoSubmit} className="video-upload-form">
+                                  <label htmlFor="video-upload-input" className="video-input-label">
+                                    Choose a Video :
+                                  </label>
+                            
+                                  <input
+                                    type="file"
+                                    id="video-upload-input"
+                                    accept="video/*"
+                                    name="video"
+                                    onChange={handleVideoUpload}
+                                    className="video-input"
+                                  />
+
+                                  <label htmlFor="video-upload-input" className="video-input-label">
+                                    Add Your Video Description :
+                                  </label>
+                                  <input
+                                    type="text"
+                                    placeholder="Video Description"
+                                    onChange={(e) => setDesc(e.target.value)}
+                                    className="description-input"
+                                  />
+                                  <button className="video-upload-btn" type="submit">
+                                    Upload Video
+                                  </button>
+                                </form>
+                                </div>
+                            </CardContent>                           
+                          </Card>
+                        </Stack>
+                      </div>
+                      </>
   )
 }
 

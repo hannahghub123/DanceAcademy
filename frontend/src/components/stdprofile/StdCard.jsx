@@ -39,36 +39,16 @@ const StdCard = () => {
   const handleClose = () => setOpen(false);
   const [image,setImage] = useState('');
 
-  const [data,setData] = useState(
-    {
-      id:id,
-      username: '',
-      name: '',
-      email: '',
-      phone: '',
-      score:'',
-      password: '',
-      image:'',
-      course:[],
-    }
-  )
+  const [data,setData] = useState("")
 
-  useEffect((data)=>{
+  useEffect(()=>{
     const stdDetails = localStorage.getItem("stdDetails");
     console.log(stdDetails,"stdDetailsssssss");
     if (stdDetails) {
       const parseData = JSON.parse(stdDetails);
       console.log("Parsedata",parseData)
-      setData({...data,
-        id:parseData.id,
-        username:parseData.username,
-        course:parseData.course,
-         name:parseData.name, 
-         email:parseData.email, 
-         phone:parseData.phone, 
-         score:parseData.score, 
-         password:parseData.password, 
-         image:parseData.image}); 
+
+      setData(parseData); 
      
       // console.log("??",parseData.data.id,parseData.data.username,parseData.data.course,parseData.data.name, parseData.data.email,parseData.data.phone, parseData.data.score,parseData.data.password,parseData.data.image,"???");
 
@@ -86,11 +66,25 @@ const StdCard = () => {
 
   const handleSubmit = ()=>{
 
-    axiosInstance.post("std-edit/",data).then((res)=>{
-      console.log(res.data," hi res.data ahn ith",res.data.name);
-      localStorage.setItem("stdDetails",JSON.stringify(res.data))
-      console.log(res.data.image,"imggggg",image);        
-      setData({...data,id:res.data.data.id,username:res.data.data.username,course: res.data.course.id ,name:res.data.data.name, email:res.data.data.email, phone:res.data.data.phone, password:res.data.data.password});
+    const datas={
+      id:data.id,
+        username:data.username,
+        course:data.course.id,
+         name:data.name, 
+         email:data.email, 
+         phone:data.phone, 
+         score:data.score, 
+         password:data.password, 
+         image:data.image
+    }
+
+    console.log(datas,"ji");
+
+    axiosInstance.post("std-edit/",datas).then((res)=>{
+      console.log(res.data," hi res.data ahn ith");
+      localStorage.setItem("stdDetails",JSON.stringify(res.data.data))
+      console.log(res.data.data.image,"imggggg",image);        
+      setData({...data,id:res.data.data.id,username:res.data.data.username,course: res.data.course ,name:res.data.data.name, email:res.data.data.email, phone:res.data.data.phone, password:res.data.data.password});
 
       if (image){
         const handleSubmitFile = async(e)=>{
@@ -195,8 +189,8 @@ const handlePasswordChange = (e) => {
 
 
 <div className="profile-card">
-                        <Stack spacing={2} useFlexGap>
-                          <Card variant="outlined" sx={{ width: 643 }}>
+                        <Stack >
+                          <Card variant="outlined" sx={{ width: 500 }}>
                             <CardContent orientation="horizontal">
                               <ImageListItem sx={{ width: 200 }}>
                               <img
@@ -213,7 +207,7 @@ const handlePasswordChange = (e) => {
                                 
                                 </Typography>
                                 <Typography sx={{textTransform:"uppercase"}}>
-                                {data.course.title}
+                                {/* {data.course.title} */}
                                 </Typography>
                                 <Typography >
                         
@@ -226,7 +220,7 @@ const handlePasswordChange = (e) => {
                                 <Typography>
                                   Phone - {data.phone}
                                 </Typography>
-
+                                <br />
                                 <i className="fa fa-edit icon" onClick={handleOpen}   title='Edit Details'></i>
                               
                               </div>
@@ -272,7 +266,7 @@ const handlePasswordChange = (e) => {
             label="Course"
             variant="outlined"
             fullWidth
-            value={data.course}
+            // value={data.course.title}
             InputProps={{
                 readOnly: true,
               }}

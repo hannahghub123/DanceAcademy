@@ -63,28 +63,28 @@ class ProfileEditView(APIView):
         username=request.data.get("username")
         name=request.data.get("name")
         score = request.data.get("score")
-        courseid = request.data.get("course")
+        course = request.data.get("course")
         email=request.data.get("email")
         password=request.data.get("password")
         phone=request.data.get("phone")
-        # cobj = Course.objects.filter(id=courseid)
-        print("heyy std edit profilee>>>>>>>>>>",id,username,name,score,email,phone,password,"???????")
+        cobj = Course.objects.get(id=course)
+        print("heyy std edit profilee>>>>>>>>>>",id,username,name,score,email,phone,password,"???????",course,"???????????????")
 
         try:
             stdobj = Student.objects.get(id=id)
             stdobj.username = username
             stdobj.name = name
             stdobj.score = score
-            stdobj.course = Course.objects.get(id=courseid)  
+            stdobj.course = cobj 
             stdobj.email = email
             stdobj.phone = phone
             stdobj.password = password
             stdobj.save()
 
-            c_serialized = CourseSerializer(stdobj.course)
+            # c_serialized = CourseSerializer(stdobj.course), "course": c_serialized.data}
             serialized = StudentSerializer(stdobj)
-
-            return Response({"data": serialized.data, "course": c_serialized.data})
+            print(serialized.data,"hi data")
+            return Response({"data": serialized.data} )
         except Student.DoesNotExist:
             return Response({"error": "Student not found"})
 
