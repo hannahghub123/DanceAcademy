@@ -1,26 +1,30 @@
 import React from 'react'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom';
+import './Sidebar.css';
+import Head from '../head/Head';
+import { Button } from '@mui/material';
 
 const Sidebar = () => {
-    const navigate = useNavigate()
-    const studentSubmit = () =>{
-        navigate('../admin/student/')
-    }
-    const tutorSubmit = () =>{
-        navigate('../admin/tutor/')
-    }
-    
-    const coursesSubmit = () =>{
-      navigate('../admin/courses/')
-    }
+
+  const navigate = useNavigate()
+  const logoutSubmit = ()=>{
+    localStorage.removeItem("adminAccessToken");
+    localStorage.removeItem("adminData");
+    localStorage.removeItem("stdData");
+    localStorage.removeItem("tutorData");
+    navigate('../admin/adminlogin/')
+  }
    
   return (
-    <div>
-        <button onClick={studentSubmit}>Student</button>
-        <button onClick={tutorSubmit}>Tutor</button>
-        <button onClick={coursesSubmit}>Courses</button>
-       
-    </div>
+    <>
+      <div class="sidebar">
+        <Link to="../admin/admin-dashboard">Home</Link>
+        <Link to="../admin/student/">Student</Link>
+        <Link to="../admin/tutor">Tutor</Link>
+        <Link to="../admin/courses">Courses</Link>
+        <Button onClick={logoutSubmit}>Logout</Button>
+      </div>
+    </>
   )
 }
 

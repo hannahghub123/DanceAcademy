@@ -176,6 +176,28 @@ class TutorView(APIView):
 
         return Response(serialized.data)
     
+class TutorDetailsView(APIView):
+    def get(self,request):
+        tutorobjs = Tutor.objects.all()
+        serialized = TutorSerializer(tutorobjs,many=True)
+
+        return Response(serialized.data)
+    
+class StatusEditView(APIView):
+    def post(self,request):
+        id=request.data.get("id")
+        tutorobj = Tutor.objects.get(id=id)
+
+        if tutorobj.is_approved == True:
+            tutorobj.is_approved=False
+        else:
+            tutorobj.is_approved=True
+        tutorobj.save()
+
+        serialized = TutorSerializer(tutorobj)
+
+        return Response(serialized.data)
+    
 class ImageSetView(APIView):
     def post(self,request):
         id=request.data.get("id")

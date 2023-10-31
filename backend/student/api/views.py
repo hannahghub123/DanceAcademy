@@ -41,6 +41,13 @@ class LoginView(APIView):
         except:
 
             return Response({"message":"Invalid credentials"})
+        
+class StudentDetailsView(APIView):
+    def get(self,request):
+        studentobj = Student.objects.all()
+        serialized = StudentSerializer(studentobj,many=True)
+
+        return Response(serialized.data)
             
         
 class ImageSetView(APIView):
@@ -147,4 +154,42 @@ class PayDetailsView(APIView):
         serialized = CoursePaymentSerializer(payobj,many=True)
 
         return Response({"paydata":serialized.data})
+    
+class StatusBlockview(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        stdobj = Student.objects.get(id=id)
+        curr_status = stdobj.status
+        
+        if curr_status == False:
+            stdobj.status = True
+        # else:
+        #     stdobj.status = True
+
+        print(stdobj.status,"$$$$$$$$$",stdobj.name)
+        stdobj.save()
+
+        serialized = StudentSerializer(stdobj)
+
+        return Response({"message":"status-block updated","data":serialized.data})
+    
+class StatusUnblockview(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        stdobj = Student.objects.get(id=id)
+        curr_status = stdobj.status
+        
+        if curr_status == True:
+            stdobj.status = False
+        # else:
+        #     stdobj.status = True
+
+        print(stdobj.status,"$$$$$$$$$",stdobj.name)
+        stdobj.save()
+
+        serialized = StudentSerializer(stdobj)
+
+        return Response({"message":"status-unblock updated","data":serialized.data})
+
+        
         

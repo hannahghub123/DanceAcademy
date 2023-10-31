@@ -2,21 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axiosInstance from '../../../../axios/tutoraxios';
 import Table from 'react-bootstrap/Table';
+import Sidebar from '../../sidebar/Sidebar';
+import Head from '../../head/Head';
 
 const Course = () => {
     // const {id} = useParams();
     // console.log("id course il kitty",id)
     const navigate = useNavigate();
 
-    const dashSubmit = ()=>{
-        navigate('../admin/admin-dashboard')
-    }
     const cstructSubmit = (id) =>{
         navigate(`../admin/course-struct/${id}`)
       }
-      // const catSubmit = ()=>{
-      //   navigate('../admin/course-category/')
-      // }
 
       const [values,setValues] = useState([]);
 
@@ -30,21 +26,22 @@ const Course = () => {
       
   return (
 
-    <div>Course
+    <>
+    <Head title="Course Details"/>
+      <Sidebar/>
        
         <br />
          
         <br />
-
-           <button onClick={dashSubmit}>back to dashboard</button>
-           {/* <button onClick={catSubmit}>back to catgeory</button> */}
 <br />
-           <Table responsive="sm">
+
+<div className='container' style={{maxWidth:"1000px"}}>
+           <Table >
         <thead>
           <tr>
             <th>ID</th>
             <th>TITLE</th>
-            <th>DESCRIPTION</th>
+            <th >DESCRIPTION</th>
 
             <th>-</th>
           </tr>
@@ -54,13 +51,15 @@ const Course = () => {
         <tr key={item.id}>
             <td>{item.id}</td>
             <td>{item.title}</td>
-            <td>{item.description}</td>
+            <td style={{maxWidth:"400px"}}>{item.description}</td>
     
             <td><button onClick={()=>cstructSubmit(item.id)}>Course Structure</button></td>
           </tr> ))}
         </tbody>
       </Table>
-    </div>
+
+      </div>
+    </>
   )
 }
 

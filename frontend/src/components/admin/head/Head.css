@@ -1,0 +1,10 @@
+.admin-head{
+    background-color: grey;
+    height: 65px;
+    width: 100%;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+}
+
+/* style={{backgroundColor:"grey",height:"65px", position:"fixed",width:"100%"}} */

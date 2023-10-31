@@ -84,6 +84,7 @@ const TutorSignup = () => {
         setCdata(res.data)
       })
     },[])
+    
 
     const fileUploadHandle = (e)=>{
       const file = e.target.files[0];

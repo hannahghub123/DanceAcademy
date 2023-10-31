@@ -1,22 +1,17 @@
 import React from 'react';
 import Sidebar from '../sidebar/Sidebar'
 import { useNavigate } from 'react-router-dom';
+import Head from '../head/Head';
+
 
 const AdminDashboard = () => {
-  const navigate = useNavigate()
-  const logoutSubmit = ()=>{
-    localStorage.removeItem("adminAccessToken");
-    localStorage.removeItem("adminData");
-    localStorage.removeItem("stdData");
-    localStorage.removeItem("tutorData");
-    navigate('../admin/adminlogin/')
-  }
+
   return (
-    <div>
-      <br />
+    <>
+  <Head title="Admin Dashboard"/>
       <Sidebar/>
-      <button onClick={logoutSubmit}>logout</button>
-    </div>
+      {/* <button onClick={logoutSubmit}>logout</button> */}
+    </>
   )
 }
 
