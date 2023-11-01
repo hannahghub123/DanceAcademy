@@ -131,6 +131,25 @@ class CourseView(APIView):
 
         return Response(serialized.data)
     
+class AdminCourseEditView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        title = request.data.get("title")
+        description = request.data.get("description")
+
+        print(id,title,description)
+
+        courseobj = Course.objects.get(id=id)
+        print(courseobj,"beforee")
+        courseobj.title=title
+        courseobj.description=description
+        courseobj.save()
+
+        courseobj = Course.objects.get(id=id)
+        print(courseobj,"updated")
+        serialized = CourseSerializer(courseobj)
+        return Response(serialized.data)
+    
 class CourseStructView(APIView):
     # from admin side 
     def get(self,request,id):
@@ -140,7 +159,32 @@ class CourseStructView(APIView):
         serialized = CourseStructSerializer(structobj,many=True)
 
         return Response(serialized.data)
-    
+
+class CourseStructEditView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        title = request.data.get("title")
+        levels = request.data.get("levels")
+        price =  request.data.get("price")
+        description = request.data.get("description")
+        duration = request.data.get("duration")
+        num_of_classes = request.data.get("num_of_classes")
+        price_per = request.data.get("price_per")
+
+        structobj = Course_structure.objects.get(id=id)
+        structobj.title = title
+        structobj.levels = levels
+        structobj.price = price
+        structobj.description = description
+        structobj.duration=duration
+        structobj.num_of_classes=num_of_classes
+        structobj.price_per=price_per
+        structobj.save()
+
+        structobj = Course_structure.objects.get(id=id)
+        serialized = CourseStructSerializer(structobj)
+        return Response(serialized.data)
+
 class CourseStructureView(APIView):
     def post(self,request):
         id = request.data.get("id")
@@ -210,6 +254,19 @@ class ImageSetView(APIView):
 
         serialized = TutorSerializer(tobj)
         return Response({"message":"success","data":serialized.data})
+    
+class CourseImageSetView(APIView):
+    def post(self,request):
+        id=request.data.get("id")
+        image=request.data.get("image")
+        print(image,"course Kuiii",id)
+
+        course_obj= Course.objects.get(id=id)
+        course_obj.image=image
+        course_obj.save()
+
+        serialized = CourseSerializer(course_obj)
+        return Response(serialized.data)
 
 
 class VideoUploadView(APIView):

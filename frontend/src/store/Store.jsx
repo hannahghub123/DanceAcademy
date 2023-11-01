@@ -8,6 +8,8 @@ import admindashReducer from '../features/admindashSlice';
 import tprofeditReducer from '../features/tutorprofileEditSlice';
 import logoutReducer from '../features/logoutSlice';
 import stdEditReducer from '../features/stdEditslice';
+import admincourseEditReducer from '../features/admincourseEditSlice';
+import courseStructEditReducer from '../features/coursestructureSlice';
 
 const store = configureStore({
     reducer: {
@@ -20,6 +22,8 @@ const store = configureStore({
       tprofedit : tprofeditReducer,
       logout : logoutReducer,
       stdedit : stdEditReducer,
+      admincourseEdit : admincourseEditReducer,
+      courseStructEdit : courseStructEditReducer,
     },
   });
 

@@ -35,7 +35,7 @@ const TutorsComponent = () => {
       <Sidebar/>
         <br /> <br />
        <br />
-       <div className='container'  style={{maxWidth:"1200px"}}>
+       <div className='container'  style={{maxWidth:"1300px",marginLeft:"160px"}}>
       <Table responsive="sm" style={{marginLeft:"40px",marginTop:"10px"}}>
         <thead>
           <tr>
@@ -47,8 +47,9 @@ const TutorsComponent = () => {
             <th>PHONE</th>
             <th>EXPERTISE</th>
             <th>QUALIFICATION</th>
-            <th>PASSWORD</th>
+            <th>COURSE ASSIGNED</th>
             <th>IS APPROVED</th>
+            {/* <th>RESUME</th> */}
           </tr>
         </thead>
         <tbody>
@@ -64,12 +65,18 @@ const TutorsComponent = () => {
             <td>{item.phone}</td>
             <td>{item.expertise}</td>
             <td>{item.qualification}</td>
-            <td>{item.password}</td>
+            <td>{(item.course).map((val)=>{
+              return(<>
+              {val.title}
+              <br />
+              </>)
+            })}</td>
             <td>
               {/* approval confirmation ? */}
               {!(item.is_approved) && <Link onClick={()=>approveHandle(item.id)}>Approve</Link>}
               {(item.is_approved) && <Link onClick={()=>approveHandle(item.id)} style={{color:"red"}}>Restrict</Link>}
             </td>
+            {/* <td>{item.resume}</td> */}
           </tr>))}
         </tbody>
       </Table>
