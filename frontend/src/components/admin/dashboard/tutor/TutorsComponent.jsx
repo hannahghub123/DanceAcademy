@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { useNavigate } from 'react-router-dom';
 import Sidebar from '../../sidebar/Sidebar';
 import Head from '../../head/Head';
 import axiosInstance from '../../../../axios/tutoraxios';
 import { Link } from 'react-router-dom';
-import Alert from '@mui/joy/Alert';
-
 
 const TutorsComponent = () => {
-    const navigate = useNavigate()
+
     const [tutordetails,setTutordetails] = useState([])
     const [ approveStatus, setApproveStatus] = useState(false)
-
-    const dashSubmit = ()=>{
-        navigate('../admin/admin-dashboard')
-    }
   
     useEffect(() => {
       axiosInstance.get("tutor-details/")

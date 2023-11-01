@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Table from 'react-bootstrap/Table';
-import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../../../../axios/stdaxios';
 import Sidebar from '../../sidebar/Sidebar';
 import './StudentComponent.css'
 import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
 import Head from '../../head/Head';
 
 const StudentComponent = () => {
-
-  const navigate = useNavigate()
 
     const [stdDetails, setStdDetails] = useState([]);
     const [statusUpdate, setStatusUpdate] = useState(false);
