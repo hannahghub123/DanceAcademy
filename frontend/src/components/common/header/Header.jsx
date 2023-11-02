@@ -95,6 +95,34 @@ const Header = () => {
       console.log("Tutor details not found in localStorage");
     }
   }
+
+  const stdMyNotes=()=>{
+    const sdata = localStorage.getItem("stdDetails")
+
+    if(sdata){
+      const stdDetails = JSON.parse(sdata);
+      const id = stdDetails.id
+
+      console.log("header std il id und",id);
+      navigate(`../Std-MyNotes/${id}`)
+    }else {
+      console.log("Tutor details not found in localStorage");
+    }
+  }
+
+  const tutorMyNotes=()=>{
+    const tdata = localStorage.getItem("tutorDetails")
+
+    if(tdata){
+      const tutorDetails = JSON.parse(tdata);
+      const id = tutorDetails.id
+
+      console.log("header il id und",id);
+      navigate(`../Tutor-MyNotes/${id}`)
+    }else {
+      console.log("Tutor details not found in localStorage");
+    }
+  }
   
 
   return (
@@ -112,15 +140,15 @@ const Header = () => {
             {(data.accessS)&&<li>
               <Link to='/about'>About</Link>
             </li>}
-            {(data.accessS)&&<li>
+            {/* {(data.accessS)&&<li>
               <Link to='/team'>Team</Link>
-            </li>}
-            {(data.accessS)&&<li>
+            </li>} */}
+            {/* {(data.accessS)&&<li>
               <Link to='/pricing'>Pricing</Link>
-            </li>}
-            {(data.accessS)&&<li>
+            </li>} */}
+            {/* {(data.accessS)&&<li>
               <Link to='/journal'>Journal</Link>
-            </li>}
+            </li>} */}
             {(data.accessS)&&<li>
               <Link to='/contact'>Contact</Link>
             </li>}
@@ -140,7 +168,7 @@ const Header = () => {
              <li className="nav-dropdown-item" >
              <NavDropdown title="For You" className='custom-dropdown'>
                {data.accessS ? <NavDropdown.Item onClick={stdProfile}>MyProfile</NavDropdown.Item> : <NavDropdown.Item onClick={tutorProfile}>MyProfile</NavDropdown.Item>}
-               <NavDropdown.Item href="#action/3.2">MyNotes</NavDropdown.Item>
+               {data.accessS ? <NavDropdown.Item onClick={stdMyNotes}>MyNotes</NavDropdown.Item> : <NavDropdown.Item onClick={tutorMyNotes}>MyNotes</NavDropdown.Item>}
                <NavDropdown.Item href="#action/3.3">NewsToday</NavDropdown.Item>
                <NavDropdown.Divider />
                <NavDropdown.Item href="#action/3.4">My Favourites</NavDropdown.Item>

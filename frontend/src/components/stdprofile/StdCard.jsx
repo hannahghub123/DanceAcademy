@@ -49,8 +49,6 @@ const StdCard = () => {
       console.log("Parsedata",parseData)
 
       setData(parseData); 
-     
-      // console.log("??",parseData.data.id,parseData.data.username,parseData.data.course,parseData.data.name, parseData.data.email,parseData.data.phone, parseData.data.score,parseData.data.password,parseData.data.image,"???");
 
     }
 
@@ -174,21 +172,9 @@ const handlePasswordChange = (e) => {
                 </div>
             </div> */}
 
-            {/* <>
-            {isUploadComponentVisible ? (
-                      <><VideoUpload /></>  
-                      ) : null}
-            </>
+ 
 
-            <>
-            {isViewComponentVisible ? (
-                      <><VideoList /></>  
-                      ) : null}
-            </> */}
-
-
-
-<div className="profile-card">
+<div className="profile-card shadow">
                         <Stack >
                           <Card variant="outlined" sx={{ width: 500 }}>
                             <CardContent orientation="horizontal">
@@ -207,7 +193,7 @@ const handlePasswordChange = (e) => {
                                 
                                 </Typography>
                                 <Typography sx={{textTransform:"uppercase"}}>
-                                {/* {data.course.title} */}
+                                {/* {(data.course).map((item)=>item.title)} */}
                                 </Typography>
                                 <Typography >
                         
@@ -262,15 +248,15 @@ const handlePasswordChange = (e) => {
             onChange={handleNameChange}
           />
 
-            <TextField
+            {/* <TextField
             label="Course"
             variant="outlined"
             fullWidth
-            // value={data.course.title}
+            value={(data.course).map((item)=>item.title)}
             InputProps={{
                 readOnly: true,
               }}
-          />
+          /> */}
             <TextField
             label="Score"
             variant="outlined"

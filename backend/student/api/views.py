@@ -155,6 +155,59 @@ class PayDetailsView(APIView):
 
         return Response({"paydata":serialized.data})
     
+class NotesDataView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        stdobj = Student.objects.get(id=id)
+        notesobj = MyNotes.objects.filter(student_id=stdobj)
+        print(notesobj.values(),">>>>")
+        serialized = MyNotesSerializer(notesobj,many=True)
+
+        return Response(serialized.data)
+    
+class GetNotesDataView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        # stdobj = Student.objects.get(id=id)
+        notesobj = MyNotes.objects.get(id=id)
+        # print(notesobj.values(),">>>>")
+        serialized = MyNotesSerializer(notesobj)
+
+        return Response(serialized.data)
+    
+class AddNotesView(APIView):
+    def post(self,request):
+        notes = request.data.get("notes")
+        id = request.data.get("id")
+
+        notesobj = MyNotes.objects.create(student_id=id,notes=notes)
+        serialized = MyNotesSerializer(notesobj)
+
+        return Response(serialized.data)
+    
+class EditNotesView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        notes = request.data.get("notes")      
+
+        notesobj = MyNotes.objects.get(id=id)
+        notesobj.notes=notes
+        notesobj.save()
+
+        notesobj = MyNotes.objects.get(id=id)
+        serialized = MyNotesSerializer(notesobj)
+
+        return Response(serialized.data)
+    
+class DeleteNotesView(APIView):
+    def post(self,request):
+        id = request.data.get("id")     
+
+        notesobj = MyNotes.objects.get(id=id)
+        notesobj.delete()
+
+        return Response({"message":"deleted"})
+    
 class StatusBlockview(APIView):
     def post(self,request):
         id = request.data.get("id")

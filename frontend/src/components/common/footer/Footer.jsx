@@ -18,7 +18,7 @@ const Footer = () => {
             </div>
         </section>
 
-        <footer>
+        {/* <footer>
             <div className="container padding">
                 <div className="box logo">
                     <h1>ACADEMIA</h1>
@@ -90,7 +90,7 @@ const Footer = () => {
                     </ul>
                 </div>
             </div>
-        </footer>
+        </footer> */}
         <div className="div legal">
             <p>Copyright @2023 All rights reserved</p>
         </div>

@@ -10,6 +10,7 @@ import logoutReducer from '../features/logoutSlice';
 import stdEditReducer from '../features/stdEditslice';
 import admincourseEditReducer from '../features/admincourseEditSlice';
 import courseStructEditReducer from '../features/coursestructureSlice';
+import notesEditReducer from '../features/notesEditSlice'
 
 const store = configureStore({
     reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
       stdedit : stdEditReducer,
       admincourseEdit : admincourseEditReducer,
       courseStructEdit : courseStructEditReducer,
+      notesEdit : notesEditReducer,
     },
   });
 

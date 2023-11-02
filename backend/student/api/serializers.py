@@ -16,3 +16,9 @@ class CoursePaymentSerializer(ModelSerializer):
     class Meta:
         model = CoursePayment
         fields = "__all__"
+
+class MyNotesSerializer(ModelSerializer):
+    student = StudentSerializer() 
+    class Meta:
+        model = MyNotes
+        fields = "__all__"

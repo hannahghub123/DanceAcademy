@@ -22,3 +22,10 @@ class CoursePayment(models.Model):
     structId = models.ForeignKey(Course_structure, on_delete=models.CASCADE)
     tutorId = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     razorpayId = models.CharField( max_length=250)
+
+class MyNotes(models.Model):
+    notes = models.CharField(max_length=1000,default=None)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE) 
+
+    def __str__(self):
+        return f"Notes - {self.student.name}"

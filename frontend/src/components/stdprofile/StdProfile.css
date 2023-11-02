@@ -1,2 +1,8 @@
-
+.std-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: azure;
+    margin-bottom: 10px;
+}
   

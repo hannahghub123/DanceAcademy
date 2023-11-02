@@ -10,7 +10,7 @@ const Contact = () => {
   return (
     <>
         <Back title='Contact Us' />
-        <section className="contact padding">
+        <section className="contact padding" >
             <div className="container shadow flexSB">
                 <div className="left row">
                     <iframe src={map} ></iframe>

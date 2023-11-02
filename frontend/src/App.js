@@ -28,6 +28,7 @@ import Footer from './components/common/footer/Footer';
 import StdProfile from './components/stdprofile/StdProfile';
 import CourseDetails from './components/allcourses/CourseDetails';
 import RelatedVideos from './components/allcourses/RelatedVideos';
+import StudentMyNotes from './components/mynotes/StudentMyNotes';
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -55,6 +56,8 @@ function App() {
       <Route path="tutor-dashboard/:id" element={<Dashboard/>} />
       <Route path="std-dashboard/" element={<StudentDashboard/>} />
       <Route path="tutor-profile/:id" element={<TutorProfile/>} />
+      <Route path="Std-MyNotes/:id" element={<StudentMyNotes/>} />
+      <Route path="Tutor-MyNotes/:id" element={<StudentMyNotes/>} />
       <Route path="std-profile/:id" element={<StdProfile/>} />
       <Route path='course-details/:id' element={<CourseDetails/>}/>
       <Route path="tutor-videos/" element={<RelatedVideos/>}/>

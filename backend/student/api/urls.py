@@ -12,4 +12,9 @@ urlpatterns = [
     path("pay-details/",PayDetailsView.as_view(),name="pay-details"),
     path("status-block/",StatusBlockview.as_view(),name="status-block"),
     path("status-unblock/",StatusUnblockview.as_view(),name="status-unblock"),
+    path("notes-data/",NotesDataView.as_view(),name="notes-data"),
+    path("getnotes-data/",GetNotesDataView.as_view(),name="get-notes-data"),
+    path("add-notes/",AddNotesView.as_view(),name="add-notes"),
+    path("edit-notes/",EditNotesView.as_view(),name="edit-notes"),
+    path("delete-notes/",DeleteNotesView.as_view(),name="delete-notes"),
 ]
