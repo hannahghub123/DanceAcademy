@@ -8,8 +8,6 @@ const CourseHome = () => {
   return (
     <>
         <Back title='Explore Courses'/>
-        {/* <CoursesCard/> */}
-        {/* { acc && <OnlineCourses/>} */}
         <OnlineCourses/>
         <br /> <br />
     </>

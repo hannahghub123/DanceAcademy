@@ -49,7 +49,7 @@ const TutorsComponent = () => {
             <th>QUALIFICATION</th>
             <th>COURSE ASSIGNED</th>
             <th>IS APPROVED</th>
-            {/* <th>RESUME</th> */}
+        
           </tr>
         </thead>
         <tbody>

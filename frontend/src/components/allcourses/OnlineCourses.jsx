@@ -27,10 +27,10 @@ const OnlineCourses = () => {
   return (
     <>
         <section className='online'>
-            <div className="container">
+            <div className="container" >
                 <Heading subtitle='COURSES' title='Browse Our Online Courses'/>
 
-                <div className="content grid3">
+                <div className="content grid3" style={{height:"700px",width:"100%"}}>
                     {courses.map((val)=>(
                         <div className="box" onClick={()=>courseHandle(val.id)}>
                             <div className="img">

@@ -9,7 +9,6 @@ const AdminDashboard = () => {
     <>
   <Head title="Admin Dashboard"/>
       <Sidebar/>
-      {/* <button onClick={logoutSubmit}>logout</button> */}
     </>
   )
 }
