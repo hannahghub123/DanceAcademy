@@ -243,6 +243,20 @@ class StatusUnblockview(APIView):
         serialized = StudentSerializer(stdobj)
 
         return Response({"message":"status-unblock updated","data":serialized.data})
+    
+class SessionAssignView(APIView):
+    def post(self,request):
+        date_time = request.data.get("date_time")
+        notes = request.data.get("notes")
+        student = request.data.get("student")
+        tutor = request.data.get("tutor")
+        course_struct = request.data.get("course_struct")
 
+        print(date_time,"\n",notes,"\n",student,"\n",tutor,"\n",course_struct,"@@@@@@@@@")
+
+        session_obj = SessionAssign.objects.create(date_time=date_time,notes=notes,student_id=student,tutor_id=tutor,course_struct_id=course_struct)
+        serialized = SessionAssignSerializer(session_obj)
+
+        return Response(serialized.data)
         
         

@@ -17,4 +17,5 @@ urlpatterns = [
     path("add-notes/",AddNotesView.as_view(),name="add-notes"),
     path("edit-notes/",EditNotesView.as_view(),name="edit-notes"),
     path("delete-notes/",DeleteNotesView.as_view(),name="delete-notes"),
+    path("session-assign/",SessionAssignView.as_view(),name="session-assign"),
 ]

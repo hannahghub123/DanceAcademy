@@ -15,7 +15,7 @@ class Student(models.Model):
     status = models.BooleanField(default=False)
 
     def __str__(self):
-        return f"{self.username}"
+        return f"{self.username}-{self.id}"
     
 class CoursePayment(models.Model):
     studentId = models.ForeignKey(Student, on_delete=models.CASCADE)
@@ -29,3 +29,14 @@ class MyNotes(models.Model):
 
     def __str__(self):
         return f"Notes - {self.student.name}"
+    
+class SessionAssign(models.Model):
+    date_time = models.DateTimeField()
+    video_link = models.CharField(max_length=200,default="video-link")
+    notes = models.CharField(max_length=500,null=True,blank=True,default="Session Assigned")
+    student = models.ForeignKey(Student,on_delete=models.CASCADE)
+    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+    course_struct = models.ForeignKey(Course_structure,on_delete=models.CASCADE) 
+
+    def __str__(self):
+        return f"{self.tutor.name}-{self.student.name}-{self.course_struct.title}"

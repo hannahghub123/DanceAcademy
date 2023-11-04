@@ -22,3 +22,11 @@ class MyNotesSerializer(ModelSerializer):
     class Meta:
         model = MyNotes
         fields = "__all__"
+
+class SessionAssignSerializer(ModelSerializer):
+    student = StudentSerializer() 
+    tutor = TutorSerializer() 
+    course_struct = CourseStructSerializer() 
+    class Meta:
+        model = SessionAssign
+        fields = "__all__"

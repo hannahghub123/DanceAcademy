@@ -10,8 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../axios/tutoraxios';
 import axios from 'axios';
 import VideoUpload from '../cloudinary/video/VideoUpload';
-import VideoList from '../cloudinary/video/VideoList';
-
 
 const style = {
     position: 'absolute',

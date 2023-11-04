@@ -44,7 +44,7 @@ class Course_structure(models.Model):
     price_per = models.CharField(max_length=50,choices=PRICE_CHOICES,default=None,null=True)
 
     def __str__(self):
-        return f"{self.course.title}"
+        return f"{self.course.title}-{self.id}"
 
 
 class Tutor(models.Model):
