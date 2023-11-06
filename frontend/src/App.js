@@ -29,6 +29,7 @@ import StdProfile from './components/stdprofile/StdProfile';
 import CourseDetails from './components/allcourses/CourseDetails';
 import RelatedVideos from './components/allcourses/RelatedVideos';
 import StudentMyNotes from './components/mynotes/StudentMyNotes';
+import Zegocloud from './components/zegocloud/Zegocloud';
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -61,6 +62,7 @@ function App() {
       <Route path="std-profile/:id" element={<StdProfile/>} />
       <Route path='course-details/:id' element={<CourseDetails/>}/>
       <Route path="tutor-videos/" element={<RelatedVideos/>}/>
+      <Route path="/zego" element={<Zegocloud/>} /> 
       </Routes>
       {!isAdminRoute && <Footer />}
 

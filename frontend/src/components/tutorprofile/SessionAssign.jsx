@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import dayjs from "dayjs";
+import React, {  useState } from "react";
+// import dayjs from "dayjs";
 import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -52,7 +52,7 @@ const SessionAssign = (props) => {
     .then((res)=>{
         console.log(res.data,"heyy");
     })
-    handleClose()
+    handleClose();
   }
 
   return (
@@ -70,7 +70,7 @@ const SessionAssign = (props) => {
             </DemoContainer>
         </LocalizationProvider>
         <TextField
-            label="Name"
+            label="Notes"
             variant="outlined"
             fullWidth
             // value={data.name}
@@ -84,8 +84,6 @@ const SessionAssign = (props) => {
     </>
   );
 };
-
-        {/*  */}
 
 
 export default SessionAssign;
