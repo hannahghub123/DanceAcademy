@@ -63,14 +63,14 @@ const SessionAssign = (props) => {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DateTimePicker']} >
             <DateTimePicker
-              label="Basic date time picker"
+              label="Choose Your Date & Time"
             //   value={selectedDateTime} // Set the selected value
               onChange={handleDateTimeChange} // Handle the date and time change
             />
             </DemoContainer>
         </LocalizationProvider>
         <TextField
-            label="Notes"
+            label="Add Notes If Needed"
             variant="outlined"
             fullWidth
             // value={data.name}

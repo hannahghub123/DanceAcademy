@@ -42,6 +42,7 @@ const StudentList = () => {
 
     const timingHandle=(id)=>{
       setTimingId(id)
+      setTiming(!timing)
     }
 
 
@@ -85,7 +86,8 @@ const StudentList = () => {
                 </div>
               </CardContent>
               
-              {timingId && (timingId===item.id)?  
+              
+              {(timing && timingId && (timingId===item.id))?  
                   <SessionAssign student={item.studentId.id} courseplan={item.structId.id}/>
                   :null   
                 }
