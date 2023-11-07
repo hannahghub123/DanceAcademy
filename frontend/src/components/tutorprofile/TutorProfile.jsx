@@ -50,22 +50,22 @@ const TutorProfile = () => {
 
     <>
         <Back title='Your Profile'/>
-        <div style={{display: 'flex',flexDirection:"row" }}>
+        <div className='tutor-container' style={{display: 'flex',flexDirection:"row" }}>
         
         <section className='team padding'>
             <div className="container grid">
                 <TutorCard/>
-             
+                <StudentList/>
             </div>
         </section>
-
+{/* 
 
         <section className='team padding'>
             <div className="container grid">
                <StudentList/>
              
             </div>
-        </section>
+        </section> */}
 
         </div>
       

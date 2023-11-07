@@ -77,6 +77,7 @@ const SessionAssign = (props) => {
             onChange={(e)=>setNotes(e.target.value)}
           />
         <button onClick={sessionAssignSubmit}>Assign</button>
+        
         </Box>
       </Modal>
 

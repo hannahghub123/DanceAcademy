@@ -30,6 +30,7 @@ import CourseDetails from './components/allcourses/CourseDetails';
 import RelatedVideos from './components/allcourses/RelatedVideos';
 import StudentMyNotes from './components/mynotes/StudentMyNotes';
 import Zegocloud from './components/zegocloud/Zegocloud';
+import { ToastContainer } from 'react-toastify'; 
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -79,7 +80,7 @@ function App() {
       {/*        {isAdminRoute ? <AdminFooter /> : <MainFooter />} */}
     </div>
     </BrowserRouter>
-   
+    <ToastContainer />
 
     </>
   );

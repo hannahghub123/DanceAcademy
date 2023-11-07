@@ -4,6 +4,8 @@ import Sidebar from '../../sidebar/Sidebar';
 import Head from '../../head/Head';
 import axiosInstance from '../../../../axios/tutoraxios';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const TutorsComponent = () => {
 
@@ -17,6 +19,14 @@ const TutorsComponent = () => {
       })
     }, [approveStatus]);
 
+    const HandleApprove=(id)=>{
+      showApproveConfirmation(id);
+    }
+
+    const HandleRestrict=(id)=>{
+      showRestrictConfirmation(id);
+    }
+
     const approveHandle = (id)=>{
       const values = {
         id:id,
@@ -25,8 +35,50 @@ const TutorsComponent = () => {
       .then((res)=>{
         console.log(res.data);
         setApproveStatus(!approveStatus)
+
+        if (res.data.message==="restricted"){
+          toast.success("Tutor signup restricted!", {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        }else{
+          toast.success("Tutor signup approved!", {
+            position: toast.POSITION.TOP_RIGHT
+          });
+        }
       })
     }
+
+    const showApproveConfirmation = (id) => {
+      toast.info(
+        <div>
+          <p>Are you sure you want to approve this tutor signup?</p>
+          <button className='ml-5 mr-5' onClick={() => approveHandle(id)}>Approve</button>
+          <button className='ml-3' onClick={toast.dismiss}>Cancel</button>
+        </div>,
+        {
+          position: 'top-center',
+          autoClose: false,
+          closeOnClick: true,
+          closeButton: false,
+        }
+      );
+    };
+
+    const showRestrictConfirmation = (id) => {
+      toast.info(
+        <div>
+          <p>Are you sure you want to restrict this tutor signup?</p>
+          <button className='ml-5 mr-5' onClick={() => approveHandle(id)}>Restrict</button>
+          <button className='ml-3' onClick={toast.dismiss}>Cancel</button>
+        </div>,
+        {
+          position: 'top-center',
+          autoClose: false,
+          closeOnClick: true,
+          closeButton: false,
+        }
+      );
+    };
 
 
   return (
@@ -73,8 +125,8 @@ const TutorsComponent = () => {
             })}</td>
             <td>
               {/* approval confirmation ? */}
-              {!(item.is_approved) && <Link onClick={()=>approveHandle(item.id)}>Approve</Link>}
-              {(item.is_approved) && <Link onClick={()=>approveHandle(item.id)} style={{color:"red"}}>Restrict</Link>}
+              {!(item.is_approved) && <Link onClick={()=>HandleApprove(item.id)}>Approve</Link>}
+              {(item.is_approved) && <Link onClick={()=>HandleRestrict(item.id)} style={{color:"red"}}>Restrict</Link>}
             </td>
             {/* <td>{item.resume}</td> */}
           </tr>))}

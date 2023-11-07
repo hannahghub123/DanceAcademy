@@ -9,6 +9,8 @@ import {Modal} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import {changeDescription,changeDuration,changeLevels,changeNumofClasses,changePrice,changePriceper,changeTitle} from '../../../../features/coursestructureSlice';
 import { useDispatch } from 'react-redux';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CourseStruct = () => {
     const {id} = useParams();
@@ -116,6 +118,10 @@ const CourseStruct = () => {
         setCourseStructDetails(!coursestructDetails)
     
       })
+
+      toast.success("Edits Updated!", {
+        position: toast.POSITION.TOP_RIGHT
+      });
     }
 
   return (

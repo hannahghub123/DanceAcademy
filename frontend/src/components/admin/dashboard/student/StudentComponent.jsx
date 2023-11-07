@@ -5,6 +5,9 @@ import Sidebar from '../../sidebar/Sidebar';
 import './StudentComponent.css'
 import { Link } from 'react-router-dom';
 import Head from '../../head/Head';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const StudentComponent = () => {
 
@@ -19,7 +22,16 @@ const StudentComponent = () => {
   
     }, [statusUpdate]);
 
+    const Handleblock = (id) => {
+      showBlockConfirmation(id);
+    };
+    
+    const HandleUnblock =(id)=>{
+      showUnblockConfirmation(id);
+    }
+
     const blockHandle =(id)=>{
+
       const datas={
         id:id,
       }
@@ -27,6 +39,10 @@ const StudentComponent = () => {
       .then((res)=>{
         console.log(res.data,"block handle?");
         setStatusUpdate(!statusUpdate)
+
+        toast.success("User Blocked!", {
+          position: toast.POSITION.TOP_RIGHT
+        });
       })
     }
 
@@ -38,9 +54,45 @@ const StudentComponent = () => {
       .then((res)=>{
         console.log(res.data,"unblocked handle?");
         setStatusUpdate(!statusUpdate)
+
+        toast.success("User Unblocked!", {
+          position: toast.POSITION.TOP_RIGHT
+        });
       })
     }
 
+    const showBlockConfirmation = (id) => {
+      toast.info(
+        <div>
+          <p>Are you sure you want to block this user?</p>
+          <button className='ml-5 mr-5' onClick={() => blockHandle(id)}>Block</button>
+          <button className='ml-3' onClick={toast.dismiss}>Cancel</button>
+        </div>,
+        {
+          position: 'top-center',
+          autoClose: false,
+          closeOnClick: true,
+          closeButton: false,
+        }
+      );
+    };
+
+    const showUnblockConfirmation = (id) => {
+      toast.info(
+        <div>
+          <p>Are you sure you want to unblock this user?</p>
+          <button className='ml-5 mr-5' onClick={() => unblockHandle(id)}>Unblock</button>
+          <button className='ml-3' onClick={toast.dismiss}>Cancel</button>
+        </div>,
+        {
+          position: 'top-center',
+          autoClose: false,
+          closeOnClick: true,
+          closeButton: false,
+        }
+      );
+    };
+    
 
 
 
@@ -83,8 +135,8 @@ const StudentComponent = () => {
 
             <td>
               {/* confirmation? */}
-              {!(item.status) && <Link onClick={()=>blockHandle(item.id)} style={{color:"red"}}>Block</Link>}
-             {(item.status) && <Link onClick={()=>unblockHandle(item.id)} style={{color:"green"}}>Unblock</Link>}
+              {!(item.status) && <Link onClick={()=>Handleblock(item.id)} style={{color:"red"}}>Block</Link>}
+             {(item.status) && <Link onClick={()=>HandleUnblock(item.id)} style={{color:"green"}}>Unblock</Link>}
             </td>
            
           </tr>))}
@@ -94,8 +146,6 @@ const StudentComponent = () => {
       </div>
 
           
-
-
 
     </>
   )

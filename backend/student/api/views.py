@@ -4,7 +4,8 @@ from .serializers import *
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from tutor.api.serializers import *
-
+import string
+import random
 from cloudinary import api
 
 class SignupView(APIView):
@@ -244,6 +245,14 @@ class StatusUnblockview(APIView):
 
         return Response({"message":"status-unblock updated","data":serialized.data})
     
+def generate_link():
+    characters = string.ascii_letters + string.digits
+    link=""
+    for i in range(8):
+        link+=random.choice(characters)
+
+    return link 
+    
 class SessionAssignView(APIView):
     def post(self,request):
         date_time = request.data.get("date_time")
@@ -252,9 +261,11 @@ class SessionAssignView(APIView):
         tutor = request.data.get("tutor")
         course_struct = request.data.get("course_struct")
 
-        print(date_time,"\n",notes,"\n",student,"\n",tutor,"\n",course_struct,"@@@@@@@@@")
+        linkobj = generate_link()
 
-        session_obj = SessionAssign.objects.create(date_time=date_time,notes=notes,student_id=student,tutor_id=tutor,course_struct_id=course_struct)
+        print(date_time,"\n",notes,"\n",student,"\n",tutor,"\n",course_struct,"\n",linkobj,"@@@@@@@@@")
+
+        session_obj = SessionAssign.objects.create(date_time=date_time,notes=notes,student_id=student,tutor_id=tutor,course_struct_id=course_struct,video_link=linkobj)
         serialized = SessionAssignSerializer(session_obj)
 
         return Response(serialized.data)

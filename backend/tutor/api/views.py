@@ -234,13 +234,16 @@ class StatusEditView(APIView):
 
         if tutorobj.is_approved == True:
             tutorobj.is_approved=False
+            message = "restricted"
         else:
             tutorobj.is_approved=True
+            message="approved"
+
         tutorobj.save()
 
-        serialized = TutorSerializer(tutorobj)
+        # serialized = TutorSerializer(tutorobj)
 
-        return Response(serialized.data)
+        return Response({"message":message})
     
 class ImageSetView(APIView):
     def post(self,request):

@@ -10,6 +10,8 @@ import {Button} from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import {changeDescription,changeTitle} from '../../../../features/admincourseEditSlice';
 import axios from 'axios';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Course = () => {
 
@@ -90,10 +92,9 @@ const Course = () => {
                       },
                   })
                   .then((res)=>{
-                    // localStorage.setItem("stdDetails",JSON.stringify(res.data.data))
                     console.log(res.data,"??????????");
-                    // setData({...data,image:res.data.data.image})
-                    const updatedData = res.data;
+
+                    const updatedData = res.data.data;
 
                     const updatedValues = values.map((value) => {
                       if (value.id === updatedData.id) {
@@ -148,6 +149,10 @@ const Course = () => {
     setCourseDetails(!courseDetails)
 
         })
+
+        toast.success("Edits Updated!", {
+          position: toast.POSITION.TOP_RIGHT
+        });
     }
 
     console.log(values,"after update");

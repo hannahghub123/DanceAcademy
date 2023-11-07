@@ -12,7 +12,8 @@ import ImageListItem from "@mui/material/ImageListItem";
 import Stack from "@mui/joy/Stack";
 import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
-// import './StdProfile.css';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const style = {
   position: 'absolute',
@@ -115,7 +116,11 @@ const StdCard = () => {
       }
 
       handleClose();
+    
     })
+    toast.success(" Profile-Edits Updated!", {
+      position: toast.POSITION.TOP_RIGHT
+    });
 }
 
 const handleUsernameChange = (e) => {
