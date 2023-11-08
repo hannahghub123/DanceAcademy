@@ -68,17 +68,6 @@
     color: #fff;
   }
 
-  /* .details-text {
-    text-align: left; 
-    display: block; 
-    margin: 0;
-    margin-left: px;
-  } */
-
-  .edit-modal{
-    margin-bottom: 50px;
-  }
-
   .edit-btn{
     width: 100%;
   }
@@ -91,6 +80,40 @@
   .all-caps {
   text-transform: uppercase;
 }
+
+/* ProfileEdit.css */
+
+.profile-edit {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 4rem;
+}
+
+.form-container {
+  margin-left: 25px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.label {
+  font-size: 16px;
+}
+
+
+
 
 
 

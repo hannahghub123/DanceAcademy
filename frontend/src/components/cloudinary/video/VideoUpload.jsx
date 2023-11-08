@@ -6,7 +6,7 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import './Video.css';
 
-const VideoUpload = () => {
+const VideoUpload = (props) => {
     const [videoInput,setVideoInput] = useState(null);
     const [desc,setDesc] = useState(null);
     const {id} = useParams()
@@ -40,6 +40,8 @@ const VideoUpload = () => {
         } catch (error) {
             console.error("Error Uploading Video :",error)
         }
+
+        props.setRenderComponent((prev)=>!prev)
     }
 
   return (

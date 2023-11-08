@@ -49,6 +49,7 @@ const TutorProfile = () => {
     
 
     <>
+
         <Back title='Your Profile'/>
         <div className='tutor-container' style={{display: 'flex',flexDirection:"row" }}>
         
@@ -58,19 +59,8 @@ const TutorProfile = () => {
                 <StudentList/>
             </div>
         </section>
-{/* 
-
-        <section className='team padding'>
-            <div className="container grid">
-               <StudentList/>
-             
-            </div>
-        </section> */}
 
         </div>
-      
-     <br />
- 
     </>
 
     
