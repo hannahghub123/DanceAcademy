@@ -18,4 +18,6 @@ urlpatterns = [
     path("edit-notes/",EditNotesView.as_view(),name="edit-notes"),
     path("delete-notes/",DeleteNotesView.as_view(),name="delete-notes"),
     path("session-assign/",SessionAssignView.as_view(),name="session-assign"),
+    path("session-details/",SessionDetailsView.as_view(),name="session-details"), 
+    path("send-sessionMail/",SessionSendMailView.as_view(),name="send-sessionMail"), 
 ]

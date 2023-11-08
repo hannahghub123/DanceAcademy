@@ -7,6 +7,8 @@ from tutor.api.serializers import *
 import string
 import random
 from cloudinary import api
+from django.core.mail import send_mail
+from django.conf import settings
 
 class SignupView(APIView):
     def post(self,request):
@@ -262,12 +264,38 @@ class SessionAssignView(APIView):
         course_struct = request.data.get("course_struct")
 
         linkobj = generate_link()
+        video_link = linkobj
 
         print(date_time,"\n",notes,"\n",student,"\n",tutor,"\n",course_struct,"\n",linkobj,"@@@@@@@@@")
 
-        session_obj = SessionAssign.objects.create(date_time=date_time,notes=notes,student_id=student,tutor_id=tutor,course_struct_id=course_struct,video_link=linkobj)
+        session_obj = SessionAssign.objects.create(date_time=date_time,notes=notes,student_id=student,tutor_id=tutor,course_struct_id=course_struct,video_link=video_link)
         serialized = SessionAssignSerializer(session_obj)
 
         return Response(serialized.data)
+    
+
+class SessionDetailsView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        print(id,"###")
+
+        details = SessionAssign.objects.filter(tutor_id=id)
+        serialized = SessionAssignSerializer(details,many=True)
+
+        return Response(serialized.data)
         
+class SessionSendMailView(APIView):
+    def post(self,request):
+        roomId = request.data.get("roomId")
+
+        sessionobj = SessionAssign.objects.get(video_link=roomId)
+        emailobj = sessionobj.student.email
+
+        subject = "Session Link"
+        message = f"http://localhost:3000/zego?roomID={sessionobj.video_link}"
+        recipient = emailobj
+        send_mail(subject, 
+            message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
         
+        return Response({"message":"success"})
+

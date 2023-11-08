@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ZegoUIKitPrebuilt } from '@zegocloud/zego-uikit-prebuilt';
 
 function randomID(len) {
@@ -12,6 +12,7 @@ function randomID(len) {
       result += chars.charAt(Math.floor(Math.random() * maxPos));
     }
     return result;
+
   }
 
   export function getUrlParams(
@@ -23,12 +24,15 @@ function randomID(len) {
 
 
 const Zegocloud = () => {
-    const roomID = getUrlParams().get('roomID') || randomID(5);
+  
+    const [roomid,setRoomid] = useState(localStorage.getItem("vid-link")?localStorage.getItem("vid-link"):false)
+
+    const roomID=roomid
       let myMeeting = async (element) => {
      // generate Kit Token
       const appID = 331608450;
       const serverSecret = "736efb1ae963bb2032a6a3f7c99387f7";
-      const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID,  randomID(5),  randomID(5));
+      const kitToken =  ZegoUIKitPrebuilt.generateKitTokenForTest(appID, serverSecret, roomID,  randomID(5),"Hannah");
 
 
      // Create instance object from Kit Token.

@@ -20,4 +20,5 @@ urlpatterns = [
     path("admincourse-edit/",AdminCourseEditView.as_view(),name="admincourse-edit"),
     path("course-structedit/",CourseStructEditView.as_view(),name="course-structedit"),
     path("courseImage-set/",CourseImageSetView.as_view(),name="courseImage-set"), 
+
 ]

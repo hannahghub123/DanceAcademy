@@ -5,15 +5,18 @@ import CardContent from "@mui/joy/CardContent";
 import Typography from "@mui/joy/Typography";
 import ImageListItem from "@mui/material/ImageListItem";
 import axiosInstance from '../../axios/stdaxios';
-import { useParams } from 'react-router-dom';
-import dayjs from 'dayjs';
-import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers';
+import { useNavigate, useParams } from 'react-router-dom';
+// import dayjs from 'dayjs';
+// import { DemoContainer, DemoItem } from '@mui/x-date-pickers/internals/demo';
+// import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+// import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+// import { DatePicker } from '@mui/x-date-pickers/DatePicker';
+// import { StaticDatePicker } from '@mui/x-date-pickers/StaticDatePicker';
+// import { DesktopDatePicker } from '@mui/x-date-pickers';
 import SessionAssign from './SessionAssign';
+import { Link } from 'react-router-dom';
+import { Button } from '@mui/material';
+import Zegocloud from '../zegocloud/Zegocloud';
 
 
 const StudentList = () => {
@@ -21,7 +24,8 @@ const StudentList = () => {
     const {id} = useParams();
     const [timing,setTiming] = useState(false)
     const [ timingId,setTimingId] = useState(null)
-    const [time,setTime] = useState(null)
+    const [sessionDetails,setSessionDetails] = useState([])
+    const navigate=useNavigate()
 
     useEffect(()=>{
         const values={
@@ -32,6 +36,13 @@ const StudentList = () => {
             console.log(res.data);
             setVal(res.data.paydata)
         })
+
+        axiosInstance.post("session-details/",values)
+        .then((res)=>{
+          console.log(res.data,"session details");
+          setSessionDetails(res.data)
+        })
+
     },[])
 
     console.log(val,"val");
@@ -43,6 +54,17 @@ const StudentList = () => {
     const timingHandle=(id)=>{
       setTimingId(id)
       setTiming(!timing)
+    }
+
+    const mailHandle=(id)=>{
+      const values={
+        roomId:id,
+       
+      }
+      axiosInstance.post("send-sessionMail/",values)
+      .then((res)=>{
+        console.log(res.data);
+      })
     }
 
 
@@ -77,12 +99,61 @@ const StudentList = () => {
                     Student Name : {item.studentId.name}
                   </Typography>
 
-                  <Typography sx={{ overflow: "hidden" }}>
+                  <Typography>
+                {  sessionDetails.filter((detail)=>{
+                  return(
+                    detail.student.id===item.studentId.id,
+                    detail.tutor.id===item.tutorId.id,
+                    detail.course_struct.id===item.structId.id
+                  )
+                }).filter((v)=>{
+                  return(
                     
-                  </Typography>
-                  
-                <button onClick={()=>timingHandle(item.id)}>Add Session Timing</button>
+                    v.student.id===item.studentId.id
+                  )
+                }).map((req)=>{
+                  return(
+                    <>
+                       <Link to={`../zego`} onClick={()=>{
+                      localStorage.setItem("vid-link",req.video_link)
+                    }}>
+                     <button className='edit-btn'>Join Session</button>
+                    </Link>
 
+
+                   {req.video_link?
+                  <button className="edit-btn mt-1" onClick={()=>mailHandle(req.video_link)}>Send Session Mail</button>
+                   :
+                  null
+                   }
+                      
+                    </>
+                 
+                  )
+
+                })
+                
+                } 
+
+                  {
+                    sessionDetails.filter((detail)=>{
+                      return(
+                        detail.student.id===item.studentId.id,
+                        detail.tutor.id===item.tutorId.id,
+                        detail.course_struct.id===item.structId.id
+                      )
+                    }).filter((v)=>{
+                      return(
+                        
+                        v.student.id===item.studentId.id
+                      )
+                    }).length!=0 ? "" : <button className='edit-btn' onClick={()=>timingHandle(item.id)}>Add Session Timing</button>
+                  }
+                
+                  </Typography>
+            
+              
+                  
                 </div>
               </CardContent>
               

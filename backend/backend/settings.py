@@ -68,7 +68,14 @@ MIDDLEWARE = [
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
+    "http://localhost:3001",
 ]
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'academydance56@gmail.com'
+EMAIL_HOST_PASSWORD = 'pmaz ljjx gmed noae'
 
 REST_FRAMEWORK = {
 

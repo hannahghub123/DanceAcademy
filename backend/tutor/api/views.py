@@ -158,7 +158,8 @@ class CourseStructView(APIView):
         structobj = Course_structure.objects.filter(course=cobj)
         serialized = CourseStructSerializer(structobj,many=True)
 
-        return Response(serialized.data)
+        return Response(serialized.data) 
+    
 
 class CourseStructEditView(APIView):
     def post(self,request):
