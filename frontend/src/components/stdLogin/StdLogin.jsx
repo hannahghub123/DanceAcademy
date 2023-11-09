@@ -55,7 +55,8 @@ const StdLogin = () => {
   return (
    <>
 <Back title='Student Login'/>
-
+<br />
+<br />
     <div className="login-container">
     
     

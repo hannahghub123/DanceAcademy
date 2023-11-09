@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import {changeEmail, changeName, changePassword, changePhone,changeRepassword, changeUsername, changeExpertise, changeQualification} from '../../features/tutorsignupSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../axios/tutoraxios'
-import './TutorSignup.css';
 import { useNavigate } from 'react-router-dom';
 import Back from '../common/back/Back';
 import Autocomplete from '@mui/joy/Autocomplete';
 import Button from '@mui/joy/Button';
 import SvgIcon from '@mui/joy/SvgIcon';
 import axios from 'axios';
+import './TutorSignup.css';
 
 const TutorSignup = () => {
 
@@ -107,40 +107,50 @@ const TutorSignup = () => {
 
       <div>
         <input
+          required
+          autoFocus
           className="trsignup-input"
           type="text"
           placeholder="Username"
           value={user.value.username}
           onChange={(e) => dispatch(changeUsername(e.target.value)) }
         />
-      {/* </div>
-      <div> */}
+      {/* <span className="text-danger">{user.value.error.username}</span> */}
+
         <input
+         required
+         autoFocus
           className="trsignup-input"
           type="text"
           placeholder="Tutor Name"
           value={user.value.name}
           onChange={(e) => dispatch(changeName(e.target.value)) }
         />
-      {/* </div>
-      <div> */}
+      {/* <span className="text-danger">{user.value.error.name}</span> */}
+
         <input
+        required
+        autoFocus
           className="trsignup-input"
           type="number"
           placeholder="Expertise"
           value={user.value.expertise}
           onChange={(e) => dispatch(changeExpertise(e.target.value))}
         />
-      {/* </div>
-      <div> */}
+            {/* <span className="text-danger">{user.value.error.name}</span> */}
+
 
         <input
+        required
+        autoFocus
           className="trsignup-input"
           type="text"
           placeholder="Qualification"
           value={user.value.qualification}
           onChange={(e) => dispatch(changeQualification(e.target.value))}
         />
+
+
 
        <Autocomplete
           className="trsignup-input"

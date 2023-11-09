@@ -17,7 +17,16 @@ const stdLoginSlice = createSlice(
         reducers:{
             
             changeUsername:(state,action)=>{
-                state.value.username=action.payload
+                if (!/^[a-zA-Z][a-zA-Z ]*$/.test(action.payload)){
+                    state.value.error.username="Name can only have alphabets!"
+                    state.value.error.submiterror=null
+                    state.value.errorcheck=true
+                }
+                else{
+                    state.value.error.username=null
+                    state.value.name=action.payload
+                    state.value.errorcheck=false
+                }
             },
  
             changePassword:(state,action)=>{
