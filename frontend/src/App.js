@@ -79,8 +79,9 @@ function App() {
       {/* {!isAdminRoute && <Footer />} */}
       {/*        {isAdminRoute ? <AdminFooter /> : <MainFooter />} */}
     </div>
-    </BrowserRouter>
     <ToastContainer />
+    </BrowserRouter>
+
 
     </>
   );

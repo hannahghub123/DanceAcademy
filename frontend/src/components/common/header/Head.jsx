@@ -24,8 +24,9 @@ const Head = () => {
       accessS : token.value.accessS
     }
 
-const logout = () => {
-
+const logout = (e) => {
+  e.preventDefault();
+  
 localStorage.removeItem("accessToken-T");
 localStorage.removeItem("tutorDetails");
 
