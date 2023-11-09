@@ -6,6 +6,7 @@ const About = () => {
   return (
     <div>
          <Back title='About Us' />
+         <br />
       <AboutCard />
     </div>
   )

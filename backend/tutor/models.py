@@ -65,7 +65,7 @@ class Tutor(models.Model):
     status = models.CharField(max_length=50,choices=STATUS_CHOICES,default="Available")
 
     def __str__(self):
-        return f"{self.username}"
+        return f"{self.name}"
     
 
 class Video_upload(models.Model):

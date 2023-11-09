@@ -3,7 +3,7 @@ import { changeEmail, changeName, changePassword, changePhone, changeRepassword,
 import { useDispatch, useSelector } from 'react-redux';
 import axiosInstance from '../../axios/stdaxios';
 import './StdSignup.css';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Back from '../common/back/Back';
 
 const StdSignup = () => {
@@ -12,7 +12,7 @@ const StdSignup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.stdsignup);
-  const data = {
+  const values = {
     "username": user.value.username,
     "name": user.value.name,
     "email": user.value.email,
@@ -24,7 +24,7 @@ const StdSignup = () => {
   const handleSignUp = (e) => {
     e.preventDefault(); // Prevents the default form submission behavior
 
-    axiosInstance.post("stdsignup/", data).then((res) => {
+    axiosInstance.post("stdsignup/", values).then((res) => {
       console.log("ivde etheetund");
       console.log(res.data);
       if (res.data.message === "success") {

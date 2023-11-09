@@ -9,7 +9,7 @@ const Awrapper = () => {
           {awrapper.map((val) => {
             return (
               <div className='box flex'>
-                <div className='img'>
+                <div className='img '>
                   <img src={val.cover} alt='' />
                 </div>
                 <div className='text'>

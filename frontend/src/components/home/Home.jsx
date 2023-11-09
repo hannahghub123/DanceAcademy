@@ -50,10 +50,10 @@ const Home = () => {
     <>
         <Hero/>
         <AboutCard/>
-        <HAbout/>
-        <Test/>
-        <HBlog/>
-        <HPrice/>
+        {/* <HAbout/> */}
+        {/* <Test/> */}
+        {/* <HBlog/> */}
+        {/* <HPrice/> */}
     </>
   )
 }

@@ -15,11 +15,12 @@ const TutorSignup = () => {
   const [cdata,setCdata] = useState([]);
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [fileInput, setFileInput] = useState(null);
+  // const [fileId,setFileId] = useState(null)
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const user = useSelector((state)=>state.tutorsignup)
-    const data= {
+    const values= {
             
         "username":user.value.username,
         "name":user.value.name,
@@ -34,25 +35,22 @@ const TutorSignup = () => {
 
     console.log(selectedCourses,"course here");
 
-    const handleSignUp = ()=>{
-        axiosInstance.post("signup/",data).then((res)=>{
+    const handleSignUp = (e)=>{
+      e.preventDefault();
+
+        axiosInstance.post("signup/",values).then((res)=>{
           console.log(res.data,"signupppppp data",res.data.data.id);
-          
+          // setFileId(res.data.data.id)
           handleFileSubmit(res.data.data.id);
           if(res.data.message==="success"){
             navigate('../tutor-login/')
-          }
-         
+          }       
         })
-
-
     }
-
-   
 
     const handleFileSubmit=async(id)=>{
       // e.preventDefault();
-      console.log(id,"id in video submit");
+
       const formData = new FormData();
       formData.append('resume',fileInput)
       formData.append('id',id)
@@ -74,9 +72,6 @@ const TutorSignup = () => {
       }
   }
 
-
-    
-
     useEffect(()=>{
       axiosInstance.get("courses/")
       .then((res)=>{
@@ -89,11 +84,13 @@ const TutorSignup = () => {
     const fileUploadHandle = (e)=>{
       const file = e.target.files[0];
       if(file){
-
-        console.log(file,"//////");
-        // setFileInput(file.name);
         setFileInput(file);
+        // dispatch(changeResume(file))
       }
+    }
+
+    const studentSignupHandle=()=>{
+      navigate("../std-signup")
     }
 
 
@@ -101,55 +98,51 @@ const TutorSignup = () => {
     <>
     
     <Back title='Tutor SignUp'/>
-    
+    <br />
     <div className="trsignup-container">
-    
-
-      <div>
+    <form onSubmit={handleSignUp}>
+      <>
         <input
           required
-          autoFocus
           className="trsignup-input"
           type="text"
           placeholder="Username"
-          value={user.value.username}
+          // value={user.value.username}
           onChange={(e) => dispatch(changeUsername(e.target.value)) }
         />
-      {/* <span className="text-danger">{user.value.error.username}</span> */}
+      <span className="text-danger">{user.value.error.username}</span>
 
         <input
          required
-         autoFocus
           className="trsignup-input"
           type="text"
           placeholder="Tutor Name"
-          value={user.value.name}
+          // value={user.value.name}
           onChange={(e) => dispatch(changeName(e.target.value)) }
         />
-      {/* <span className="text-danger">{user.value.error.name}</span> */}
+      <span className="text-danger">{user.value.error.name}</span>
 
         <input
         required
-        autoFocus
           className="trsignup-input"
           type="number"
           placeholder="Expertise"
-          value={user.value.expertise}
+          // value={user.value.expertise}
           onChange={(e) => dispatch(changeExpertise(e.target.value))}
         />
-            {/* <span className="text-danger">{user.value.error.name}</span> */}
+            <span className="text-danger">{user.value.error.expertise}</span>
 
 
         <input
         required
-        autoFocus
           className="trsignup-input"
           type="text"
           placeholder="Qualification"
-          value={user.value.qualification}
+          // value={user.value.qualification}
           onChange={(e) => dispatch(changeQualification(e.target.value))}
         />
-
+        
+         <span className="text-danger">{user.value.error.qualification}</span>
 
 
        <Autocomplete
@@ -162,43 +155,43 @@ const TutorSignup = () => {
           onChange={(event, newValue) => setSelectedCourses(newValue)}
         />
 
-        
-      {/* </div>
-      <div> */}
         <input
           className="trsignup-input"
           type="email"
           placeholder="Email"
-          value={user.value.email}
+          // value={user.value.email}
           onChange={(e) => dispatch(changeEmail(e.target.value)) }
         />
-      {/* </div>
-      <div> */}
+
+        <span className="text-danger">{user.value.error.email}</span>
+
         <input
           className="trsignup-input"
           type="number"
           placeholder="Phone"
-          value={user.value.phone}
+          // value={user.value.phone}
           onChange={(e) => dispatch(changePhone(e.target.value)) }
         />
-      {/* </div>
-      <div> */}
+         <span className="text-danger">{user.value.error.phone}</span>
+
+
         <input
           className="trsignup-input"
           type="password"
           placeholder="Password"
-          value={user.value.password}
+          // value={user.value.password}
           onChange={(e) => dispatch( changePassword(e.target.value))}
         />
-      {/* </div>
-      <div> */}
+        <span className="text-danger">{user.value.error.password}</span>
+
         <input
           className="trsignup-input"
           type="password"
           placeholder="RePassword"
-          value={user.value.repassword}
+          // value={user.value.repassword}
           onChange={(e) => dispatch( changeRepassword(e.target.value))}
         />
+           <span className="text-danger">{user.value.error.repassword}</span>
 
 <Button
       component="label"
@@ -225,26 +218,25 @@ const TutorSignup = () => {
       }
     >
         {!fileInput ? "Upload Your Resume" : <span>{fileInput.name}</span>}
-      <input type="file" className=' hideit' onChange={fileUploadHandle}/>
+      <input required type="file" className=' hideit' onChange={fileUploadHandle}/>
+
 
     </Button>
 
+      </>
 
-          {/* <div className='tutor-link'>
-          <ul className={click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)}>
-                      <li >
-                        <Link to='../std-signup'>Student SignUp ?</Link>
-                      </li>
-          </ul>
-          </div> */}
-      </div>
+        <button className="trsignup-button">Tutor Sign Up</button>
 
-     
-      
-      <div>
-        <button onClick={handleSignUp} className="trsignup-button">Tutor Sign Up</button>
-      </div>
+      </form>
+
+      <button 
+      className="trsignup-button mt-2" 
+      onClick={studentSignupHandle}>
+      Are you a Student ?
+      </button>
+
     </div>
+   
     </>
   )
 }
