@@ -77,14 +77,14 @@ const StdLogin = () => {
     <form onSubmit={handleLogin}>
     
         <input
-  className={`login-input ${isInputFocused ? 'focused' : ''}`}
-  type="text"
-  placeholder="Student UserName !"
-  onFocus={() => setInputFocus(true)}
-  onBlur={() => setInputFocus(false)}
-          onChange={(e) => dispatch(changeUsername(e.target.value)) }
-        />
-   <span className="text-danger">{user.value.error.username}</span>
+        className={`login-input ${isInputFocused ? 'focused' : ''}`}
+        type="text"
+        placeholder="Student UserName !"
+        onFocus={() => setInputFocus(true)}
+        onBlur={() => setInputFocus(false)}
+                onChange={(e) => dispatch(changeUsername(e.target.value)) }
+              />
+        <span className="text-danger">{user.value.error.username}</span>
 
 
       

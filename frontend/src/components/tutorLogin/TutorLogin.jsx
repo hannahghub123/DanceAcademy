@@ -6,7 +6,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { changeEmail,changePassword } from '../../features/tutorloginSlice';
 import Back from '../common/back/Back';
 import { changeaccessT } from '../../features/logoutSlice'
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 const TutorLogin = () => {
@@ -26,10 +27,12 @@ const TutorLogin = () => {
 
       }
 
-    const handleLogin = (id)=>{
+    const handleLogin = (e)=>{
+      e.preventDefault();
+
         axiosInstance.post("login/",data).then((res)=>{
           console.log(res.data);
-
+          const tutorId = res.data.id
             const tokenobjs = {
 
                 refresh : res.data.refresh,
@@ -46,58 +49,63 @@ const TutorLogin = () => {
             
 
           if (res.data.message === "success"){
-            console.log("tutor id ",res.data.id);
-            id=res.data.id
-            navigate(`../tutor-dashboard/${id}`)
+            navigate(`../tutor-dashboard/${tutorId}`)
+            toast.success("Successfully LoggedIn", {
+              position: toast.POSITION.TOP_CENTER,
+            });
 
           }else if(res.data.message === "not approved"){
-            alert("Login not approved")
+            // alert("Login not approved")
+            toast.warning("Login not approved", {
+              position: toast.POSITION.TOP_CENTER,
+            });
+
           }else{
-            alert(res.data.message)
+            // alert("invalid")
+            toast.warning("Invalid Credentials", {
+              position: toast.POSITION.TOP_CENTER,
+            });
           }
           
         })
         
     }
 
+    const studentLoginHandle=()=>{
+      navigate("../std-login")
+    }
+
   return (
    <>
 <Back title='Tutor Login'/>
-
+<br />
     <div className="login-container">
-        
+        <form onSubmit={handleLogin}>
 
     <input
-  className={`login-input ${isInputFocused ? 'focused' : ''}`}
-  type="text"
-  placeholder="Tutor Email !"
-  onFocus={() => setInputFocus(true)}
-  onBlur={() => setInputFocus(false)}
-  onChange={(e) => dispatch(changeEmail(e.target.value))}
-/>
+      className={`login-input ${isInputFocused ? 'focused' : ''}`}
+      type="text"
+      placeholder="Tutor Email !"
+      onFocus={() => setInputFocus(true)}
+      onBlur={() => setInputFocus(false)}
+      onChange={(e) => dispatch(changeEmail(e.target.value))}
+    />
 
 
-<input
-  className={`login-input ${isPasswordInputFocused ? 'focused' : ''}`}
-  type="password"
-  placeholder="Password !"
-  onFocus={() => setPasswordInputFocus(true)}
-  onBlur={() => setPasswordInputFocus(false)}
-  onChange={(e) => dispatch(changePassword(e.target.value))}
-/>
+    <input
+      className={`login-input ${isPasswordInputFocused ? 'focused' : ''}`}
+      type="password"
+      placeholder="Password !"
+      onFocus={() => setPasswordInputFocus(true)}
+      onBlur={() => setPasswordInputFocus(false)}
+      onChange={(e) => dispatch(changePassword(e.target.value))}
+    />
 
+    <button className="login-button">Login</button>
 
-      
-      <div>
-        <button onClick={()=>handleLogin(data.id)} className="login-button">Login</button>
-      </div>
-      <div className='std-link'>
-          <ul className={click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)}>
-                      <li >
-                        <Link to='../std-login'>Go For Student Login ?</Link>
-                      </li>
-          </ul>
-          </div>
+        </form>
+
+        <button className="login-button mt-2" onClick={studentLoginHandle}>Login As Student ?</button>
     </div>
     </>
   )
