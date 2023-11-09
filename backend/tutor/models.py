@@ -1,5 +1,4 @@
 from django.db import models
-import cloudinary
 from cloudinary.models import CloudinaryField
 
 # Create your models here.
@@ -85,6 +84,5 @@ class Resume_List(models.Model):
     def __str__(self):
         return f"Resume Upload {self.id}"
     
-
 
     

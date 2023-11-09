@@ -183,10 +183,13 @@ class AddNotesView(APIView):
         notes = request.data.get("notes")
         id = request.data.get("id")
 
+        if notes.isspace():
+            return Response({"message": "Invalid Data in Notes (contains only spaces)"})
+
         notesobj = MyNotes.objects.create(student_id=id,notes=notes)
         serialized = MyNotesSerializer(notesobj)
 
-        return Response(serialized.data)
+        return Response({"message":"success","data":serialized.data})
     
 class EditNotesView(APIView):
     def post(self,request):

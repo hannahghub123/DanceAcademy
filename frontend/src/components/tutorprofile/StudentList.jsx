@@ -85,7 +85,9 @@ const StudentList = () => {
                     src={item.studentId.image}
                     loading="lazy"
                   />
+
                 </ImageListItem>
+               
 
                 <div>
                   <Typography sx={{ overflow: "hidden" }}>
@@ -97,6 +99,7 @@ const StudentList = () => {
                   </Typography>
                   <Typography sx={{ overflow: "hidden" }}>
                     Student Name : {item.studentId.name}
+                    <i className="fa fa-add icon ml-5" ></i>
                   </Typography>
 
                   <Typography>

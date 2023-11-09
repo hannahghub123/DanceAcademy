@@ -84,7 +84,7 @@ const EditNotesModal = (props) => {
           <br /><br />
 
           <button className='edit-btn'  onClick={handleSubmit}>
-           Add
+           Edit Notes
           </button>
         </Box>
       </Modal>

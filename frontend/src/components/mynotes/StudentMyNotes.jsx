@@ -8,6 +8,8 @@ import axiosInstance from '../../axios/stdaxios';
 import { useParams } from 'react-router-dom';
 import AddNotesModal from './AddNotesModal';
 import EditNotesModal from './EditNotesModal';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Item = styled(Sheet)(({ theme }) => ({
     backgroundColor:
@@ -50,8 +52,28 @@ const StudentMyNotes = () => {
       setNotesId(id)
     }
 
+    const DeleteHandle=(id)=>{
+      showDeleteConfirmation(id);
+    }
+
+    const showDeleteConfirmation = (id) => {
+      toast.info(
+        <div>
+          <p>Are you sure you want to delete this note ?</p>
+          <button className='ml-5 mr-5' onClick={() => notesDeleteHandle(id)}>Delete</button>
+          <button className='ml-3' onClick={toast.dismiss}>Cancel</button>
+        </div>,
+        {
+          position: 'top-center',
+          autoClose: false,
+          closeOnClick: true,
+          closeButton: false,
+        }
+      );
+    };
+
     const notesDeleteHandle=(id)=>{
-      alert("Are your sure you want to delete this notes?")
+      // alert("Are your sure you want to delete this notes?")
       const values = {
         id:id,
       }
@@ -60,13 +82,16 @@ const StudentMyNotes = () => {
         console.log(res.data);
         setRender(!render)
 
-        // need to show the notes deleted toast !
+        toast.success("Note Deleted !!", {
+          position: toast.POSITION.TOP_CENTER,
+        });
       })
     }
 
   return (
     <>
     <Back title="Your MyNotes (std)"/>
+    <br />
         <div className='notes'>
         <h1>Add Notes</h1>
         <span onClick={notesAddHandle}><i class="fa fa-plus icon" aria-hidden="true"></i></span>
@@ -87,7 +112,7 @@ const StudentMyNotes = () => {
             <div className='icon-container'>
               <span className='ml-4 ' onClick={()=>notesEditHandle(item.id)}><i className="fas fa-edit icon"></i></span>
 
-              <span className='ml-1 ' onClick={()=>notesDeleteHandle(item.id)}><i className="fas fa-trash icon"></i></span>
+              <span className='ml-1 ' onClick={()=>DeleteHandle(item.id)}><i className="fas fa-trash icon"></i></span>
             </div>
           </div>
         </Item>

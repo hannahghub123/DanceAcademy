@@ -12,8 +12,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const StdLogin = () => {
 
-  const [click, setClick] = useState(false);
-
   const [isInputFocused, setInputFocus] = useState(false);
   const [isPasswordInputFocused, setPasswordInputFocus] = useState(false);
 
@@ -84,10 +82,7 @@ const StdLogin = () => {
         onBlur={() => setInputFocus(false)}
                 onChange={(e) => dispatch(changeUsername(e.target.value)) }
               />
-        <span className="text-danger">{user.value.error.username}</span>
 
-
-      
         <input
       className={`login-input ${isPasswordInputFocused ? 'focused' : ''}`}
       type="password"
@@ -97,20 +92,10 @@ const StdLogin = () => {
           onChange={(e) => dispatch(changePassword(e.target.value))}
         />
    
-   <span className="text-danger">{user.value.error.password}</span>
-
         <button className="login-button">Login</button>
 
 
       </form>
-
-      {/* <div className='std-link'>
-          <ul className={click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)}>
-                      <li >
-                        <Link to='../tutor-login'>Go For Tutor Login ?</Link>
-                      </li>
-          </ul>
-          </div> */}
 
           <button onClick={tutorLoginHandle} className='login-button mt-2'>Login As Tutor ?</button>
     </div>

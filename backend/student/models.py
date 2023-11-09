@@ -40,3 +40,18 @@ class SessionAssign(models.Model):
 
     def __str__(self):
         return f"{self.tutor.name}-{self.student.name}-{self.course_struct.title}"
+    
+class ActivityTask(models.Model):
+    STATUS_CHOICES=(
+        ("Completed","Completed"),
+        ("Pending","Pending"),
+    )
+    task = models.CharField(max_length=1000)
+    student = models.ForeignKey(Student, on_delete=models.CASCADE)
+    course_structure = models.ForeignKey(Course_structure, on_delete=models.CASCADE)
+    tutor = models.ForeignKey(Tutor,on_delete=models.CASCADE)
+    status = models.CharField(max_length=50,choices=STATUS_CHOICES,default="Assigned")
+
+    def __str__(self):
+        return f"{self.tutor}-{self.student}/{self.course_structure}"
+

@@ -5,6 +5,8 @@ import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import axiosInstance from '../../axios/stdaxios';
 import { useParams } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const style = {
     position: 'absolute',
@@ -39,10 +41,18 @@ const AddNotesModal = (props) => {
         axiosInstance.post("add-notes/",values)
         .then((res)=>{
             console.log(res.data);
-            props.setRender((prev)=> !prev)
+            if (res.data.message === "success"){
+              props.setRender((prev)=> !prev)
+            }
+            else{
+              toast.warning(res.data.message, {
+                position: toast.POSITION.TOP_CENTER,
+              });
+            }
         })
         handleClose();
     }
+
 
   return (
     <>
@@ -53,18 +63,22 @@ const AddNotesModal = (props) => {
           </Typography>
           <br />
 
+        <form onSubmit={handleSubmit}>
           <TextField
+          required
             label="Add notes"
             variant="outlined"
             fullWidth
             onChange={(e)=>setAddNotes(e.target.value)}
           />
 
-          <br /><br />
+          <br />
 
-          <button className='edit-btn'  onClick={handleSubmit} >
+          <button className='edit-btn'>
            Add
           </button>
+
+          </form>
         </Box>
       </Modal>
     </>
