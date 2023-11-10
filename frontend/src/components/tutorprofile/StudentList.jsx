@@ -17,14 +17,19 @@ import SessionAssign from './SessionAssign';
 import { Link } from 'react-router-dom';
 import { Button } from '@mui/material';
 import Zegocloud from '../zegocloud/Zegocloud';
+import AddActivityTask from './AddActivityTask';
 
 
 const StudentList = () => {
+
     const [val,setVal]= useState([]);
     const {id} = useParams();
     const [timing,setTiming] = useState(false)
     const [ timingId,setTimingId] = useState(null)
     const [sessionDetails,setSessionDetails] = useState([])
+    const [task,setTask] = useState(false)
+    const [studentId,setStudentId] = useState(null)
+    const [structId,setStructId] = useState(null)
     const navigate=useNavigate()
 
     useEffect(()=>{
@@ -67,6 +72,12 @@ const StudentList = () => {
       })
     }
 
+    const taskHandle=(id,plan)=>{
+      setStudentId(id)
+      setStructId(plan)
+      setTask(!task)
+    }
+
 
   return (
     <>
@@ -75,7 +86,6 @@ const StudentList = () => {
           <Stack spacing={2} useFlexGap>
               <h1>Assigned Student-Course Details :</h1>
             {val.map((item)=>(
-            
             <Card variant="outlined" sx={{ width: 420 }}>
               <CardContent orientation="horizontal">
 
@@ -99,7 +109,7 @@ const StudentList = () => {
                   </Typography>
                   <Typography sx={{ overflow: "hidden" }}>
                     Student Name : {item.studentId.name}
-                    <i className="fa fa-add icon ml-5" ></i>
+                    <i className="fa fa-add icon ml-5" onClick={()=>taskHandle(item.studentId.id,item.structId.title)}></i>
                   </Typography>
 
                   <Typography>
@@ -171,6 +181,23 @@ const StudentList = () => {
             ))}
           </Stack>
         </div>
+
+        {task?
+        <div className='tutor-container' style={{display: 'flex',flexDirection:"row" }}>
+        {console.log(studentId,"###%%%%%%",structId)}
+        <section className='team padding'>
+            <div className="container ">
+
+                <AddActivityTask studentId={studentId} coursePlan={structId} tutorId={id}/>
+
+
+            </div>
+        </section>
+
+        </div>
+        
+        :null }
+      
     </>
   )
 }

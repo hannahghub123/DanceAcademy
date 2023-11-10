@@ -30,3 +30,11 @@ class SessionAssignSerializer(ModelSerializer):
     class Meta:
         model = SessionAssign
         fields = "__all__"
+
+# class ActivityTaskSerializer(ModelSerializer):
+#     student = StudentSerializer() 
+#     tutor = TutorSerializer() 
+#     course_structure = CourseStructSerializer() 
+#     class Meta:
+#         model = ActivityTask
+#         fields = "__all__"

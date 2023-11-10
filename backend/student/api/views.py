@@ -302,3 +302,26 @@ class SessionSendMailView(APIView):
         
         return Response({"message":"success"})
 
+
+class AddActivityTaskView(APIView):
+    def post(self,request):
+        std = request.data.get("studentId")
+        tutor = request.data.get("tutorId")
+        struct = request.data.get("coursePlan")
+        task = request.data.get("task")
+
+        structobj = Course_structure.objects.get(title=struct)
+        stdobj = Student.objects.get(id=std)
+        tutorobj = Tutor.objects.get(id=tutor)
+        print(structobj,"\n",tutorobj,"\n",stdobj,"\n")
+
+        try:
+            sessionobj = SessionAssign.objects.get(student=stdobj,tutor=tutorobj,course_struct=structobj)
+
+            ActivityAssign.objects.create(task=task,session_assign=sessionobj)
+
+        except:
+            return Response({"message":"no sessions found"})
+      
+
+        return Response({"message":"Task added"})
