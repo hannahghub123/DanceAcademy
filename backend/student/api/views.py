@@ -325,3 +325,15 @@ class AddActivityTaskView(APIView):
       
 
         return Response({"message":"Task added"})
+    
+class TaskDetailsView(APIView):
+    def post(self,request):
+        student = request.data.get("id")
+        print(student,"&&&")
+        sessionobj = SessionAssign.objects.get(student=student)
+        taskobj = ActivityAssign.objects.filter(session_assign=sessionobj)
+        print(sessionobj,"******",taskobj)
+
+        serialized = ActivityAssignSerializer(taskobj,many=True)
+
+        return Response({"message":"hi data of tasks","data":serialized.data})

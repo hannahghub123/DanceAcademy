@@ -14,9 +14,10 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import TasksAssigned from './TasksAssigned';
 
 const style = {
-  position: 'absolute',
+  position: 'relative',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
@@ -39,6 +40,7 @@ const StdCard = () => {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [image,setImage] = useState('');
+  const [task,setTask] = useState(false)
 
   const [data,setData] = useState("")
 
@@ -152,82 +154,62 @@ const handlePasswordChange = (e) => {
   console.log(data.password,"edited password");
 };
 
+const taskHandle=()=>{
+  setTask(!task)
+}
+
   return (
     <>
-      {/* <div className="items shadow"  >
-                <div className="img" >
-                    <img src={data.image} alt="" />
-                    <div className="overlay">
-                    <i className="fa fa-edit icon" onClick={handleOpen}   title='Edit Details'></i>
-                    </div>
-                </div>
+
+      <div className="profile-card ">
+          <Stack >
+            <Card sx={{ width: 550 }}>
+              <CardContent orientation="horizontal">
+                <ImageListItem sx={{ width: 200 }}>
+                <img
+                    srcSet={data.image}
+                    src={data.image}
+                    loading="lazy"
+                  />
+                </ImageListItem>
+
+
                 <div className="details">
-                    <h2>{data.name}</h2>
-                    <h2  className="all-caps"><b>{data.course.title}</b></h2> 
-        
-                    <p className="details-text">
-                
-                        Username - {data.username} <br /> */}
-                        {/* Qualification - {data.qualification} <br /> */}
-                        {/* Score - {data.score}<br />
-                        Email - {data.email} <br />
-                        Phone - {data.phone} <br /> 
-                        Password - {data.password} <br />
-                    </p> 
+                  <Typography sx={{color:"black"}}>
+                  <b>
+                  {data.name}
+                  </b>
+                  </Typography>
+                  <Typography sx={{textTransform:"uppercase"}}>
+                  {/* {(data.course).map((item)=>item.title)} */}
+                  </Typography>
+                  <Typography >
+                    Username - {data.username}
+                  </Typography>
+                  <Typography >
+                    
+                    Email - {data.email}
+                  </Typography>
+                  <Typography>
+                    Phone - {data.phone}
+                  </Typography>
+                  <Typography>
+                    Password - {data.password}
+                  </Typography>
+                  <br />
+                  <i className="fa fa-edit icon" onClick={handleOpen}   title='Edit Details'></i>
+                  <i class="fa-solid fa-bell icon" onClick={taskHandle}></i>
                 </div>
-            </div> */}
+                
+              </CardContent>
+              
 
- 
+              
+            </Card>
+          </Stack>
+        </div>
 
-<div className="profile-card shadow">
-                        <Stack >
-                          <Card variant="outlined" sx={{ width: 500 }}>
-                            <CardContent orientation="horizontal">
-                              <ImageListItem sx={{ width: 200 }}>
-                              <img
-                                  srcSet={data.image}
-                                  src={data.image}
-                                  loading="lazy"
-                                />
-                              </ImageListItem>
-
-
-                              <div className="details">
-                                <Typography  >
-                                {data.name}
-                                
-                                </Typography>
-                                <Typography sx={{textTransform:"uppercase"}}>
-                                {/* {(data.course).map((item)=>item.title)} */}
-                                </Typography>
-                                <Typography >
-                        
-                                  Username - {data.username}
-                                </Typography>
-                                <Typography >
-                                  
-                                  Email - {data.email}
-                                </Typography>
-                                <Typography>
-                                  Phone - {data.phone}
-                                </Typography>
-                                <br />
-                                <i className="fa fa-edit icon" onClick={handleOpen}   title='Edit Details'></i>
-                              
-                              </div>
-                              
-                            </CardContent>
-                           
-
-                            
-                          </Card>
-                        </Stack>
-                      </div>
-
-
-
-
-
+        {task?<TasksAssigned/>:null}
 
 
 <Modal open={open} onClose={handleClose} className='edit-modal'>
@@ -303,6 +285,7 @@ const handlePasswordChange = (e) => {
         </Box>
       </Modal>
   
+
 
     </>
   )

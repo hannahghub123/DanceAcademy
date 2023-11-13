@@ -8,3 +8,4 @@ admin.site.register(CoursePayment)
 admin.site.register(MyNotes)
 admin.site.register(SessionAssign)
 admin.site.register(ActivityAssign)
+

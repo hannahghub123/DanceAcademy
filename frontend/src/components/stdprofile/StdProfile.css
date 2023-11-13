@@ -1,8 +1,33 @@
 .std-container{
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     background-color: azure;
     margin-bottom: 10px;
+    overflow: hidden;
 }
+
+.task-container{
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: aqua;
+    width: 500px;
+}
+
+.tasknotes i{
+    margin-bottom: 11px;
+    margin-left: 5px;
+}
+
+.tasknotes-text {
+    flex: 1; 
+    display: block;
+  }
+  
+  /* .icon-container {
+    display: flex;
+    align-items: center; 
+  } */
   

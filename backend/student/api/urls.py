@@ -21,4 +21,5 @@ urlpatterns = [
     path("session-details/",SessionDetailsView.as_view(),name="session-details"), 
     path("send-sessionMail/",SessionSendMailView.as_view(),name="send-sessionMail"), 
     path("add-activityTask/",AddActivityTaskView.as_view(),name="add-activityTask"), 
+    path("task-details/",TaskDetailsView.as_view(),name="task-details")
 ]
