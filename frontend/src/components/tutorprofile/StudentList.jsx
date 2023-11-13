@@ -109,7 +109,7 @@ const StudentList = () => {
                   </Typography>
                   <Typography sx={{ overflow: "hidden" }}>
                     Student Name : {item.studentId.name}
-                    <i className="fa fa-add icon ml-5" onClick={()=>taskHandle(item.studentId.id,item.structId.title)}></i>
+                    {/* <i className="fa fa-add icon ml-5" onClick={()=>taskHandle(item.studentId.id,item.structId.title)}></i> */}
                   </Typography>
 
                   <Typography>
@@ -135,7 +135,10 @@ const StudentList = () => {
 
 
                    {req.video_link?
-                  <button className="edit-btn mt-1" onClick={()=>mailHandle(req.video_link)}>Send Session Mail</button>
+                   <>
+                  <button className='session-btn' onClick={()=>mailHandle(req.video_link)}>Send Session Mail</button>
+                  <i className="fa fa-add icon ml-3" onClick={()=>taskHandle(item.studentId.id,item.structId.title)} title='Add ActivityTask !'></i>
+                    </>
                    :
                   null
                    }
@@ -160,7 +163,9 @@ const StudentList = () => {
                         
                         v.student.id===item.studentId.id
                       )
-                    }).length!=0 ? "" : <button className='edit-btn' onClick={()=>timingHandle(item.id)}>Add Session Timing</button>
+                    }).length!=0 ? 
+                    ""
+                    : <button className='edit-btn' onClick={()=>timingHandle(item.id)}>Add Session Timing</button>
                   }
                 
                   </Typography>
@@ -182,7 +187,7 @@ const StudentList = () => {
           </Stack>
         </div>
 
-        {task?
+        {/* {task?
         <div className='tutor-container' style={{display: 'flex',flexDirection:"row" }}>
         {console.log(studentId,"###%%%%%%",structId)}
         <section className='team padding'>
@@ -196,7 +201,7 @@ const StudentList = () => {
 
         </div>
         
-        :null }
+        :null } */}
       
     </>
   )

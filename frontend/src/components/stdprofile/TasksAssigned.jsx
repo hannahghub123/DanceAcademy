@@ -44,9 +44,9 @@ const TasksAssigned = () => {
       sx={{ width: '100%'}}
         >
     {taskDetails.map((item) => (
-      <Grid key={item.id} item xs={12}>
+      <Grid key={item.id} item xs={6}>
         <Item>
-          <div className='d-flex flex-column '>
+          <div className='d-flex flex-column'>
           <div className='tasknotes-text' >
                 <b>Course :   </b>
                 <b style={{textTransform:"uppercase"}}>{item.session_assign.course_struct.course.title}</b>
@@ -63,7 +63,10 @@ const TasksAssigned = () => {
             <div className='tasknotes-text'>
                 <b>Task :   </b>
                 {item.task}
+              
             </div>
+
+            <button className='edit-btn'>  <b>{item.status} </b></button>
             
             {/* <div className='tasknotes-text'>
               <span className='ml-4 '><i className="fas fa-edit icon"></i></span>

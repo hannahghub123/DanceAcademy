@@ -334,6 +334,9 @@ class TaskDetailsView(APIView):
         taskobj = ActivityAssign.objects.filter(session_assign=sessionobj)
         print(sessionobj,"******",taskobj)
 
+        taskCount = taskobj.count()
+
         serialized = ActivityAssignSerializer(taskobj,many=True)
 
-        return Response({"message":"hi data of tasks","data":serialized.data})
+        return Response({"message":"hi data of tasks","data":serialized.data,"taskCount":taskCount})
+    

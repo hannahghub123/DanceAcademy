@@ -1,6 +1,5 @@
 import axiosInstance from '../../axios/stdaxios'
 import React, { useState } from 'react'
-import { useParams } from 'react-router-dom'
 
 const AddActivityTask = (props) => {
 

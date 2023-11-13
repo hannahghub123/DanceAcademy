@@ -41,6 +41,7 @@ const StdCard = () => {
   const handleClose = () => setOpen(false);
   const [image,setImage] = useState('');
   const [task,setTask] = useState(false)
+  const [taskCount,setTaskCount] = useState(null)
 
   const [data,setData] = useState("")
 
@@ -52,6 +53,16 @@ const StdCard = () => {
       console.log("Parsedata",parseData)
 
       setData(parseData); 
+
+      const values = {
+        id:id
+      }
+
+      axiosInstance.post("task-details/",values)
+      .then((res)=>{
+        console.log(res.data)
+        setTaskCount(res.data.taskCount)
+      })
 
     }
 
@@ -197,8 +208,22 @@ const taskHandle=()=>{
                     Password - {data.password}
                   </Typography>
                   <br />
-                  <i className="fa fa-edit icon" onClick={handleOpen}   title='Edit Details'></i>
-                  <i class="fa-solid fa-bell icon" onClick={taskHandle}></i>
+
+                  {/* <i className="fa fa-edit icon" onClick={handleOpen}   title='Edit Details'></i>
+                  <i class="fa-solid fa-bell icon" onClick={taskHandle}></i> */}
+
+                <div className="icon-container ml-5">
+                  <span>
+                    <i className="fa fa-edit icon" onClick={handleOpen} title="Edit Details"></i>
+                  </span>
+                  <span className="ml-1 position-relative">
+                    <i className="fa-solid fa-bell icon" onClick={taskHandle}  title="ActivityTasks"></i>
+                    {taskCount > 0 && (
+                      <span className="badge"  onClick={taskHandle} >{taskCount}</span>
+                    )}
+                  </span>
+                </div>
+
                 </div>
                 
               </CardContent>

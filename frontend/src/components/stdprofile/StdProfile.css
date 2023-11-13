@@ -12,8 +12,8 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    background-color: aqua;
-    width: 500px;
+    /* background-color: aqua; */
+    width: 800px;
 }
 
 .tasknotes i{
@@ -26,8 +26,34 @@
     display: block;
   }
   
-  /* .icon-container {
-    display: flex;
-    align-items: center; 
-  } */
+  .icon-container {
+    margin-left: 15px;
+  }
+  
+
+.position-relative {
+position: relative;
+cursor: pointer;
+}
+
+.badge {
+position: absolute;
+top: 0;
+right: 0;
+background-color: red;
+color: white;
+border-radius: 50%;
+padding: 4px 8px;
+font-size: 12px;
+}
+
+.session-btn {
+    width: 200px;
+    margin-top: 6px;
+  }
+  
+  .session-btn:hover{
+    background-color: #1eb2a6;
+    color: white;
+  }
   
