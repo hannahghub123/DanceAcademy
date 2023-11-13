@@ -1,5 +1,7 @@
 import axiosInstance from '../../axios/stdaxios'
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const AddActivityTask = (props) => {
 
@@ -22,6 +24,11 @@ const AddActivityTask = (props) => {
         axiosInstance.post("add-activityTask/",values)
         .then((res)=>{
             console.log(res.data,"456284521");
+            props.setTask((prev)=> !prev)
+
+            toast.success(" Activity Task Added Successfully!", {
+                position: toast.POSITION.TOP_RIGHT
+              });
         })
     }
 

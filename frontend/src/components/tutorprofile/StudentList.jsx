@@ -30,6 +30,7 @@ const StudentList = () => {
     const [task,setTask] = useState(false)
     const [studentId,setStudentId] = useState(null)
     const [structId,setStructId] = useState(null)
+    const [render,setRender] = useState(false)
     const navigate=useNavigate()
 
     useEffect(()=>{
@@ -73,6 +74,7 @@ const StudentList = () => {
     }
 
     const taskHandle=(id,plan)=>{
+      console.log("clicked!!");
       setStudentId(id)
       setStructId(plan)
       setTask(!task)
@@ -86,10 +88,10 @@ const StudentList = () => {
           <Stack spacing={2} useFlexGap>
               <h1>Assigned Student-Course Details :</h1>
             {val.map((item)=>(
-            <Card variant="outlined" sx={{ width: 420 }}>
+            <Card variant="outlined" sx={{ width: 450 }}>
               <CardContent orientation="horizontal">
 
-              <ImageListItem sx={{ width: 100 }}>
+              <ImageListItem sx={{ width: 200 }}>
                   <img
                     srcSet={item.studentId.image}
                     src={item.studentId.image}
@@ -138,7 +140,7 @@ const StudentList = () => {
                    <>
                   <button className='session-btn' onClick={()=>mailHandle(req.video_link)}>Send Session Mail</button>
                   <i className="fa fa-add icon ml-3" onClick={()=>taskHandle(item.studentId.id,item.structId.title)} title='Add ActivityTask !'></i>
-                    </>
+                  </>
                    :
                   null
                    }
@@ -187,21 +189,20 @@ const StudentList = () => {
           </Stack>
         </div>
 
-        {/* {task?
+        {(task) ?
         <div className='tutor-container' style={{display: 'flex',flexDirection:"row" }}>
-        {console.log(studentId,"###%%%%%%",structId)}
         <section className='team padding'>
             <div className="container ">
 
-                <AddActivityTask studentId={studentId} coursePlan={structId} tutorId={id}/>
-
+                <AddActivityTask studentId={studentId} coursePlan={structId} tutorId={id} setTask={setTask}/>
+                
 
             </div>
         </section>
 
         </div>
         
-        :null } */}
+        :null }
       
     </>
   )

@@ -51,6 +51,7 @@ class ActivityAssign(models.Model):
     task = models.CharField(max_length=1000)
     session_assign = models.ForeignKey(SessionAssign, on_delete=models.CASCADE)
     status = models.CharField(max_length=50,choices=STATUS_CHOICES,default="Activity Task Assigned")
+    # time_added = models.DateTimeField()
 
     def __str__(self):
         return f"{self.session_assign.tutor}-{self.session_assign.student.name}/{self.session_assign.course_struct.course}-{self.session_assign.course_struct.title}"
