@@ -60,15 +60,12 @@ const StdCard = () => {
 
       axiosInstance.post("task-details/",values)
       .then((res)=>{
-        console.log(res.data)
         setTaskCount(res.data.taskCount)
       })
 
     }
 
   },[]);
-
-  console.log("dtaaa",data);
 
   const imageHandle =(e)=>{
     setImage(e.target.files[0]);

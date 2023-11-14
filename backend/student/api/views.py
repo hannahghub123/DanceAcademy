@@ -2,6 +2,7 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from django.core.mail import send_mail
+from django.db.models import Q
 from django.utils import timezone
 from tutor.api.serializers import *
 from django.conf import settings
@@ -349,9 +350,17 @@ class TaskDetailsView(APIView):
 
         taskCount = taskobj.count()
 
-        serialized = ActivityAssignSerializer(taskobj,many=True)
+        completed_tasks = taskobj.filter(status="Completed")
+        completedCount = completed_tasks.count()
 
-        return Response({"message":"hi data of tasks","data":serialized.data,"taskCount":taskCount})
+        pending_tasks = taskobj.filter( Q(status="Task Assigned") | Q(status="Pending"))
+        pendingCount = pending_tasks.count()
+
+        serialized = ActivityAssignSerializer(taskobj,many=True)
+        task_serialized = ActivityAssignSerializer(completed_tasks,many=True)
+        pending_serialized = ActivityAssignSerializer(pending_tasks,many=True)
+
+        return Response({"message":"hi data of tasks","data":serialized.data,"taskCount":taskCount,"completed_tasks":task_serialized.data,"completedCount":completedCount,'pendingTasks':pending_serialized.data,'pendingCount':pendingCount})
     
 class ActivityDetailsView(APIView):
     def post(self,request):
@@ -392,3 +401,12 @@ class TaskUploadView(APIView):
         print(task_upload,"&&&&&&&&&&*********")
 
         return Response({'url': task_upload.task_upload,'message':"success"})
+    
+class CourseStructDetailsView(APIView):
+    def post(self,request):
+        id = request.data.get('id')
+
+        details = CoursePayment.objects.filter(studentId_id=id)
+
+        serialized = CoursePaymentSerializer(details,many=True)
+        return Response(serialized.data)

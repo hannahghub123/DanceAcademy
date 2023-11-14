@@ -24,4 +24,5 @@ urlpatterns = [
     path("task-details/",TaskDetailsView.as_view(),name="task-details"),
     path("activity-details/",ActivityDetailsView.as_view(),name="activity-details"),
     path("task-upload/",TaskUploadView.as_view(),name="task-upload"),
+    path("courseStruct-details/",CourseStructDetailsView.as_view(),name="courseStructure-details"),
 ]

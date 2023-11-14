@@ -46,11 +46,11 @@ class ActivityAssign(models.Model):
         ("Completed","Completed"),
         ("Pending","Pending"),
         ("Done Late","Done Late"),
-        ("Activity Task Assigned","Activity Task Assigned")
+        ("Task Assigned","Task Assigned")
     )
     task = models.CharField(max_length=1000)
     session_assign = models.ForeignKey(SessionAssign, on_delete=models.CASCADE)
-    status = models.CharField(max_length=50,choices=STATUS_CHOICES,default="Activity Task Assigned")
+    status = models.CharField(max_length=50,choices=STATUS_CHOICES,default="Task Assigned")
     # time_added = models.DateTimeField()
 
     def __str__(self):
