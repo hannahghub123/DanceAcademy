@@ -1,14 +1,27 @@
+from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
 from rest_framework.views import APIView
+from django.core.mail import send_mail
+from django.utils import timezone
+from tutor.api.serializers import *
+from django.conf import settings
 from student.models import *
 from .serializers import *
-from rest_framework.response import Response
-from rest_framework_simplejwt.tokens import RefreshToken
-from tutor.api.serializers import *
+from cloudinary import api
 import string
 import random
-from cloudinary import api
-from django.core.mail import send_mail
-from django.conf import settings
+
+from cloudinary.uploader import upload
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
+cloudinary.config(
+    cloud_name="dhclqk43b",
+    api_key="518455332798936",
+    api_secret="B9sKOi_eENWKswo6l2j_kCaBxIs",
+)
+
 
 class SignupView(APIView):
     def post(self,request):
@@ -108,7 +121,7 @@ class VideoListView(APIView):
             return Response({"error":"Tutor not found"})
         
 
-        videos = Video_upload.objects.filter(tutors=tobj)
+        videos = VideoUpload.objects.filter(tutors=tobj)
         print(videos,"####@@@@@@@in stddd")
 
         video_urls = [
@@ -132,7 +145,7 @@ class CoursePaymentView(APIView):
         razorpayId = request.data.get("razorpayId")
 
         stdobj = Student.objects.get(id=studentId)
-        structobj = Course_structure.objects.get(id=structId)
+        structobj = CourseStructure.objects.get(id=structId)
         tobj = Tutor.objects.get(name=tutorName)
 
         payobj = CoursePayment.objects.create(
@@ -310,7 +323,7 @@ class AddActivityTaskView(APIView):
         struct = request.data.get("coursePlan")
         task = request.data.get("task")
 
-        structobj = Course_structure.objects.get(title=struct)
+        structobj = CourseStructure.objects.get(title=struct)
         stdobj = Student.objects.get(id=std)
         tutorobj = Tutor.objects.get(id=tutor)
         print(structobj,"\n",tutorobj,"\n",stdobj,"\n")
@@ -340,3 +353,42 @@ class TaskDetailsView(APIView):
 
         return Response({"message":"hi data of tasks","data":serialized.data,"taskCount":taskCount})
     
+class ActivityDetailsView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+
+        activityobj = ActivityAssign.objects.get(id=id)
+        serialized = ActivityAssignSerializer(activityobj)
+
+        return Response(serialized.data)
+    
+class TaskUploadView(APIView):
+    def post(self,request):
+        file = request.data.get("video")
+        student = request.data.get("student")
+        task = request.data.get("task")
+
+        taskobj = ActivityAssign.objects.get(id=task)
+
+        if file.content_type.split('/')[0] != 'video':
+            return Response({'error': 'File must be a video'})
+
+        # Create a Video_upload instance with the Cloudinary URL
+        result = upload(file, resource_type="video",folder="DanceAcademy/task-uploads")
+
+        task_upload = TaskUpload(
+            task_upload=result['secure_url'],  # Store the Cloudinary URL
+            up_time=timezone.now(),
+            description=request.data.get('description', '') ,
+            task=taskobj
+        )
+        
+        task_upload.save()
+        task_upload.student.add(student)
+
+        taskobj.status="Completed"
+        taskobj.save()
+
+        print(task_upload,"&&&&&&&&&&*********")
+
+        return Response({'url': task_upload.task_upload,'message':"success"})

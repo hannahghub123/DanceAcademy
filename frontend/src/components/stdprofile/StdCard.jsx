@@ -14,7 +14,7 @@ import Card from "@mui/joy/Card";
 import CardContent from "@mui/joy/CardContent";
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import TasksAssigned from './TasksAssigned';
+import TasksAssigned from './task/TasksAssigned';
 
 const style = {
   position: 'relative',

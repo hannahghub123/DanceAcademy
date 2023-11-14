@@ -19,7 +19,7 @@ class Student(models.Model):
     
 class CoursePayment(models.Model):
     studentId = models.ForeignKey(Student, on_delete=models.CASCADE)
-    structId = models.ForeignKey(Course_structure, on_delete=models.CASCADE)
+    structId = models.ForeignKey(CourseStructure, on_delete=models.CASCADE)
     tutorId = models.ForeignKey(Tutor, on_delete=models.CASCADE)
     razorpayId = models.CharField( max_length=250)
 
@@ -36,7 +36,7 @@ class SessionAssign(models.Model):
     notes = models.CharField(max_length=500,null=True,blank=True,default="Session Assigned")
     student = models.ForeignKey(Student,on_delete=models.CASCADE)
     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
-    course_struct = models.ForeignKey(Course_structure,on_delete=models.CASCADE) 
+    course_struct = models.ForeignKey(CourseStructure,on_delete=models.CASCADE) 
 
     def __str__(self):
         return f"{self.tutor.name}-{self.student.name}-{self.course_struct.title}"
@@ -55,3 +55,14 @@ class ActivityAssign(models.Model):
 
     def __str__(self):
         return f"{self.session_assign.tutor}-{self.session_assign.student.name}/{self.session_assign.course_struct.course}-{self.session_assign.course_struct.title}"
+    
+
+class TaskUpload(models.Model):
+    task_upload = CloudinaryField("Task uploads",max_length=1000,null=True,blank=True,  folder='DanceAcademy/task-uploads')
+    up_time = models.DateTimeField()
+    description = models.CharField(max_length=220)
+    student = models.ManyToManyField(Student, related_name='tasks', blank=True)
+    task = models.ForeignKey(ActivityAssign,on_delete=models.CASCADE,null=True)
+
+    def __str__(self):
+        return f"Video Upload {self.id}"

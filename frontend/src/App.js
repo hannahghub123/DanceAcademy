@@ -31,6 +31,7 @@ import RelatedVideos from './components/allcourses/RelatedVideos';
 import StudentMyNotes from './components/mynotes/StudentMyNotes';
 import Zegocloud from './components/zegocloud/Zegocloud';
 import { ToastContainer } from 'react-toastify'; 
+import TaskUpload from './components/stdprofile/task/TaskUpload';
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -64,6 +65,7 @@ function App() {
       <Route path='course-details/:id' element={<CourseDetails/>}/>
       <Route path="tutor-videos/" element={<RelatedVideos/>}/>
       <Route path="/zego" element={<Zegocloud/>} /> 
+      <Route path="/task-upload/:id" element={<TaskUpload/>} />
       </Routes>
       {!isAdminRoute && <Footer />}
 

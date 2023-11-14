@@ -2,20 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/joy/styles';
 import Grid from '@mui/joy/Grid';
 import Sheet from '@mui/joy/Sheet';
-import axiosInstance from "../../axios/stdaxios";
-import { useParams } from 'react-router-dom';
-import './StdProfile.css';
-
-// const CloseButton = styled('button')({
-//     position: 'absolute',
-//     top: '10px',
-//     right: '10px',
-//     padding: '8px',
-//     backgroundColor: '#fff',
-//     border: '1px solid #ccc',
-//     borderRadius: '5px',
-//     cursor: 'pointer',
-//   });
+import axiosInstance from "../../../axios/stdaxios";
+import { useNavigate, useParams } from 'react-router-dom';
+import './taskstyle.css';
 
 const Item = styled(Sheet)(({ theme }) => ({
     backgroundColor:
@@ -25,16 +14,15 @@ const Item = styled(Sheet)(({ theme }) => ({
     textAlign: 'center',
     borderRadius: 5,
     color: theme.vars.palette.text.secondary,
-    height: '100%', // Set the height to 100%
+    height: '100%',
     width: '100%', 
   }));
-
-
 
 
 const TasksAssigned = () => {
 
     const {id} = useParams()
+    const navigate = useNavigate()
 
     const [taskDetails,setTaskDetails] = useState([]);
     const [isClosed, setIsClosed] = useState(false);
@@ -60,14 +48,18 @@ const TasksAssigned = () => {
         return null;
       }
 
+      const taskUploadHandle=(id)=>{
+        navigate(`../task-upload/${id}`)
+      }
+
   return (
     <>
    <div>
 
+      <span className='close-span' onClick={handleClose}>close
+      <i class="fa fa-times" aria-hidden="true"></i>
+      </span>
 
-    <span className='close-span' onClick={handleClose}>close
-     <i class="fa fa-times" aria-hidden="true"></i>
-     </span>
      <div className='task-container' style={{backgroundColor:"#a8d3d0"}}>
 
         <Grid
@@ -102,7 +94,7 @@ const TasksAssigned = () => {
               
             </div>
 
-            <button className='task-btn'  style={{position: 'relative', bottom: '5px' }}>  
+            <button className='task-btn' onClick={()=>taskUploadHandle(item.id)}  style={{position: 'relative', bottom: '5px' }}>  
                 <b>{item.status}</b>
             </button>
             
@@ -111,6 +103,7 @@ const TasksAssigned = () => {
 
               <span className='ml-1 '><i className="fas fa-trash icon"></i></span>
             </div> */}
+            
           </div>
         </Item>
       </Grid>

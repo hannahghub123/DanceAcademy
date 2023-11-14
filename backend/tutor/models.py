@@ -3,13 +3,6 @@ from cloudinary.models import CloudinaryField
 
 # Create your models here.
 
-# class Course_category(models.Model):
-#     title = models.CharField(max_length=100)
-#     description = models.CharField(max_length=250)
-
-#     def __str__(self):
-#         return f"{self.title}"
-
 class Course(models.Model):
     COURSE_STATUS_CHOICES = (
         ("Course Available","Course Available"),
@@ -23,7 +16,7 @@ class Course(models.Model):
     def __str__(self):
         return f"{self.title}"
 
-class Course_structure(models.Model):
+class CourseStructure(models.Model):
     LEVEL_CHOICES = (
         ("Beginner Level Lessons","Beginner Level Lessons"),
         ("Intermediate Level Lessons","Intermediate Level Lessons")
@@ -67,7 +60,7 @@ class Tutor(models.Model):
         return f"{self.name}"
     
 
-class Video_upload(models.Model):
+class VideoUpload(models.Model):
     v_upload = CloudinaryField("Video uploads",max_length=500,null=True,blank=True,  folder='DanceAcademy/video-uploads')
     up_time = models.DateTimeField()
     desc = models.CharField(max_length=220)
@@ -76,7 +69,7 @@ class Video_upload(models.Model):
     def __str__(self):
         return f"Video Upload {self.id}"
     
-class Resume_List(models.Model):
+class ResumeList(models.Model):
     res_file = CloudinaryField("Resume uploads",max_length=500,null=True,blank=True,  folder='DanceAcademy/resume-uploads')
     up_time = models.DateTimeField()
     tutors = models.ManyToManyField(Tutor, related_name='resume', blank=True)

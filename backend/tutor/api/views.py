@@ -60,7 +60,7 @@ class ResumeUploadView(APIView):
 
 
         upload_result = cloudinary.uploader.upload(resume, resource_type="auto", folder="DanceAcademy/resume-uploads")
-        resobj = Resume_List(
+        resobj = ResumeList(
         res_file=upload_result['secure_url'],  
         up_time=timezone.now(),
 
@@ -155,7 +155,7 @@ class CourseStructView(APIView):
     def get(self,request,id):
         cobj = Course.objects.get(id=id)
         print(id,cobj,"MMMMMMMMMMMMMMMM")
-        structobj = Course_structure.objects.filter(course=cobj)
+        structobj = CourseStructure.objects.filter(course=cobj)
         serialized = CourseStructSerializer(structobj,many=True)
 
         return Response(serialized.data) 
@@ -172,7 +172,7 @@ class CourseStructEditView(APIView):
         num_of_classes = request.data.get("num_of_classes")
         price_per = request.data.get("price_per")
 
-        structobj = Course_structure.objects.get(id=id)
+        structobj = CourseStructure.objects.get(id=id)
         structobj.title = title
         structobj.levels = levels
         structobj.price = price
@@ -182,7 +182,7 @@ class CourseStructEditView(APIView):
         structobj.price_per=price_per
         structobj.save()
 
-        structobj = Course_structure.objects.get(id=id)
+        structobj = CourseStructure.objects.get(id=id)
         serialized = CourseStructSerializer(structobj)
         return Response(serialized.data)
 
@@ -191,7 +191,7 @@ class CourseStructureView(APIView):
         id = request.data.get("id")
         cobj = Course.objects.get(id=id)
         print(id,cobj,"MMMMMMMMMMMMMMMM")
-        structobj = Course_structure.objects.filter(course=cobj)
+        structobj = CourseStructure.objects.filter(course=cobj)
         serialized = CourseStructSerializer(structobj,many=True)
         print(serialized.data,"heyy haha")
         return Response(serialized.data)
@@ -199,7 +199,7 @@ class CourseStructureView(APIView):
 class StructDetailsView(APIView):
     def post(self,request):
         id = request.data.get("id")
-        structobj = Course_structure.objects.get(id=id)
+        structobj = CourseStructure.objects.get(id=id)
         serialized = CourseStructSerializer(structobj)
         print(serialized.data,"heyy haha")
         return Response(serialized.data)
@@ -291,7 +291,7 @@ class VideoUploadView(APIView):
         # Create a Video_upload instance with the Cloudinary URL
         result = upload(file, resource_type="video",folder="DanceAcademy/video-uploads")
 
-        video_upload = Video_upload(
+        video_upload = VideoUpload(
             v_upload=result['secure_url'],  # Store the Cloudinary URL
             up_time=timezone.now(),
             desc=request.data.get('description', '') 
@@ -311,7 +311,7 @@ class VideoListsView(APIView):
             return Response({"error":"Tutor not found"})
         
 
-        videos = Video_upload.objects.filter(tutors=tobj)
+        videos = VideoUpload.objects.filter(tutors=tobj)
         print(videos,"####@@@@@@@2")
 
 

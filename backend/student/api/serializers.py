@@ -36,3 +36,10 @@ class ActivityAssignSerializer(ModelSerializer):
     class Meta:
         model = ActivityAssign
         fields = "__all__"
+
+class TaskUploadSerializer(ModelSerializer):
+    student = StudentSerializer()
+    task = ActivityAssignSerializer
+    class Meta:
+        model = TaskUpload
+        fields = "__all__"
