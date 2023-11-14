@@ -4,24 +4,40 @@ import Grid from '@mui/joy/Grid';
 import Sheet from '@mui/joy/Sheet';
 import axiosInstance from "../../axios/stdaxios";
 import { useParams } from 'react-router-dom';
-import './StdProfile.css'
+import './StdProfile.css';
+
+// const CloseButton = styled('button')({
+//     position: 'absolute',
+//     top: '10px',
+//     right: '10px',
+//     padding: '8px',
+//     backgroundColor: '#fff',
+//     border: '1px solid #ccc',
+//     borderRadius: '5px',
+//     cursor: 'pointer',
+//   });
 
 const Item = styled(Sheet)(({ theme }) => ({
     backgroundColor:
       theme.palette.mode === 'dark' ? theme.palette.background.level1 : '#fff',
     ...theme.typography['body-sm'],
-    padding: theme.spacing(2.5),
+    padding: theme.spacing(3),
     textAlign: 'center',
     borderRadius: 5,
     color: theme.vars.palette.text.secondary,
+    height: '100%', // Set the height to 100%
+    width: '100%', 
   }));
+
+
 
 
 const TasksAssigned = () => {
 
     const {id} = useParams()
 
-    const [taskDetails,setTaskDetails] = useState([])
+    const [taskDetails,setTaskDetails] = useState([]);
+    const [isClosed, setIsClosed] = useState(false);
 
     useEffect(()=>{
         const values={
@@ -34,17 +50,37 @@ const TasksAssigned = () => {
         })
     },[])
 
+    const handleClose = () => {
+        // Set the state to close the component
+        setIsClosed(true);
+      };
+    
+      if (isClosed) {
+        // Return null or any other component when the component is closed
+        return null;
+      }
+
   return (
     <>
-     <div className='task-container'>
+   <div>
+
+
+    <span className='close-span' onClick={handleClose}>close
+     <i class="fa fa-times" aria-hidden="true"></i>
+     </span>
+     <div className='task-container' style={{backgroundColor:"#a8d3d0"}}>
+
         <Grid
       container
       rowSpacing={1}
       columnSpacing={{ xs: 1, sm: 2, md: 3 }}
-      sx={{ width: '100%'}}
+      sx={{ width: '100%',
+        marginTop:'7px',
+        marginBottom:'7px'}}
         >
+          
     {taskDetails.map((item) => (
-      <Grid key={item.id} item xs={6}>
+      <Grid key={item.id} item xs={6} style={{ height: 'auto', width: '400px' }}>
         <Item>
           <div className='d-flex flex-column'>
           <div className='tasknotes-text' >
@@ -66,7 +102,9 @@ const TasksAssigned = () => {
               
             </div>
 
-            <button className='edit-btn'>  <b>{item.status} </b></button>
+            <button className='task-btn'  style={{position: 'relative', bottom: '5px' }}>  
+                <b>{item.status}</b>
+            </button>
             
             {/* <div className='tasknotes-text'>
               <span className='ml-4 '><i className="fas fa-edit icon"></i></span>
@@ -79,6 +117,7 @@ const TasksAssigned = () => {
     ))}
 
     </Grid>
+    </div>
     </div>
     </>
   )

@@ -24,6 +24,7 @@
 .tasknotes-text {
     flex: 1; 
     display: block;
+    overflow: hidden;
   }
   
   .icon-container {
@@ -57,3 +58,18 @@ font-size: 12px;
     color: white;
   }
   
+  .task-btn{
+    width: 100%;
+    position: absolute;
+    bottom: 5px;
+    margin-bottom: 5px;
+  }
+
+  .task-btn:hover{
+    background-color: #1eb2a6;
+    color: white;
+  }
+
+.close-span{
+    cursor: pointer;
+}
