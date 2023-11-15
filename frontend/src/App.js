@@ -1,5 +1,4 @@
 import './App.css';
-import Dashboard from './components/dashboard/Dashboard';
 import Home from './components/home/Home';
 import OptionSignup from './components/signup/OptionSignup';
 import { BrowserRouter,Routes, Route } from 'react-router-dom';
@@ -36,6 +35,7 @@ import CoursesPurchased from './components/dashboard/details/CoursesPurchased';
 import ZegoChat from './components/zegocloud/ZegoChat';
 import CompletedActivities from './components/dashboard/details/CompletedActivities';
 import PendingActivities from './components/dashboard/details/PendingActivities';
+import TutorDashboard from './components/dashboard/TutorDashboard';
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -60,7 +60,7 @@ function App() {
       <Route path="tutor-signup/" element={<TutorSignup/>} />
       <Route path="std-login/" element={<StdLogin/>} />
       <Route path="tutor-login/" element={<TutorLogin/>} />
-      <Route path="tutor-dashboard/:id" element={<Dashboard/>} />
+      <Route path="tutor-dashboard/:id" element={<TutorDashboard/>} />
       <Route path="std-dashboard/" element={<StudentDashboard/>} />
       <Route path="tutor-profile/:id" element={<TutorProfile/>} />
       <Route path="Std-MyNotes/:id" element={<StudentMyNotes/>} />

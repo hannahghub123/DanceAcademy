@@ -1,6 +1,8 @@
 from rest_framework.views import APIView
 from tutor.models import *
+from student.models import *
 from .serializers import *
+from student.api.serializers import *
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.utils import timezone
@@ -326,9 +328,25 @@ class VideoListsView(APIView):
             for video in videos
         ]
 
+        uploadCount =  len(video_urls)
+        print(uploadCount,"*********")
 
-        return Response({"message":"success","video_urls":video_urls})
+
+        return Response({"message":"success","video_urls":video_urls,'uploadCount':uploadCount})
 
         
+class PayDetailsView(APIView):
+    def post(self,request):
+        totalCount = 0
+        tutorId = request.data.get("id")
+        print(tutorId,"&&&")
 
+        payobj = CoursePayment.objects.filter(tutorId_id=tutorId)
+        print(payobj.values(),"#########3")
+        
+        totalCount = len(payobj)
+
+        serialized = CoursePaymentSerializer(payobj,many=True)
+
+        return Response({"paydata":serialized.data,'totalCount':totalCount})
 
