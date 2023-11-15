@@ -65,6 +65,10 @@ const StudentDashboard = () => {
     navigate("../completed-activities")
   }
 
+  const pendingActivityHandle=()=>{
+    navigate('../pending-activities')
+  }
+
 
 
   return (
@@ -200,6 +204,7 @@ const StudentDashboard = () => {
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
+            onClick={pendingActivityHandle}
           >
             See More
           </Button>

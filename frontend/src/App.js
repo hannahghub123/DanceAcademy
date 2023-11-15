@@ -35,6 +35,7 @@ import TaskUpload from './components/stdprofile/task/TaskUpload';
 import CoursesPurchased from './components/dashboard/details/CoursesPurchased';
 import ZegoChat from './components/zegocloud/ZegoChat';
 import CompletedActivities from './components/dashboard/details/CompletedActivities';
+import PendingActivities from './components/dashboard/details/PendingActivities';
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -72,6 +73,7 @@ function App() {
       <Route path="task-upload/:id" element={<TaskUpload/>} />
       <Route path="course-purchased/" element={<CoursesPurchased/>} />
       <Route path="completed-activities/" element={<CompletedActivities/>} />
+      <Route path="pending-activities/" element={<PendingActivities/>} />
       </Routes>
       {!isAdminRoute && <Footer />}
 
