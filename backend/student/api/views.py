@@ -410,3 +410,19 @@ class CourseStructDetailsView(APIView):
 
         serialized = CoursePaymentSerializer(details,many=True)
         return Response(serialized.data)
+    
+
+class CoursePayDetailsView(APIView):
+    def post(self,request):
+        totalAmount = 0
+        stdId = request.data.get("id")
+
+        payobj = CoursePayment.objects.filter(studentId_id=stdId)
+        print(payobj.values(),"#########3")
+        
+        for i in payobj:
+            totalAmount+= i.structId.price
+
+        serialized = CoursePaymentSerializer(payobj,many=True)
+
+        return Response({"paydata":serialized.data,"totalAmount":totalAmount})

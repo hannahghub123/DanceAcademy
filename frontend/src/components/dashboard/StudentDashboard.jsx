@@ -14,9 +14,12 @@ import Check from '@mui/icons-material/Check';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import axiosInstance from '../../axios/stdaxios'
 import './dashboardStyle.css';
+import { useNavigate } from 'react-router-dom';
 
 
 const StudentDashboard = () => {
+
+  const navigate = useNavigate()
 
   const [courseDetails,setCourseDetails] = useState([]);
   const [activityDetails,setActivityDetails] = useState([]);
@@ -54,12 +57,16 @@ const StudentDashboard = () => {
     }
   },[])
 
+  const coursePurchasedHandle=()=>{
+    navigate('../course-purchased')
+  }
+
 
 
   return (
     <>
       <Back title='Student Dashboard'/>
-        <h1></h1>
+        <h1> </h1>
     
     <div className='dashboard-container'>
         <Box
@@ -67,7 +74,7 @@ const StudentDashboard = () => {
           display:'flex',
           flexDirection:'row',
           gap:5,
-          marginLeft:5,
+          marginLeft:3,
         }}
     >
       <Card size="lg" variant="outlined" sx={{width:400}}>
@@ -98,8 +105,9 @@ const StudentDashboard = () => {
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
+            onClick={coursePurchasedHandle}
           >
-            Start now
+            See More
           </Button>
         </CardActions>
       </Card>
@@ -143,7 +151,7 @@ const StudentDashboard = () => {
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
           >
-            Start now
+            See More
           </Button>
         </CardActions>
       </Card>
@@ -188,7 +196,7 @@ const StudentDashboard = () => {
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
           >
-            Start now
+            See More
           </Button>
         </CardActions>
       </Card>
