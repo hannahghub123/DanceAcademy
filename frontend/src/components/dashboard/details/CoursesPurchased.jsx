@@ -1,19 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Back from '../../common/back/Back';
-import { styled } from '@mui/joy/styles';
-import Grid from '@mui/joy/Grid';
-import Sheet from '@mui/joy/Sheet';
 import axiosInstance from '../../../axios/stdaxios';
-
-const Item = styled(Sheet)(({ theme }) => ({
-    backgroundColor:
-      theme.palette.mode === 'dark' ? theme.palette.background.level1 : '#fff',
-    ...theme.typography['body-sm'],
-    padding: theme.spacing(2.5),
-    textAlign: 'center',
-    borderRadius: 5,
-    color: theme.vars.palette.text.secondary,
-  }));
 
 
 const CoursesPurchased = () => {

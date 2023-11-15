@@ -61,6 +61,10 @@ const StudentDashboard = () => {
     navigate('../course-purchased')
   }
 
+  const completedActivityHandle=()=>{
+    navigate("../completed-activities")
+  }
+
 
 
   return (
@@ -150,6 +154,7 @@ const StudentDashboard = () => {
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
+            onClick={completedActivityHandle}
           >
             See More
           </Button>

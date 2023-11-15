@@ -34,6 +34,7 @@ import { ToastContainer } from 'react-toastify';
 import TaskUpload from './components/stdprofile/task/TaskUpload';
 import CoursesPurchased from './components/dashboard/details/CoursesPurchased';
 import ZegoChat from './components/zegocloud/ZegoChat';
+import CompletedActivities from './components/dashboard/details/CompletedActivities';
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -70,6 +71,7 @@ function App() {
       <Route path="zegoChat/" element={<ZegoChat/>} />
       <Route path="task-upload/:id" element={<TaskUpload/>} />
       <Route path="course-purchased/" element={<CoursesPurchased/>} />
+      <Route path="completed-activities/" element={<CompletedActivities/>} />
       </Routes>
       {!isAdminRoute && <Footer />}
 
