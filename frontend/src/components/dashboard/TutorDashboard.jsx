@@ -62,6 +62,10 @@ const TutorDashboard = () => {
     const pendingActivityHandle=()=>{
       navigate('../pending-activities')
     }
+
+    const studentAssignedHandle=()=>{
+        navigate('../students-assigned/')
+    }
   
   return (
     <>
@@ -144,9 +148,49 @@ const TutorDashboard = () => {
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
-            onClick={coursePurchasedHandle}
+            onClick={studentAssignedHandle}
           >
             View in Detail
+          </Button>
+        </CardActions>
+      </Card>
+
+      <Card size="lg" variant="outlined" sx={{width:400}}>
+        {/* <Chip size="sm" variant="outlined" color="neutral">
+          BASIC
+        </Chip> */}
+        <Typography level="h2">Student Uploads</Typography>
+        <Divider inset="none" />
+        <List size="sm" >
+         { payDetails.map((item)=>(
+            <>
+              <ListItem sx={{textTransform:'uppercase'}}>
+              <ListItemDecorator>
+                <Check />
+              </ListItemDecorator>
+              {item.studentId.name} 
+              </ListItem>
+              <Typography>
+                <b>Course</b> - {item.structId.course.title} / {item.structId.title} 
+              </Typography>
+            </>
+         ))}
+        </List>
+        <Divider inset="none" />
+        <CardActions>
+          <Typography level="title-lg" sx={{ mr: 'auto' }}>
+            {/* {pendingCount}{' '} */}
+            <Typography fontSize="sm" textColor="text.tertiary">
+              {/* / {taskCount} */}
+            </Typography>
+          </Typography>
+          <Button
+            variant="soft"
+            color="neutral"
+            endDecorator={<KeyboardArrowRight />}
+            onClick={pendingActivityHandle}
+          >
+            See More
           </Button>
         </CardActions>
       </Card>
@@ -190,52 +234,6 @@ const TutorDashboard = () => {
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
             onClick={completedActivityHandle}
-          >
-            See More
-          </Button>
-        </CardActions>
-      </Card>
-
-      <Card size="lg" variant="outlined" sx={{width:400}}>
-        {/* <Chip size="sm" variant="outlined" color="neutral">
-          BASIC
-        </Chip> */}
-        <Typography level="h2">Student Uploads</Typography>
-        <Divider inset="none" />
-        <List size="sm" >
-          {/* { pendingDetails.map((item)=>( */}
-             <>
-             <ListItem>
-              <ListItemDecorator>
-                <Check />
-              </ListItemDecorator>
-              {/* Task from - {item.session_assign.tutor.name} */}
-            </ListItem>
-            <Typography
-            sx={{overflow: 'hidden',
-            display: '-webkit-box',
-            WebkitBoxOrient: 'vertical',
-            WebkitLineClamp: 1
-            }}>
-              <b>Task : </b>
-                {/* {item.task} */}
-            </Typography>
-            </>
-          {/* ))} */}
-        </List>
-        <Divider inset="none" />
-        <CardActions>
-          <Typography level="title-lg" sx={{ mr: 'auto' }}>
-            {/* {pendingCount}{' '} */}
-            <Typography fontSize="sm" textColor="text.tertiary">
-              {/* / {taskCount} */}
-            </Typography>
-          </Typography>
-          <Button
-            variant="soft"
-            color="neutral"
-            endDecorator={<KeyboardArrowRight />}
-            onClick={pendingActivityHandle}
           >
             See More
           </Button>
