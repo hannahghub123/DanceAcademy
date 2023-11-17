@@ -2,6 +2,7 @@ import axiosInstance from '../../../axios/tutoraxios';
 import React, { useEffect, useState } from 'react';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Back from '../../common/back/Back';
 
 const VideoList = () => {
     const [videos,setVideos] = useState([]);
@@ -31,6 +32,9 @@ const VideoList = () => {
      console.log("video state",videos);
   return (
     <>
+
+    <Back title='My Uploads' />
+    <br />
       <h2 style={{textAlign:"center", textTransform:"uppercase",marginBottom:"25px"}}>Videos By - {data.name} </h2>
         <Box
       sx={{
@@ -43,11 +47,7 @@ const VideoList = () => {
         },
       }}
     >
-      {/* <Paper elevation={0} />
-      <Paper /> */}
-      
 
-    
       <ul style={{display:"flex","flexDirection":"row"}}>
         {videos.map((item) => (
           <Paper elevation={3} sx={{marginLeft:"15px", marginBottom:"20px"}}>

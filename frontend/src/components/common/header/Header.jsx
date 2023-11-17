@@ -8,7 +8,7 @@ import { changeaccessS, changeaccessT } from '../../../features/logoutSlice'
 
 const Header = () => {
 
-    const {id} = useParams()
+    // const {id} = useParams()
     const [click, setClick] = useState(false);
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -38,31 +38,35 @@ const Header = () => {
 
     if (!data.accessS && !data.accessT){
       navigate('../')
-    }else if(data.accessS){
+    }
+    else if(data.accessS){
       const sdata = localStorage.getItem("stdDetails")
 
       if(sdata){
         const stdDetails = JSON.parse(sdata);
-        const id = stdDetails.id
+        const studentId = stdDetails.id
   
-        console.log("header ile std id:", id);
+        console.log("header ile std id:", studentId);
       }else {
         console.log("std details not found in localStorage");
       }
       navigate(`../std-dashboard/`)
-    }else{
-      const tdata = localStorage.getItem("tutorDetails")
+    }
+    else{
 
-      if(tdata){
-        const tutorDetails = JSON.parse(tdata);
-        const id = tutorDetails.id
+      const tutordata = localStorage.getItem("tutorDetails")
+
+      if(tutordata){
+        const tutorDetails = JSON.parse(tutordata);
+        const tutorId = tutorDetails.id
   
-        console.log("header ile id:", id);
+        console.log("header ile id:", tutorId);
+        console.log(tutorId,"tutor-id ivdunn ayakua");
+        navigate(`../tutor-dashboard/${tutorId}`)
       }else {
         console.log("Tutor details not found in localStorage");
       }
-      console.log(id,"tutor-id ivdunn ayakua");
-      navigate(`../tutor-dashboard/${id}`)
+      
     }
       
   }

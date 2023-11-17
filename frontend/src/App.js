@@ -33,7 +33,9 @@ import ZegoChat from './components/zegocloud/ZegoChat';
 import CompletedActivities from './components/dashboard/studentdetails/CompletedActivities';
 import PendingActivities from './components/dashboard/studentdetails/PendingActivities';
 import TutorDashboard from './components/dashboard/TutorDashboard';
-import StudentsAssigned from './components/dashboard/tutordetails/StudentsAssigned';
+import VideoList from './components/cloudinary/video/VideoList';
+import StudentList from './components/dashboard/tutordetails/StudentList';
+import TaskAssigned from './components/dashboard/tutordetails/session/TaskAssigned';
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -48,9 +50,6 @@ function App() {
       <Route path="/" element={<Home/>} />
       <Route path="/about" element={<About/>} />
       <Route path="/courses" element={<CourseHome/>} />
-      {/* <Route path="/team" element={<Team/>} /> */}
-      {/* <Route path="/pricing" element={<Price/>} /> */}
-      {/* <Route path="/journal" element={<Blog/>} /> */}
       <Route path="/contact" element={<Contact/>} />
       <Route path="opt-login/" element={<OptLogin/>} />
       <Route path="opt-signup/" element={<OptionSignup/>} />
@@ -72,7 +71,9 @@ function App() {
       <Route path="course-purchased/" element={<CoursesPurchased/>} />
       <Route path="completed-activities/" element={<CompletedActivities/>} />
       <Route path="pending-activities/" element={<PendingActivities/>} />
-      <Route path="students-assigned/" element={<StudentsAssigned/>} />
+      <Route path="students-assigned/" element={<StudentList/>} />
+      <Route path="my-uploads/" element={<VideoList/>} />
+      <Route path="tasks-assigned/" element={<TaskAssigned/>} />
       </Routes>
       {!isAdminRoute && <Footer />}
 

@@ -51,20 +51,16 @@ const TutorDashboard = () => {
       }
     },[])
   
-    const coursePurchasedHandle=()=>{
-      navigate('../course-purchased')
-    }
-  
-    const completedActivityHandle=()=>{
-      navigate("../completed-activities")
-    }
-  
-    const pendingActivityHandle=()=>{
-      navigate('../pending-activities')
+    const myUploadHandle=()=>{
+      navigate('../my-uploads')
     }
 
     const studentAssignedHandle=()=>{
         navigate('../students-assigned/')
+    }
+
+    const taskAssignedHandle=()=>{
+      navigate('../tasks-assigned')
     }
   
   return (
@@ -74,15 +70,15 @@ const TutorDashboard = () => {
         <h1> </h1>
     
     <div className='dashboard-container'>
-        <Box
+        {/* <Box
         sx={{
           display:'flex',
           flexDirection:'row',
           gap:5,
           marginLeft:3,
         }}
-    >
-        <Card size="lg" variant="outlined" sx={{width:350}}>
+    > */}
+        <Card size="lg" variant="outlined" sx={{width:400}}>
         {/* <Chip size="sm" variant="outlined" color="neutral">
           BASIC
         </Chip> */}
@@ -110,11 +106,14 @@ const TutorDashboard = () => {
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
+            onClick={myUploadHandle}
           >
             View in Detail
           </Button>
         </CardActions>
       </Card>
+
+      
       <Card size="lg" variant="outlined" sx={{width:400}}>
         {/* <Chip size="sm" variant="outlined" color="neutral">
           BASIC
@@ -159,6 +158,47 @@ const TutorDashboard = () => {
         {/* <Chip size="sm" variant="outlined" color="neutral">
           BASIC
         </Chip> */}
+        <Typography level="h2">Tasks Assigned</Typography>
+        <Divider inset="none" />
+        <List size="sm" >
+         { payDetails.map((item)=>(
+            <>
+              <ListItem sx={{textTransform:'uppercase'}}>
+              <ListItemDecorator>
+                <Check />
+              </ListItemDecorator>
+              {item.studentId.name} 
+              </ListItem>
+              <Typography>
+                <b>Course</b> - {item.structId.course.title} / {item.structId.title} 
+              </Typography>
+            </>
+         ))}
+        </List>
+        <Divider inset="none" />
+        <CardActions>
+          <Typography level="title-lg" sx={{ mr: 'auto' }}>
+            {totalCount}{' '}
+            <Typography fontSize="sm" textColor="text.tertiary">
+              Students
+            </Typography>
+          </Typography>
+          <Button
+            variant="soft"
+            color="neutral"
+            endDecorator={<KeyboardArrowRight />}
+            onClick={taskAssignedHandle}
+          >
+            View in Detail
+          </Button>
+        </CardActions>
+      </Card>
+
+
+      <Card size="lg" variant="outlined" sx={{width:400}}>
+        {/* <Chip size="sm" variant="outlined" color="neutral">
+          BASIC
+        </Chip> */}
         <Typography level="h2">Student Uploads</Typography>
         <Divider inset="none" />
         <List size="sm" >
@@ -188,14 +228,14 @@ const TutorDashboard = () => {
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
-            onClick={pendingActivityHandle}
+            // onClick={pendingActivityHandle}
           >
             See More
           </Button>
         </CardActions>
       </Card>
 
-      <Card size="lg" variant="outlined" sx={{width:420}}>
+      <Card size="lg" variant="outlined" sx={{width:400}}>
         {/* <Chip size="sm" variant="outlined" color="neutral">
           BASIC
         </Chip> */}
@@ -233,14 +273,14 @@ const TutorDashboard = () => {
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
-            onClick={completedActivityHandle}
+            // onClick={completedActivityHandle}
           >
             See More
           </Button>
         </CardActions>
       </Card>
       
-    </Box>
+    {/* </Box> */}
     </div>
     </>
   )
