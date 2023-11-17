@@ -135,13 +135,13 @@ const Header = () => {
       <header>
         <nav className='flexSB'>
           <ul className={click ? "mobile-nav" : "flexSB "} onClick={() => setClick(false)}>
-            <li>
+            <li className='mt-3'>
               <Link onClick={homeSubmit}>Home</Link>
             </li>
-           <li>
+           <li className='mt-3'>
               <Link to='/courses'>All Courses</Link>
             </li>
-            {(data.accessS)&&<li>
+            {(data.accessS)&&<li className='mt-3'>
               <Link to='/about'>About</Link>
             </li>}
             {/* {(data.accessS)&&<li>
@@ -153,15 +153,15 @@ const Header = () => {
             {/* {(data.accessS)&&<li>
               <Link to='/journal'>Journal</Link>
             </li>} */}
-            {(data.accessS)&&<li>
+            {(data.accessS)&&<li className='mt-3'>
               <Link to='/contact'>Contact</Link>
             </li>}
             {(!data.accessT && !data.accessS) && (
               <>
-                <li>
+                <li className='mt-3'>
                   <Link to='/opt-login'>Login</Link>
                 </li>
-                <li>
+                <li className='mt-3'>
                   <Link to='/opt-signup'>SignUp</Link>
                 </li>
               </>
@@ -169,7 +169,7 @@ const Header = () => {
             
              { ( data.accessS || data.accessT) &&   ( 
               <>
-             <li className="nav-dropdown-item" >
+             <li className="nav-dropdown-item mt-2" >
              <NavDropdown title="For You" className='custom-dropdown'>
                {data.accessS ? <NavDropdown.Item onClick={stdProfile}>MyProfile</NavDropdown.Item> : <NavDropdown.Item onClick={tutorProfile}>MyProfile</NavDropdown.Item>}
                {data.accessS ? <NavDropdown.Item onClick={stdMyNotes}>MyNotes</NavDropdown.Item> : <NavDropdown.Item onClick={tutorMyNotes}>MyNotes</NavDropdown.Item>}
@@ -182,7 +182,7 @@ const Header = () => {
           </ul>
          
           <div className='start'>
-            <div className='button'>GET CERTIFICATE</div>
+            <div className='button mt-3'>EXPLORE YOUR TALENTS</div>
           </div>
           <button className='toggle' onClick={() => setClick(!click)}>
             {click ? <i className='fa fa-times'> </i> : <i className='fa fa-bars'></i>}

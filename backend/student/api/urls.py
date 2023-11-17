@@ -25,5 +25,7 @@ urlpatterns = [
     path("activity-details/",ActivityDetailsView.as_view(),name="activity-details"),
     path("task-upload/",TaskUploadView.as_view(),name="task-upload"),
     path("courseStruct-details/",CourseStructDetailsView.as_view(),name="courseStructure-details"),
-    path("coursepay-details/",CoursePayDetailsView.as_view(),name="coursepay-details")
+    path("coursepay-details/",CoursePayDetailsView.as_view(),name="coursepay-details"),
+    path("student-uploads/",MyUploadsView.as_view(),name="std-uploads"),
+    path("add-scores/",AddScoresFeedbacksView.as_view(),name="add-scores"),
 ]

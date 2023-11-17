@@ -8,7 +8,6 @@ class StudentSerializer(ModelSerializer):
         model = Student
         fields = "__all__"
 
-
 class CoursePaymentSerializer(ModelSerializer):
     structId = CourseStructSerializer() 
     studentId = StudentSerializer() 
@@ -42,4 +41,13 @@ class TaskUploadSerializer(ModelSerializer):
     task = ActivityAssignSerializer
     class Meta:
         model = TaskUpload
+        fields = "__all__"
+
+
+class FeedbackSerializer(ModelSerializer):
+    student = StudentSerializer()
+    tutor = TutorSerializer() 
+    upload = TaskUploadSerializer()
+    class Meta:
+        model = Feedbacks
         fields = "__all__"

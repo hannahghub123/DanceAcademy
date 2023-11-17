@@ -62,6 +62,14 @@ const TutorDashboard = () => {
     const taskAssignedHandle=()=>{
       navigate('../tasks-assigned')
     }
+
+    const studentUploadsHandle=()=>{
+      navigate('../students-uploads/')
+    }
+
+    const ScoresHandle=()=>{
+      navigate('../scores-feedbacks/')
+    }
   
   return (
     <>
@@ -228,7 +236,7 @@ const TutorDashboard = () => {
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
-            // onClick={pendingActivityHandle}
+            onClick={studentUploadsHandle}
           >
             See More
           </Button>
@@ -273,7 +281,7 @@ const TutorDashboard = () => {
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
-            // onClick={completedActivityHandle}
+            onClick={ScoresHandle}
           >
             See More
           </Button>

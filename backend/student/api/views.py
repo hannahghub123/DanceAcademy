@@ -136,6 +136,41 @@ class VideoListView(APIView):
 
 
         return Response({"message":"success","video_urls":video_urls})
+    
+class MyUploadsView(APIView):
+    def post(self,request):
+        tutor = request.data.get("id")
+
+        try:
+            tutorobj = Tutor.objects.get(id=tutor)
+
+            payments = CoursePayment.objects.filter(tutorId=tutorobj)
+        except Student.DoesNotExist:
+            return Response({"error":"Student not found"})
+        
+
+        task_urls = []
+
+        for payment in payments:
+            # Assuming there is a ForeignKey relationship from CoursePayment to Student
+            student = payment.studentId
+            tasks = TaskUpload.objects.filter(student=student)
+
+            for task in tasks:
+                task_urls.append({
+                    'id': task.id,
+                    'task_upload': task.task_upload.url,
+                    'up_time': task.up_time,
+                    'description': task.description,
+                     'student': {
+                                    'id': student.id,
+                                    'name': student.name,
+                                }
+                })
+
+        print(task_urls,"*************************")
+        return Response({"message":"success","task_urls":task_urls})
+
 
 
 class CoursePaymentView(APIView):
@@ -426,3 +461,38 @@ class CoursePayDetailsView(APIView):
         serialized = CoursePaymentSerializer(payobj,many=True)
 
         return Response({"paydata":serialized.data,"totalAmount":totalAmount})
+    
+
+class AddScoresFeedbacksView(APIView):
+    def post(self,request):
+        score = int(request.data.get("score"))
+        feedback = request.data.get("feedbacks")
+        student=request.data.get("student")
+        tutor = request.data.get("tutor")
+        upload = request.data.get("upload")
+
+        print(feedback,"%%%%%%")
+
+        studentobj = Student.objects.get(id=student)
+        tutorobj = Tutor.objects.get(id=tutor)
+        uploadobj = TaskUpload.objects.get(id=upload)
+
+        if score:
+            stdobj = Student.objects.get(id=student)
+            stdobj.score += score
+            stdobj.save()
+
+        if feedback:
+            feedbackobj = Feedbacks.objects.create(feedback=feedback, student=studentobj, tutor=tutorobj, upload=uploadobj)
+            print(feedbackobj,"##########")
+        else:
+            print("no feedback recieved")
+
+        # student_serialized = StudentSerializer(studentobj)
+        # feedback_serialized = FeedbackSerializer(feedbackobj) if feedbackobj else None
+
+        return Response({"message":"success"})
+
+
+        
+            

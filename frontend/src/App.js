@@ -36,6 +36,8 @@ import TutorDashboard from './components/dashboard/TutorDashboard';
 import VideoList from './components/cloudinary/video/VideoList';
 import StudentList from './components/dashboard/tutordetails/StudentList';
 import TaskAssigned from './components/dashboard/tutordetails/session/TaskAssigned';
+import StudentUploads from './components/dashboard/tutordetails/StudentUploads';
+import ScoresFeedbacks from './components/dashboard/tutordetails/ScoresFeedbacks';
 
 function App() {
   const isAdminRoute = window.location.pathname.startsWith('/admin');
@@ -72,8 +74,10 @@ function App() {
       <Route path="completed-activities/" element={<CompletedActivities/>} />
       <Route path="pending-activities/" element={<PendingActivities/>} />
       <Route path="students-assigned/" element={<StudentList/>} />
+      <Route path="students-uploads/" element={<StudentUploads/>} />
       <Route path="my-uploads/" element={<VideoList/>} />
       <Route path="tasks-assigned/" element={<TaskAssigned/>} />
+      <Route path="scores-feedbacks/" element={<ScoresFeedbacks/>} />
       </Routes>
       {!isAdminRoute && <Footer />}
 
