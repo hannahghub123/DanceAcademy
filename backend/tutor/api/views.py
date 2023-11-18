@@ -401,3 +401,14 @@ class GetTaskView(APIView):
 
         serialized = ActivityAssignSerializer(taskobj)
         return Response(serialized.data)
+    
+
+class FeedbackDetailsView(APIView):
+    def post(self,request):
+        feedbacks = Feedbacks.objects.all()
+        print(feedbacks,"???????????????????")
+        serialized = FeedbackSerializer(feedbacks, many=True)
+
+        return Response(serialized.data)
+            
+   

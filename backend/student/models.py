@@ -68,11 +68,11 @@ class TaskUpload(models.Model):
     def __str__(self):
         return f"Video Upload {self.id}"
     
-class Feedbacks(models.Model):
-    feedback = models.CharField(max_length=2000)
-    student = models.ForeignKey(Student, on_delete=models.CASCADE)
-    tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
-    upload = models.ForeignKey(TaskUpload,on_delete=models.CASCADE)
+# class Feedbacks(models.Model):
+#     feedback = models.CharField(max_length=2000)
+#     student = models.ForeignKey(Student, on_delete=models.CASCADE)
+#     tutor = models.ForeignKey(Tutor, on_delete=models.CASCADE)
+#     upload = models.ForeignKey(TaskUpload,on_delete=models.CASCADE)
 
-    def __str__(self):
-        return f"Feedback from {self.tutor.name} to {self.student.name} on upload {self.upload.id}"
+#     def __str__(self):
+#         return f"Feedback from {self.tutor.name} to {self.student.name} on upload {self.upload.id}"

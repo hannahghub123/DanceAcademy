@@ -15,7 +15,7 @@ import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import axiosInstance from '../../axios/stdaxios'
 import './dashboardStyle.css';
 import { useNavigate } from 'react-router-dom';
-
+import './dashboardStyle.css'
 
 const StudentDashboard = () => {
 
@@ -77,14 +77,14 @@ const StudentDashboard = () => {
         <h1> </h1>
     
     <div className='dashboard-container'>
-        <Box
+        {/* <Box
         sx={{
           display:'flex',
           flexDirection:'row',
           gap:5,
           marginLeft:3,
         }}
-    >
+    > */}
       <Card size="lg" variant="outlined" sx={{width:400}}>
         {/* <Chip size="sm" variant="outlined" color="neutral">
           BASIC
@@ -259,7 +259,7 @@ const StudentDashboard = () => {
           </Button>
         </CardActions>
       </Card>
-    </Box>
+    {/* </Box> */}
     </div>
     </>
   )

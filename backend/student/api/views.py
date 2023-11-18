@@ -65,8 +65,8 @@ class StudentDetailsView(APIView):
         serialized = StudentSerializer(studentobj,many=True)
 
         return Response(serialized.data)
-            
-        
+    
+         
 class ImageSetView(APIView):
     def post(self, request):
         id=request.data.get("id")

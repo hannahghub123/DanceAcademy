@@ -24,6 +24,7 @@ const TutorDashboard = () => {
     const [uploadCount,setUploadCount] = useState(null);
     const [payDetails,setPayDetails] = useState([]);
     const [totalCount,setTotalCount] = useState(null);
+    const [stdDetails,setStdDetails] = useState([]);
   
     useEffect(()=>{
       const tutorData = localStorage.getItem("tutorDetails")
@@ -47,6 +48,12 @@ const TutorDashboard = () => {
             setPayDetails(res.data.paydata);
             setTotalCount(res.data.totalCount)
         })
+
+        // axiosInstance.post("student-details/")
+        // .then((res)=>{
+        //   console.log(res.data);
+        //   setStdDetails(res.data.data)
+        // })
   
       }
     },[])
@@ -250,24 +257,24 @@ const TutorDashboard = () => {
         <Typography level="h2">Scores & Feedbacks Given </Typography>
         <Divider inset="none" />
         <List size="sm" >
-        {/* { activityDetails.map((item)=>( */}
+        {/* { stdDetails.map((item)=>( */}
         <> <ListItem>
               <ListItemDecorator>
               <Check />
             </ListItemDecorator>
-           {/* Task from - {item.session_assign.tutor.name} */}
+           {/* Scores & Feedbacks of - {item.name} */}
           </ListItem>
-          <Typography 
+          {/* <Typography 
               sx={{overflow: 'hidden',
               display: '-webkit-box',
               WebkitBoxOrient: 'vertical',
               WebkitLineClamp: 1
               }}>
-            <b>Task : </b>
+            <b>Task : </b> */}
             {/* {item.task} */}
-          </Typography>
+          {/* </Typography> */}
           </>
-            {/* ))} */}
+           {/* ))} */}
         </List>
         <Divider inset="none" />
         <CardActions>
