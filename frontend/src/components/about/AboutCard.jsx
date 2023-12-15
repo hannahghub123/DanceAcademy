@@ -10,7 +10,7 @@ const AboutCard = () => {
         <section className='aboutHome'>
         <div className='container flexSB'>
           <div className='left row mt-5'>
-            <img src='./images/about.webp' alt='' />
+            <img src='./images/blog/her.jpg' alt='' />
           </div>
           <div className='right row'>
             <Heading subtitle='LEARN ANYTHING' title='Benefits About Online Learning Expertise' />
@@ -21,7 +21,7 @@ const AboutCard = () => {
                     <div className='img'>
                       <img src={val.cover} alt='' />
                     </div>
-                    <div className='text'>
+                    <div className='text ml-3'>
                       <h2 key={val.id}>{val.title}</h2>
                       <p>{val.desc}</p>
                     </div>
@@ -32,7 +32,7 @@ const AboutCard = () => {
           </div>
         </div>
       </section>
-      <Awrapper />
+      {/* <Awrapper /> */}
     </>
   )
 }

@@ -137,7 +137,7 @@ class VideoListView(APIView):
 
         return Response({"message":"success","video_urls":video_urls})
     
-class MyUploadsView(APIView):
+class StudentUploadsView(APIView):
     def post(self,request):
         tutor = request.data.get("id")
 
@@ -344,7 +344,7 @@ class SessionSendMailView(APIView):
         emailobj = sessionobj.student.email
 
         subject = "Session Link"
-        message = f"http://localhost:3000/zego?roomID={sessionobj.video_link}"
+        message = f"https://dance-academy-rho.vercel.app/zego?roomID={sessionobj.video_link}"
         recipient = emailobj
         send_mail(subject, 
             message, settings.EMAIL_HOST_USER, [recipient], fail_silently=False)
@@ -379,24 +379,29 @@ class TaskDetailsView(APIView):
     def post(self,request):
         student = request.data.get("id")
         print(student,"&&&")
-        sessionobj = SessionAssign.objects.get(student=student)
-        taskobj = ActivityAssign.objects.filter(session_assign=sessionobj)
-        print(sessionobj,"******",taskobj)
+        
+        try:
+            sessionobj = SessionAssign.objects.get(student=student)
+            taskobj = ActivityAssign.objects.filter(session_assign=sessionobj)
+            print(sessionobj,"******",taskobj)
 
-        taskCount = taskobj.count()
+            taskCount = taskobj.count()
 
-        completed_tasks = taskobj.filter(status="Completed")
-        completedCount = completed_tasks.count()
+            completed_tasks = taskobj.filter(status="Completed")
+            completedCount = completed_tasks.count()
 
-        pending_tasks = taskobj.filter( Q(status="Task Assigned") | Q(status="Pending"))
-        pendingCount = pending_tasks.count()
+            pending_tasks = taskobj.filter( Q(status="Task Assigned") | Q(status="Pending"))
+            pendingCount = pending_tasks.count()
 
-        serialized = ActivityAssignSerializer(taskobj,many=True)
-        task_serialized = ActivityAssignSerializer(completed_tasks,many=True)
-        pending_serialized = ActivityAssignSerializer(pending_tasks,many=True)
+            serialized = ActivityAssignSerializer(taskobj,many=True)
+            task_serialized = ActivityAssignSerializer(completed_tasks,many=True)
+            pending_serialized = ActivityAssignSerializer(pending_tasks,many=True)
 
-        return Response({"message":"hi data of tasks","data":serialized.data,"taskCount":taskCount,"completed_tasks":task_serialized.data,"completedCount":completedCount,'pendingTasks':pending_serialized.data,'pendingCount':pendingCount})
-    
+            return Response({"message":"hi data of tasks","data":serialized.data,"taskCount":taskCount,"completed_tasks":task_serialized.data,"completedCount":completedCount,'pendingTasks':pending_serialized.data,'pendingCount':pendingCount})
+        
+        except:
+            return Response({"message":"session not found"})
+        
 class ActivityDetailsView(APIView):
     def post(self,request):
         id = request.data.get("id")
@@ -471,7 +476,7 @@ class AddScoresFeedbacksView(APIView):
         tutor = request.data.get("tutor")
         upload = request.data.get("upload")
 
-        print(feedback,"%%%%%%")
+        print(feedback,"%%%%%%\n",score,"%%%%%%\n",student,"%%%%%%\n",tutor,"%%%%%%\n",upload)
 
         studentobj = Student.objects.get(id=student)
         tutorobj = Tutor.objects.get(id=tutor)
@@ -488,11 +493,101 @@ class AddScoresFeedbacksView(APIView):
         else:
             print("no feedback recieved")
 
-        # student_serialized = StudentSerializer(studentobj)
-        # feedback_serialized = FeedbackSerializer(feedbackobj) if feedbackobj else None
-
+   
         return Response({"message":"success"})
 
 
+ 
+class FeedbackDetailsView(APIView):
+    def get(self,request):
+        feedbacks = Feedbacks.objects.all()
+        print(feedbacks,"???????????????????")
+        serialized = FeedbackSerializer(feedbacks,many=True)
+
+        return Response({"message":"success","data":serialized.data})
+    
+class FeedDetailsView(APIView):
+    def post(self, request):
+        studentid = request.data.get("id")  # Assuming you're passing student_id as a query parameter
+        feedbacks = Feedbacks.objects.filter(student_id=studentid)
+
+        stdobj = Student.objects.get(id=studentid)
         
+        tutor_ids = feedbacks.values_list('tutor_id', flat=True).distinct()
+        tutors = Tutor.objects.filter(id__in=tutor_ids)
+        
+        tutor_serialized = TutorSerializer(tutors, many=True)
+        student_serialized = StudentSerializer(stdobj)
+        feedback_serialized = FeedbackSerializer(feedbacks, many=True)
+
+        return Response({"message": "success", "tutors": tutor_serialized.data, "feedbacks": feedback_serialized.data,"student":student_serialized.data})
+
+
+
+class GetFeedbackView(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+
+        feedbackobj = Feedbacks.objects.get(id=id)
+
+        serialized = FeedbackSerializer(feedbackobj)
+
+        return Response(serialized.data)    
+
+class FeedbackEditview(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+        feedback = request.data.get("feedback") 
+
+        feedobj = Feedbacks.objects.get(id=id)
+
+        feedobj.feedback = feedback
+        feedobj.save()
+
+        return Response({"message":"success"})
+    
+class FeedbackDeleteview(APIView):
+    def post(self,request):
+        id = request.data.get("id")
+
+        feedobj = Feedbacks.objects.get(id=id)
+
+        feedobj.delete()
+
+        return Response({"message":"deleted"})
             
+
+class MyUploadsView(APIView):
+     def post(self, request):
+        student_id = request.data.get("id")
+
+        student = Student.objects.get(id=student_id)
+
+        task_urls = []
+
+        tasks = TaskUpload.objects.filter(student=student)
+
+        for task in tasks:
+
+                activity_assign = task.task
+                task_urls.append({
+                    'id': task.id,
+                    'task_upload': task.task_upload.url,
+                    'up_time': task.up_time,
+                    'description': task.description,
+                    'student': {
+                        'id': student.id,
+                        'name': student.name,
+                    },
+                    'activity_assign': {
+                        'id': activity_assign.id,
+                        'task': activity_assign.task,
+                        'course':activity_assign.session_assign.course_struct.course.title,
+                        'course_struct':activity_assign.session_assign.course_struct.title,
+                        'status': activity_assign.status,
+                    }
+                })
+
+        print(task_urls, "*************************")
+        return Response({"message": "success", "task_urls": task_urls})
+

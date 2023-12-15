@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import Back from '../common/back/Back';
-import Box from '@mui/joy/Box';
 import Button from '@mui/joy/Button';
 import Card from '@mui/joy/Card';
 import CardActions from '@mui/joy/CardActions';
-import Chip from '@mui/joy/Chip';
 import Divider from '@mui/joy/Divider';
 import List from '@mui/joy/List';
 import ListItem from '@mui/joy/ListItem';
@@ -28,6 +26,8 @@ const StudentDashboard = () => {
   // const pendingCount = taskCount-completedCount
   const [pendingCount,setPendingCount] = useState(null);
   const [ pendingDetails, setPendingDetails] = useState([]);
+  const [ feedbackDetails, setFeedbackDetails] = useState([]);
+  const [ uploadsDetails, setUploadsDetails] = useState([]);
 
   useEffect(()=>{
     const stdData = localStorage.getItem("stdDetails")
@@ -54,6 +54,19 @@ const StudentDashboard = () => {
         setPendingCount(res.data.pendingCount)
         setPendingDetails(res.data.pendingTasks)
       })
+
+      
+      axiosInstance.post("feed-details/",values)
+      .then((res)=>{
+        console.log(res.data,"PPPPPPP");
+        setFeedbackDetails(res.data.tutors)
+      })
+
+      axiosInstance.post("my-uploads/",values)
+      .then((res)=>{
+          setUploadsDetails(res.data.task_urls)
+        console.log(res.data.task_urls,"888");
+      })
     }
   },[])
 
@@ -69,6 +82,14 @@ const StudentDashboard = () => {
     navigate('../pending-activities')
   }
 
+  const feedbackDetailsHandle=()=>{
+    navigate('../feedback-details')
+  }
+
+  const myuploadsHandle=()=>{
+    navigate('../student-my-uploads')
+  }
+
 
 
   return (
@@ -77,14 +98,39 @@ const StudentDashboard = () => {
         <h1> </h1>
     
     <div className='dashboard-container'>
-        {/* <Box
-        sx={{
-          display:'flex',
-          flexDirection:'row',
-          gap:5,
-          marginLeft:3,
-        }}
-    > */}
+
+    <Card size="lg" variant="outlined" sx={{width:400}}>
+        {/* <Chip size="sm" variant="outlined" color="neutral">
+          BASIC
+        </Chip> */}
+        <Typography level="h2">My Uploads</Typography>
+        <Divider inset="none" />
+        <List size="sm" >
+         {uploadsDetails? uploadsDetails.map((item)=>(
+          <>
+              <ListItem>
+              <ListItemDecorator>
+                <Check />
+              </ListItemDecorator>
+              Uploaded on - {item.up_time}
+              </ListItem>
+          </>
+         )):""}
+        </List>
+        <Divider inset="none" />
+        <CardActions>
+          <Button
+            variant="soft"
+            color="neutral"
+            endDecorator={<KeyboardArrowRight />}
+            onClick={myuploadsHandle}
+          >
+            View More
+          </Button>
+        </CardActions>
+      </Card>
+
+
       <Card size="lg" variant="outlined" sx={{width:400}}>
         {/* <Chip size="sm" variant="outlined" color="neutral">
           BASIC
@@ -92,14 +138,14 @@ const StudentDashboard = () => {
         <Typography level="h2">Courses Purchased</Typography>
         <Divider inset="none" />
         <List size="sm" >
-         { courseDetails.map((item)=>(
+         {courseDetails? courseDetails.map((item)=>(
               <ListItem>
               <ListItemDecorator>
                 <Check />
               </ListItemDecorator>
               {item.structId.course.title} - {item.structId.title} Plan
               </ListItem>
-         ))}
+         )):" "}
         </List>
         <Divider inset="none" />
         <CardActions>
@@ -115,7 +161,7 @@ const StudentDashboard = () => {
             endDecorator={<KeyboardArrowRight />}
             onClick={coursePurchasedHandle}
           >
-            See More
+            View More
           </Button>
         </CardActions>
       </Card>
@@ -127,7 +173,7 @@ const StudentDashboard = () => {
         <Typography level="h2">Completed Activities </Typography>
         <Divider inset="none" />
         <List size="sm" >
-        { activityDetails.map((item)=>(
+        {activityDetails? activityDetails.map((item)=>(
         <> <ListItem>
               <ListItemDecorator>
               <Check />
@@ -144,7 +190,7 @@ const StudentDashboard = () => {
             {item.task}
           </Typography>
           </>
-            ))}
+            )):""}
         </List>
         <Divider inset="none" />
         <CardActions>
@@ -160,7 +206,7 @@ const StudentDashboard = () => {
             endDecorator={<KeyboardArrowRight />}
             onClick={completedActivityHandle}
           >
-            See More
+            View More
           </Button>
         </CardActions>
       </Card>
@@ -172,7 +218,7 @@ const StudentDashboard = () => {
         <Typography level="h2">Pending Activities</Typography>
         <Divider inset="none" />
         <List size="sm" >
-          { pendingDetails.map((item)=>(
+          {pendingDetails? pendingDetails.map((item)=>(
              <>
              <ListItem>
               <ListItemDecorator>
@@ -190,7 +236,7 @@ const StudentDashboard = () => {
                 {item.task}
             </Typography>
             </>
-          ))}
+          )):""}
         </List>
         <Divider inset="none" />
         <CardActions>
@@ -206,7 +252,7 @@ const StudentDashboard = () => {
             endDecorator={<KeyboardArrowRight />}
             onClick={pendingActivityHandle}
           >
-            See More
+            View More
           </Button>
         </CardActions>
       </Card>
@@ -217,45 +263,30 @@ const StudentDashboard = () => {
         <Typography level="h2">Scores & Feedbacks</Typography>
         <Divider inset="none" />
         <List size="sm" >
+         {feedbackDetails?feedbackDetails.map((item)=>(
           <ListItem>
             <ListItemDecorator>
               <Check />
             </ListItemDecorator>
-            Virtual Credit Cards
+            Feedback From - {item.name}
           </ListItem>
-          <ListItem>
-            <ListItemDecorator>
-              <Check />
-            </ListItemDecorator>
-            Financial Analytics
-          </ListItem>
-          <ListItem>
-            <ListItemDecorator>
-              <Check />
-            </ListItemDecorator>
-            Checking Account
-          </ListItem>
-          <ListItem>
-            <ListItemDecorator>
-              <Check />
-            </ListItemDecorator>
-            API Integration
-          </ListItem>
+         )):" " }
         </List>
         <Divider inset="none" />
         <CardActions>
-          <Typography level="title-lg" sx={{ mr: 'auto' }}>
+          {/* <Typography level="title-lg" sx={{ mr: 'auto' }}>
             3.990€{' '}
             <Typography fontSize="sm" textColor="text.tertiary">
               / month
             </Typography>
-          </Typography>
+          </Typography> */}
           <Button
             variant="soft"
             color="neutral"
             endDecorator={<KeyboardArrowRight />}
+            onClick={feedbackDetailsHandle}
           >
-            Start now
+            View More
           </Button>
         </CardActions>
       </Card>

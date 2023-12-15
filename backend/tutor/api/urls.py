@@ -25,5 +25,5 @@ urlpatterns = [
     path("task-edit/",TaskEditView.as_view(),name="task-edit"),
     path("task-delete/",TaskDeleteView.as_view(),name="task-delete"),
     path("get-task/",GetTaskView.as_view(),name="get-task"),
-    path("feedback-details/",FeedbackDetailsView.as_view(),name="feedback-details"),
+    path('add-course/',AddCourseView.as_view(),name="add-course")
 ]

@@ -138,13 +138,15 @@ class AdminCourseEditView(APIView):
         id = request.data.get("id")
         title = request.data.get("title")
         description = request.data.get("description")
+        status = request.data.get("status")
 
-        print(id,title,description)
+        print(id,title,description,status)
 
         courseobj = Course.objects.get(id=id)
         print(courseobj,"beforee")
         courseobj.title=title
         courseobj.description=description
+        courseobj.status=status
         courseobj.save()
 
         courseobj = Course.objects.get(id=id)
@@ -402,13 +404,16 @@ class GetTaskView(APIView):
         serialized = ActivityAssignSerializer(taskobj)
         return Response(serialized.data)
     
-
-class FeedbackDetailsView(APIView):
+class AddCourseView(APIView):
     def post(self,request):
-        feedbacks = Feedbacks.objects.all()
-        print(feedbacks,"???????????????????")
-        serialized = FeedbackSerializer(feedbacks, many=True)
+        title = request.data.get("title")
+        description = request.data.get("description")
 
-        return Response(serialized.data)
+        print(title,description,"*********")
+
+        Course.objects.create(title=title,description=description)
+
+        return Response({"message":"success"})
+
             
    

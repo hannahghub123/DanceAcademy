@@ -47,7 +47,7 @@ const StdCard = () => {
 
   useEffect(()=>{
     const stdDetails = localStorage.getItem("stdDetails");
-    console.log(stdDetails,"stdDetailsssssss");
+
     if (stdDetails) {
       const parseData = JSON.parse(stdDetails);
       console.log("Parsedata",parseData)
@@ -166,6 +166,8 @@ const taskHandle=()=>{
   setTask(!task)
 }
 
+console.log(data,"99999");
+
   return (
     <>
 
@@ -189,7 +191,7 @@ const taskHandle=()=>{
                   </b>
                   </Typography>
                   <Typography sx={{textTransform:"uppercase"}}>
-                  {/* {(data.course).map((item)=>item.title)} */}
+                  {/* {data.course.title} */}
                   </Typography>
                   <Typography >
                     Username - {data.username}
@@ -209,19 +211,18 @@ const taskHandle=()=>{
                   {/* <i className="fa fa-edit icon" onClick={handleOpen}   title='Edit Details'></i>
                   <i class="fa-solid fa-bell icon" onClick={taskHandle}></i> */}
 
-                <div className="icon-container ml-5">
+                
                   <span>
                     <i className="fa fa-edit icon" onClick={handleOpen} title="Edit Details"></i>
                   </span>
-                  <span className="ml-1 position-relative">
+                  {/* <span className="ml-1 position-relative">
                     <i className="fa-solid fa-bell icon" onClick={taskHandle}  title="ActivityTasks"></i>
                     {taskCount > 0 && (
                       <span className="badge"  onClick={taskHandle} >{taskCount}</span>
                     )}
-                  </span>
+                  </span> */}
                 </div>
 
-                </div>
                 
               </CardContent>
               

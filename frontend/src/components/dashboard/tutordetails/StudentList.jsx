@@ -6,7 +6,8 @@ import { Link } from 'react-router-dom';
 import AddActivityTask from './session/AddActivityTask';
 import Heading from '../../common/heading/Heading';
 import Back from '../../common/back/Back';
-
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const StudentList = () => {
 
@@ -67,6 +68,9 @@ const StudentList = () => {
       axiosInstance.post("send-sessionMail/",values)
       .then((res)=>{
         console.log(res.data);
+        toast.success(" Mail SuccessFully Send!", {
+          position: toast.POSITION.TOP_RIGHT
+        });
       })
     }
 
@@ -92,13 +96,13 @@ const StudentList = () => {
                             <div className="img">
                                 <img src={item.studentId.image} alt="" />
                             </div>
-                            <h1 style={{textTransform:"uppercase"}}> 
-                             {item.studentId.name}
-                            </h1>                         
-                            <p>Course - {item.structId.course.title}  </p>
-                            <p>{item.structId.title} Plan</p>
-                            <p>{item.studentId.email} </p>
-                            <p>{item.studentId.phone} </p>
+                            <div style={{textTransform:"uppercase",marginTop:10, marginBottom:5, textTransform:"uppercase"}}> 
+                            <b>{item.studentId.name} </b> 
+                            </div>                         
+                            <div>Course - {item.structId.course.title}  </div>
+                            <div>{item.structId.title} Plan</div>
+                            <div>{item.studentId.email} </div>
+                            <div>{item.studentId.phone} </div>
 
                             <p >
                             {  sessionDetails.filter((detail)=>{
